@@ -87,7 +87,6 @@ def load():
     _sas_menu = sas_menu.SASMenu(name='SAS Pipeline')
     _sas_shelf = sas_shelf.SASShelf(name='SAS')
     UI_CREATED.append(_sas_menu.menu_obj)
-    UI_CREATED.append(_sas_shelf.name)
     if not maya_manager.MayaManager.validate_root():
         import sas_pipe.maya.ui.set_root as set_root
         set_root.run()

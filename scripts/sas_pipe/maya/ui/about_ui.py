@@ -3,11 +3,13 @@ import os
 import maya.OpenMayaUI as omui
 import maya.cmds as cmds
 from PySide2 import QtCore
+from PySide2 import QtGui
 from PySide2 import QtUiTools
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 
 import sas_pipe
+import sas_pipe.shared.common as common
 
 
 def maya_main_window():
@@ -34,7 +36,7 @@ class AboutUi(QtWidgets.QDialog):
         super(AboutUi, self).__init__(parent)
 
         self.setWindowTitle("About")  # Window title name
-        self.setFixedSize(200, 265)  # Window minimum width
+        self.setFixedSize(200, 300)  # Window minimum width
 
         self.setWindowFlags(QtCore.Qt.Window)  # window type
 
@@ -53,6 +55,10 @@ class AboutUi(QtWidgets.QDialog):
 
         loader = QtUiTools.QUiLoader()
         self.ui = loader.load(f, parentWidget=self)
+
+        pixmap = QtGui.QPixmap(os.path.join(common.ICONS_PATH, 'sas_x64.png'))
+        self.ui.logo_label.setGeometry(50, 40, 250, 250)
+        self.ui.logo_label.setPixmap(pixmap)
 
         f.close()
 
