@@ -12,7 +12,8 @@ def create_directory(directory):
     :param directory: path to create
     :type directory: str
 
-    :return:path. if creation failed return None
+    :return: path. if creation failed return None
+    :rtype: str
     """
     if not os.path.isdir(directory):
         Logger.debug('making path{0}'.format(directory))
@@ -53,6 +54,9 @@ def validate_directories(directories, create=True):
 
     :param create: create directories if they dont exist
     :type create: bool
+
+    :return: paths. if creation failed return None
+    :rtype: list
     """
     for directory in directories:
         validate_directory(directory, create=create)
@@ -80,12 +84,11 @@ def get_parent(path, steps):
     :param path: path to get from
     :param steps: number of steps above
     :type steps: int
-    :return:
+    :return: parent path
+    :rtype: str
     """
-    tmp_path = path
-    for i in range(steps):
-        tmp_path = os.path.dirname(tmp_path)
-    return tmp_path
+    parent_dir = '/'.join(path.split('/')[0: (-1 * steps)])
+    return parent_dir
 
 
 def locate(dir, paths_to_search, base_only=False):

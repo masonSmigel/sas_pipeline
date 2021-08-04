@@ -5,10 +5,11 @@ This module contains functions common to all modules and constants
 from collections import OrderedDict
 
 # Path Constants
-ICONS_PATH = '/'.join(__file__.split('/')[0:-4]) + '/icons'
-PLUGIN_PATH = '/'.join(__file__.split('/')[0:-4]) + '/plug-ins'
-SCRIPTS_PATH = '/'.join(__file__.split('/')[0:-4]) + '/scripts'
+current_path = __file__.replace('\\', '/')
 
+ICONS_PATH = '/'.join(current_path.split('/')[0:-4]) + '/icons'
+PLUGIN_PATH = '/'.join(current_path.split('/')[0:-4]) + '/plug-ins'
+SCRIPTS_PATH = '/'.join(current_path.split('/')[0:-4]) + '/scripts'
 
 # Pipeline Constants
 DEPTS = 'depts'
@@ -35,6 +36,7 @@ SHOT_PADDING = 3
 
 # File type constants
 MAYA_FILE_TYPE = 'ma'
+
 
 def toList(values):
     """

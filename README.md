@@ -4,6 +4,8 @@ SCAD Animation Studios Pipeline Tools
 # Installation
 Instructions to install SAS Pipeline for maya
 1. Place the sas_pipeline module somewhere you'd like to keep it. Try to keep it somewhere you'll be able to easily acess it.
+    * If you dont know where to save it a good place is:
+        `MAYA_APP_DIR/<version>/plug-ins`
 2. When your folder is in place, drag the file `drag_into_maya.py` into maya.
     * This will create a `sasPipe.mod` file at the location  MAYA_APP_DIR/modules. 
     * File expolorer dialog will pop up asking for you to select a root folder. This is where all files associated with SAS Pipeline will be created. When working on with a team this should be a shared drive.

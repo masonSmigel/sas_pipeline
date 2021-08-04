@@ -38,9 +38,8 @@ class SASPipe(OpenMaya.MPxCommand):
 def initializePlugin(obj):
     """
     :param obj: OpenMaya.MObject
-    :return: None
     """
-    plugin = OpenMaya.MFnPlugin(obj, 'SCAD Animation Studios', '1.0.0', 'Any')
+    plugin = OpenMaya.MFnPlugin(obj, 'SCAD Animation Studios', '1.0.1', 'Any')
     try:
         plugin.registerCommand(SASPipe.kPluginCmdName, SASPipe.cmdCreator)
         load()
@@ -52,7 +51,6 @@ def initializePlugin(obj):
 def uninitializePlugin(obj):
     """
     :param obj: OpenMaya.MObject
-    :return: None
     """
     plugin = OpenMaya.MFnPlugin(obj)
     try:
@@ -80,12 +78,10 @@ def load():
 
     # Setup the tools
     import sas_pipe.maya.sas_menu as sas_menu
-    import sas_pipe.maya.sas_shelf as sas_shelf
     import sas_pipe.maya.maya_manager as maya_manager
     from sas_pipe.shared.logger import Logger
 
     _sas_menu = sas_menu.SASMenu(name='SAS Pipeline')
-    _sas_shelf = sas_shelf.SASShelf(name='SAS')
     UI_CREATED.append(_sas_menu.menu_obj)
     if not maya_manager.MayaManager.validate_root():
         import sas_pipe.maya.ui.set_root as set_root

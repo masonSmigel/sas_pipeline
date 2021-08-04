@@ -35,13 +35,13 @@ class _shelf:
         """
         pass
 
-    def addButon(self, label, icon="commandButton.png", command=_null, doubleCommand=_null):
+    def addButon(self, label, icon="commandButton.png", language='python', command=_null, doubleCommand=_null):
         """Adds a shelf button with the specified label, command, double click command and image."""
         pm.setParent(self.shelf_obj)
         if icon:
             icon = self.iconPath + icon
         pm.shelfButton(width=37, height=37, image=icon, l=label, command=command, dcc=doubleCommand,
-                       olb=self.labelBackground, olc=self.labelColour)
+                       olb=self.labelBackground, olc=self.labelColour, stp=language)
 
     def addMenuItem(self, parent, label, command=_null, icon=""):
         """

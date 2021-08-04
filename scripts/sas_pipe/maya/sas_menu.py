@@ -125,7 +125,7 @@ class SASMenu(menuBase._menu):
     def display_mayaMenu(show_name):
         try:
             items = cmds.menu('SASPipelineMenu', q=True, ia=True)
-            if len(items) > 0:
+            if len(items) > 0 and show_name:
                 cmds.menuItem(items[0], e=True, l='Current Show: {}'.format(show_name))
         except:
             pass

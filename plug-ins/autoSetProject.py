@@ -47,7 +47,6 @@ class AutoSetProject(om2.MPxCommand):
 def initializePlugin(obj):
     """
     :param obj: om2.MObject
-    :return: None
     """
     plugin = om2.MFnPlugin(obj, 'Mason Smigel', '1.0.0', 'Any')
     try:
@@ -61,7 +60,6 @@ def initializePlugin(obj):
 def uninitializePlugin(obj):
     """
     :param obj: om2.MObject
-    :return: None
     """
     plugin = om2.MFnPlugin(obj)
     try:
@@ -74,7 +72,6 @@ def uninitializePlugin(obj):
 def load():
     """
     Setup the auto set project callback
-    :return: None
     """
     # setup the callback
     global callbackId
