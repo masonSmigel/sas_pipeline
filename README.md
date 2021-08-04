@@ -45,7 +45,7 @@ SAS pipline will setup a project with the following structure.
 
 
 # Update
-Copy 'sas_pipeline/maya' and 'sas_pipeline/python' and replace the existing sas_pipeline installation.
+Copy 'sas_pipeline/plugins' and 'sas_pipeline/scripts' and replace the existing sas_pipeline installation.
 Restart Maya
 
 
