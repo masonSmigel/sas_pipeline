@@ -14,7 +14,6 @@ Instructions to install SAS Pipeline for maya
     * Open the plugin manager and select auto-load to load the menu in every new maya session
 
 
-
 # Usage
 Once the plugin is loaded a 'SAS Pipeline' menu is avaiable.
 1. On the plugins initialization you must specifiy a root path. If this is skipped set a root path now user the `SAS Pipeline> Advanced...> Set Root Path`.
