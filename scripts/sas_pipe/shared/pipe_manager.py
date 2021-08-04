@@ -595,11 +595,7 @@ class PipelineManager(object):
     @staticmethod
     def set_root_path(root_path):
         prefs = abstract_data.AbstractData()
-        if os.path.exists(PREFS_PATH):
-            prefs.read(PREFS_PATH)
-            data = prefs.getData()
-        else:
-            data = dict()
+        data = dict()
         data['root'] = root_path
         prefs.setData(data)
         prefs.write(PREFS_PATH)
@@ -628,6 +624,7 @@ class PipelineManager(object):
         Code to open a file, unique to dcc. Reimplement in subclasses
         """
         return path
+
 
 if __name__ == '__main__':
     pipe = PipelineManager('/Users/masonsmigel/Documents/jobs/animAide_job/pipeline/projects_root/SAS')
