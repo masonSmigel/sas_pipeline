@@ -10,7 +10,10 @@ Instructions to install SAS Pipeline for maya
     * This will create a `sasPipe.mod` file at the location  MAYA_APP_DIR/modules. 
     * File expolorer dialog will pop up asking for you to select a root folder. This is where all files associated with SAS Pipeline will be created. When working on with a team this should be a shared drive.
 3. The plugin is now available. You should see a new 'SAS Pipeline' menu in maya. 
+    * The shelf Icon may not appear! Dont worry it will show up the next time you open maya 
     * Open the plugin manager and select auto-load to load the menu in every new maya session
+
+
 
 # Usage
 Once the plugin is loaded a 'SAS Pipeline' menu is avaiable.
