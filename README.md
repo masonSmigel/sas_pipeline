@@ -24,14 +24,14 @@ Once the plugin is loaded a 'SAS Pipeline' menu is avaiable.
 SAS pipline will setup a project with the following structure.
 ```
 ├──root                      # Root of the studio enviornment
- ├── depts                   # Contains folders for each department at the studio. This can be used for non-production studio work such as RnD.
+ ├── depts                   # Contains folders for each dept. This can be used for non-production studio work such as RnD.
  | └── anim...               # departments (auto populated when any project settings.json are updated)
  └── shows                   # Contains all shows within the studio
-   ├── SHOW                  # Show
+   ├── SHOW                  # current show
    | ├── work                # Working directory. Artist should work on files here. This directory can be messy.
    | | ├── assets            # Asset based entities. Not time based.
    | | | └── char ...        # Types of assets. (auto populated via the 'asset_types' attribute in the settings.json file)
-   | | |    └── charA ...          # Asset Enitity
+   | | |    └── charA ...    # Asset Enitity
    | | |        └── mod ...  # Asset tasks. (auto populated via the 'asset_task' attribute in the settings.json file)
    | | └── sequences         # Sequence based entities. Time based.
    | | | ├── seq ...         # Types of sequences. (auto populated via the 'seq_types' attribute in the settings.json file)
