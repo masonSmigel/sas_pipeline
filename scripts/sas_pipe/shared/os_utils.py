@@ -6,6 +6,16 @@ from sas_pipe.shared.logger import Logger
 
 IGNORE_FILES = ['.DS_Store', '__init__.py']
 
+def clean_path(path):
+    """
+    Cleanup a given path to work how it should. 
+    :param path: path to clean
+    :returns: cleanup up path
+    :rtype: str 
+    """
+    r_path = path.replace('\\', '/')
+    r_path = r_path.replace('//', '/')
+    return r_path
 
 def create_directory(directory):
     """
@@ -87,6 +97,7 @@ def get_parent(path, steps):
     :return: parent path
     :rtype: str
     """
+    path =  clean_path(path)
     parent_dir = '/'.join(path.split('/')[0: (-1 * steps)])
     return parent_dir
 
@@ -115,3 +126,4 @@ def locate(dir, paths_to_search, base_only=False):
 
     Logger.debug("Could not locate: {}".format(dir))
     return None
+
