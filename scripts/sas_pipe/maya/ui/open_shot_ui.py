@@ -7,8 +7,8 @@ from PySide2 import QtUiTools
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 
-import sas_pipe.maya.maya_manager as maya_manager
-import sas_pipe.shared.naming as naming
+import sas_pipe.maya.maya_pipe as maya_manager
+import sas_pipe.shared.filenames as naming
 
 
 def maya_main_window():
@@ -66,7 +66,6 @@ class OpenShotUi(QtWidgets.QDialog):
         self.ui.seqType_cb.currentIndexChanged.connect(self.update_sequences)
         self.ui.seq_cb.currentIndexChanged.connect(self.update_shots)
         self.ui.shot_cb.currentIndexChanged.connect(self.update_tasks)
-        self.ui.task_cb.currentIndexChanged.connect(self.update_path_display)
         self.ui.cancel_btn.clicked.connect(self.close)
         self.ui.ok_btn.clicked.connect(self.ok)
         self.ui.browse_btn.clicked.connect(self.browse)
@@ -99,7 +98,7 @@ class OpenShotUi(QtWidgets.QDialog):
             self.close()
 
     def update_all_ui(self):
-        self.pipe = maya_manager.MayaManager()
+        self.pipe = maya_manager.MayaPipeline()
         types = self.pipe.settings['sequence_types']
         self.ui.seqType_cb.clear()
         for type in types:
@@ -119,7 +118,6 @@ class OpenShotUi(QtWidgets.QDialog):
     def update_shots(self):
         self.ui.shot_cb.clear()
         self.ui.path_le.clear()
-        self.ui.versions_le.clear()
         seq_type = self.ui.seqType_cb.currentText()
         seq = self.ui.seq_cb.currentText()
         shots = self.pipe.get_shots(seq, seq_type, base_only=True)
@@ -134,17 +132,8 @@ class OpenShotUi(QtWidgets.QDialog):
         try:
             for task in self.entity.tasks:
                 self.ui.task_cb.addItem(task)
-            self.update_path_display()
         except:
             pass
-
-    def update_path_display(self):
-        self.ui.path_le.setText(self.pipe.get_relative_path(self.get_path()))
-        self.update_versionCounter()
-
-    def update_versionCounter(self):
-        if self.ui.task_cb.currentText():
-            self.ui.versions_le.setText(str(len(self.entity.get_work_files(task=self.ui.task_cb.currentText()))))
 
     def get_path(self):
         return os.path.join(self.entity.work_path, self.ui.task_cb.currentText())
@@ -154,13 +143,13 @@ class OpenShotUi(QtWidgets.QDialog):
         seq = self.ui.seq_cb.currentText()
         shot = self.ui.shot_cb.currentText()
         if seq_type and seq:
-            self.entity = self.pipe.get_shot(shot=shot, sequence=seq, type=seq_type)
+            self.entity = self.pipe.find_shot(shot=shot, sequence=seq, type=seq_type)
             return self.entity
         else:
             self.entity = None
 
     def on_show(self):
-        new_pipe = maya_manager.MayaManager()
+        new_pipe = maya_manager.MayaPipeline()
         if not new_pipe.current_show == self.pipe.current_show:
             self.pipe = new_pipe
             self.update_all_ui()

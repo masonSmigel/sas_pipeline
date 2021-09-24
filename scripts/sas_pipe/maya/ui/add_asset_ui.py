@@ -7,9 +7,8 @@ from PySide2 import QtUiTools
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 
-import sas_pipe.maya.maya_manager as maya_manager
-from sas_pipe.shared.logger import Logger
-
+import sas_pipe.maya.maya_pipe as maya_manager
+from sas_pipe import Logger
 
 def maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
@@ -84,7 +83,7 @@ class AddAssetUI(QtWidgets.QDialog):
         self.close()
 
     def update_all_ui(self):
-        self.pipe = maya_manager.MayaManager()
+        self.pipe = maya_manager.MayaPipeline()
         tasks = self.pipe.settings['asset_types']
         self.ui.assetType_cb.clear()
         for task in tasks:
@@ -96,7 +95,7 @@ class AddAssetUI(QtWidgets.QDialog):
         self.ui.path_le.setText(self.pipe.get_relative_path(path))
 
     def on_show(self):
-        new_pipe = maya_manager.MayaManager()
+        new_pipe = maya_manager.MayaPipeline()
         if not new_pipe.current_show == self.pipe.current_show:
             self.pipe = new_pipe
             self.update_all_ui()

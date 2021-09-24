@@ -6,7 +6,7 @@ from PySide2 import QtUiTools
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 
-import sas_pipe.maya.maya_manager as maya_manager
+import sas_pipe.maya.maya_pipe as maya_manager
 
 
 def maya_main_window():
@@ -55,7 +55,7 @@ class SetShowUI(QtWidgets.QDialog):
 
         f.close()
 
-        self.pipe = maya_manager.MayaManager()
+        self.pipe = maya_manager.MayaPipeline()
         shows = self.pipe.get_shows(base_only=True)
         for show in shows:
             self.ui.shows_cbox.addItem(show)

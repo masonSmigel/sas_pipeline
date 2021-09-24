@@ -77,8 +77,8 @@ def reference_file(*args):
 
 
 def check_root_path(*args):
-    import sas_pipe.maya.maya_manager as maya_pipeline
-    maya_pipeline.MayaManager.validate_root(log=True)
+    import sas_pipe.maya.maya_pipe as maya_pipeline
+    maya_pipeline.MayaPipeline.validate_root(log=True)
 
 
 def set_root_path(*args):
@@ -103,6 +103,9 @@ class SASMenu(menuBase._menu):
         self.addMenuItem(label='Add Asset', parent=create, command=show_add_asset)
         self.addMenuItem(label='Add Sequence', parent=create, command=show_add_sequence)
         self.addMenuItem(label='Add Shot', parent=create, command=show_add_shot)
+        self.addDivider()
+        self.addMenuItem(label='Manage Variants', parent=create, command=show_add_shot)
+        self.addMenuItem(label='Shot Builder', parent=create, command=show_add_shot)
         # self.addMenuItem(label='Insert Sequence', parent=create)
         # self.addMenuItem(label='Insert Shot', parent=create)
         self.addDivider()

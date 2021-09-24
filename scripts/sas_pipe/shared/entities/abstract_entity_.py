@@ -4,7 +4,7 @@ import os
 
 import sas_pipe.shared.common as common
 import sas_pipe.shared.os_utils as dir
-from sas_pipe.shared.logger import Logger
+from sas_pipe import Logger
 
 
 class AbstractEntity(object):
@@ -41,8 +41,3 @@ class AbstractEntity(object):
         else:
             Logger.warning('failed to generate work and release paths for {}'.format(self.path))
             return False
-
-    def _get_tasks(self):
-        self.tasks = sorted([f for f in dir.get_contents(self.path, dirs=True)])
-        return self.tasks
-

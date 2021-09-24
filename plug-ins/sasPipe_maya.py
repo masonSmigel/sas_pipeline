@@ -78,15 +78,15 @@ def load():
 
     # Setup the tools
     import sas_pipe.maya.sas_menu as sas_menu
-    import sas_pipe.maya.maya_manager as maya_manager
+    import sas_pipe.maya.maya_pipe as maya_pipe
     from sas_pipe.shared.logger import Logger
 
     _sas_menu = sas_menu.SASMenu(name='SAS Pipeline')
     UI_CREATED.append(_sas_menu.menu_obj)
-    if not maya_manager.MayaManager.validate_root():
+    if not maya_pipe.MayaPipeline.validate_root():
         import sas_pipe.maya.ui.set_root as set_root
         set_root.run()
-    pipe = maya_manager.MayaManager()
+    pipe = maya_pipe.MayaPipeline()
     if pipe.current_show is None:
         Logger.warning('No show is set!')
 

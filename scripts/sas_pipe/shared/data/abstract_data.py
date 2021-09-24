@@ -9,7 +9,7 @@ from collections import OrderedDict
 from time import gmtime, strftime
 
 import sas_pipe.shared.common as common
-from sas_pipe.shared.logger import Logger
+from sas_pipe import Logger
 
 
 class AbstractData(object):

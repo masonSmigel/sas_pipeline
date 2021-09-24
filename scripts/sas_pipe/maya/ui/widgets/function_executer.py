@@ -10,8 +10,7 @@ from PySide2 import QtWidgets
 
 import sas_pipe.shared.os_utils as dir
 import sas_pipe.shared.common as common
-from sas_pipe.shared.logger import Logger
-
+from sas_pipe import Logger
 
 class FunctionExecuter(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
@@ -81,12 +80,13 @@ class FunctionExecuter(QtWidgets.QWidget):
         for i in range(self.tree_wid.topLevelItemCount()):
             file = self.tree_wid.topLevelItem(i)
             for j in range(file.childCount()):
-                func = file.child(j)
-                try:
-                    func.data(0, QtCore.Qt.UserRole)()
-                    Logger.info('Sucessful Process: {}'.format(func.text(0)))
-                except:
-                    Logger.error('Failed to Process: {}'.format(func.text(0)))
+                if file.checkState(j):
+                    func = file.child(j)
+                    try:
+                        func.data(0, QtCore.Qt.UserRole)()
+                        Logger.info('Sucessful Process: {}'.format(func.text(0)))
+                    except:
+                        Logger.error('Failed to Process: {}'.format(func.text(0)))
 
     def get_item_docstring(self):
         selected_item = self.tree_wid.selectedItems()

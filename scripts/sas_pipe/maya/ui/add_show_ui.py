@@ -7,8 +7,8 @@ from PySide2 import QtUiTools
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 
-import sas_pipe.maya.maya_manager as maya_manager
-from sas_pipe.shared.logger import Logger
+import sas_pipe.maya.maya_pipe as maya_manager
+from sas_pipe import Logger
 
 
 def maya_main_window():
@@ -67,7 +67,7 @@ class AddShowUI(QtWidgets.QDialog):
     def apply(self):
         show_name = self.ui.showName_le.text()
         if show_name:
-            pipe = maya_manager.MayaManager()
+            pipe = maya_manager.MayaPipeline()
             formatedName = show_name.upper()
             formatedName = re.sub("[^A-Z0-9]", "", str(formatedName))
             pipe.add_show(formatedName)

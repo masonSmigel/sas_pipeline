@@ -5,10 +5,8 @@ Derived from mSetProject which is not supported in versions after maya 2020
 original author website: www.skymill.co.jp
 
 Author: Mason Smigel
-Date: July 2021
-Version: 01.00
+Date: Aug 2021
 """
-
 import inspect
 import sys
 import os
@@ -18,6 +16,18 @@ import maya.api.OpenMaya as om2
 import maya.OpenMaya as om
 import pymel.core as pm
 import pymel.util
+
+
+VERSION_MAJOR = 1
+VERSION_MINOR = 0
+VERSION_PATCH = 1
+
+version_info = (VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
+version = '%i.%i.%i' % version_info
+__version__ = version
+
+__author__ = 'Mason Smigel'
+
 
 callbackId = None
 
@@ -48,7 +58,7 @@ def initializePlugin(obj):
     """
     :param obj: om2.MObject
     """
-    plugin = om2.MFnPlugin(obj, 'Mason Smigel', '1.0.0', 'Any')
+    plugin = om2.MFnPlugin(obj, 'Mason Smigel', version, 'Any')
     try:
         plugin.registerCommand(AutoSetProject.kPluginCmdName, AutoSetProject.cmdCreator)
         load()
@@ -73,10 +83,9 @@ def load():
     """
     Setup the auto set project callback
     """
-    # setup the callback
     global callbackId
     callbackId = om.MSceneMessage.addCheckFileCallback(om.MSceneMessage.kBeforeOpenCheck, set_project)
-    print("callback {} created".format(str(callbackId)))
+    om2.MGlobal.displayInfo("AutoSetProject: callback {} created".format(str(callbackId)))
 
 
 def teardown():
@@ -87,13 +96,13 @@ def teardown():
     try:
         om.MMessage.removeCallback(callbackId)
     except:
-        print('failed to remove callback {}'.format(str(callbackId)))
+        om2.MGlobal.displayError('failed to remove callback {}'.format(str(callbackId)))
 
 
 # Helper functions
 def find_workspace(scene_path, limit=10):
     """
-    look for a workspace.mel file in folder heirarchy
+    Look for a workspace.mel file in folder heirarchy
     :param scene_path: maya scene to search from
     :param limit: maximum number of folders above scene to look for.
     :returns: path to workspace.mel
@@ -128,10 +137,12 @@ def set_project(retCode, fileObject, clientData=None):
 
 def display_path_msg(msg):
     """
-    show an inview message to alert the user the project was changed
+    Show an inview message to alert the user the project was changed
     :param msg: string- path to display
     """
     Maya_version = pm.versions.current() / 100
 
     if Maya_version >= 2014:
         pm.inViewMessage(msg="Project set to: {}".format(msg), fade=True, fadeOutTime=2.0)
+    else:
+        pm.headsUpMessage('Project Changed to : ' + msg, time=2.0)

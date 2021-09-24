@@ -6,11 +6,11 @@ from PySide2 import QtUiTools
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 
-import sas_pipe.maya.maya_manager as maya_manager
+import sas_pipe.maya.maya_pipe as maya_manager
 import sas_pipe.maya.ui.quicksave as quicksave
 import sas_pipe.maya.ui.widgets.function_executer as function_executer
 import sas_pipe.shared.os_utils as os_utils
-from sas_pipe.shared.logger import Logger
+from sas_pipe import Logger
 
 
 def maya_main_window():
@@ -51,7 +51,7 @@ class PublishEntityUi(QtWidgets.QDialog):
         self.create_connections()
 
     def init_ui(self):
-        self.pipe = maya_manager.MayaManager()
+        self.pipe = maya_manager.MayaPipeline()
 
         self.e = self.pipe.get_entity_from_curent_file()
         self.t = self.pipe.get_task_from_current_file()

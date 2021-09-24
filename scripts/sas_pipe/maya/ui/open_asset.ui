@@ -1,110 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>main</class>
-    <widget class="QWidget" name="main">
-        <property name="windowModality">
-            <enum>Qt::NonModal</enum>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>310</width>
-                <height>220</height>
-            </rect>
-        </property>
-        <property name="windowTitle">
-            <string>Form</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-                <layout class="QFormLayout" name="formLayout">
-                    <property name="sizeConstraint">
-                        <enum>QLayout::SetDefaultConstraint</enum>
-                    </property>
-                    <item row="0" column="0">
-                        <widget class="QLabel" name="assetType_label">
-                            <property name="text">
-                                <string>Asset Type:</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item row="0" column="1">
-                        <widget class="QComboBox" name="assetType_cb"/>
-                    </item>
-                    <item row="1" column="0">
-                        <widget class="QLabel" name="asset_label">
-                            <property name="text">
-                                <string>Asset:</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item row="1" column="1">
-                        <widget class="QComboBox" name="asset_cb"/>
-                    </item>
-                    <item row="2" column="0">
-                        <widget class="QLabel" name="label">
-                            <property name="text">
-                                <string>Task:</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item row="2" column="1">
-                        <widget class="QComboBox" name="task_cb"/>
-                    </item>
-                    <item row="4" column="1">
-                        <widget class="QLineEdit" name="versions_le">
-                            <property name="enabled">
-                                <bool>false</bool>
-                            </property>
-                        </widget>
-                    </item>
-                    <item row="4" column="0">
-                        <widget class="QLabel" name="versions_label">
-                            <property name="enabled">
-                                <bool>false</bool>
-                            </property>
-                            <property name="text">
-                                <string>Versions:</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item row="3" column="0" colspan="2">
-                        <widget class="QLineEdit" name="path_le">
-                            <property name="enabled">
-                                <bool>false</bool>
-                            </property>
-                        </widget>
-                    </item>
-                </layout>
-            </item>
-            <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_2">
-                    <item>
-                        <widget class="QPushButton" name="cancel_btn">
-                            <property name="text">
-                                <string>Cancel</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item>
-                        <widget class="QPushButton" name="browse_btn">
-                            <property name="text">
-                                <string>Browse</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item>
-                        <widget class="QPushButton" name="ok_btn">
-                            <property name="text">
-                                <string>Open</string>
-                            </property>
-                        </widget>
-                    </item>
-                </layout>
-            </item>
-        </layout>
-    </widget>
-    <resources/>
-    <connections/>
+ <class>main</class>
+ <widget class="QWidget" name="main">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>310</width>
+    <height>250</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="assetType_label">
+       <property name="text">
+        <string>Asset Type:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="assetType_cb"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="asset_label">
+       <property name="text">
+        <string>Asset:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="asset_cb"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Task:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="task_cb"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="filename_le">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="versions_label">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Filename</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0" colspan="2">
+      <widget class="QLineEdit" name="path_le">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="variant_label">
+       <property name="text">
+        <string>Variant</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="variant_cb"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="cancel_btn">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="browse_btn">
+       <property name="text">
+        <string>Browse</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="ok_btn">
+       <property name="text">
+        <string>Open</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
 </ui>

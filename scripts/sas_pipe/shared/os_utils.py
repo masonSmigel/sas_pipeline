@@ -7,6 +7,18 @@ from sas_pipe.shared.logger import Logger
 IGNORE_FILES = ['.DS_Store', '__init__.py']
 
 
+def clean_path(path):
+    """
+    Cleanup a given path to work how it should.
+    :param path: path to clean
+    :returns: cleanup up path
+    :rtype: str
+    """
+    r_path = path.replace('\\', '/')
+    r_path = r_path.replace('//', '/')
+    return r_path
+
+
 def create_directory(directory):
     """
     :param directory: path to create
@@ -87,6 +99,7 @@ def get_parent(path, steps):
     :return: parent path
     :rtype: str
     """
+    path = clean_path(path)
     parent_dir = '/'.join(path.split('/')[0: (-1 * steps)])
     return parent_dir
 
@@ -115,3 +128,40 @@ def locate(dir, paths_to_search, base_only=False):
 
     Logger.debug("Could not locate: {}".format(dir))
     return None
+
+
+def get_one(item, dir, base_only=False):
+    """
+    Get one item from a path
+    :param item: Item to get
+    :param dir: path to look in
+    :param base_only: return full path of an object
+    :return:
+    """
+    for i in get_many(dir=dir, base_only=True):
+        if i == item:
+            if base_only:
+                return i
+            else:
+                return [os.path.join(dir, i)]
+    return list()
+
+
+def get_many(dir, base_only=False):
+    """
+    Get all items from a path
+    :param dir: path to look in
+    :type dir: str
+
+    :param base_only: get path relative to the root path
+    :type base_only: bool
+
+    :return: items
+    :rtype: list
+    """
+    contents = [f for f in os.listdir(dir) if os.path.isdir(os.path.join(dir, f))]
+    if base_only:
+        return [one.encode('UTF8') for one in contents]
+    else:
+        many = [os.path.join(dir, content) for content in contents]
+        return [one.encode('UTF8') for one in many]

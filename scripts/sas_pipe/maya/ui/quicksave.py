@@ -2,17 +2,20 @@ import os
 
 import maya.cmds as cmds
 
-import sas_pipe.maya.maya_manager as maya_pipeline
+import sas_pipe.maya.maya_pipe as maya_pipeline
+import sas_pipe.shared.filenames as filenames
 
 
 def QuickSave():
-    proj = maya_pipeline.MayaManager()
+    proj = maya_pipeline.MayaPipeline()
 
-    e = proj.get_entity_from_curent_file()
-    t = proj.get_task_from_current_file()
-    filename = os.path.basename(cmds.file(q=True, sn=True))
-    warble = None
-    if len(filename.split('.')) > 2:
-        warble = filename.split('.')[1]
+    sceneName = os.path.basename(cmds.file(q=True, sn=True))
+    path = os.path.dirname(cmds.file(q=True, sn=True))
 
-    return proj.save_new_version(entity=e, task=t, file_type='ma', warble=warble)
+    filename = filenames.increment_filename(sceneName)
+    return proj._save_file(os.path.join(path, filename))
+
+if __name__ == '__main__':
+    filenames.increment_filename(
+        "/Users/masonsmigel/Dropbox (Neko Productions)/SAS/shows/DEMO/work/assets/char/mrCube/mod/damaged",
+        'mrCube_mod_v001.ma')

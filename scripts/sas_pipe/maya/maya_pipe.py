@@ -7,11 +7,9 @@ import pymel.core as pm
 
 import sas_pipe.maya.sas_menu as sas_menu
 import sas_pipe.shared.common as common
-import sas_pipe.shared.pipe_manager as pipe_manager
+import sas_pipe.shared.pipeline as pipeline
 from sas_pipe.shared.entities import asset_, shot_
-from sas_pipe.shared.logger import Logger
-
-reload(sas_menu)
+from sas_pipe import Logger
 
 
 def block_prompt(func):
@@ -31,10 +29,10 @@ def block_prompt(func):
     return wrap
 
 
-class MayaManager(pipe_manager.PipelineManager):
+class MayaPipeline(pipeline.Pipeline):
 
     def __init__(self, root_path=None):
-        super(MayaManager, self).__init__(root_path, )
+        super(MayaPipeline, self).__init__(root_path, )
 
         # Automatically load the last show if one is available
         if self.prefs.has_key('lastShow'):
@@ -65,7 +63,7 @@ class MayaManager(pipe_manager.PipelineManager):
             return None
 
     def set_show(self, show):
-        super(MayaManager, self).set_show(show)
+        super(MayaPipeline, self).set_show(show)
         sas_menu.SASMenu.display_mayaMenu(show)
 
     def get_task_from_current_file(self, path=None):
@@ -139,4 +137,3 @@ class MayaManager(pipe_manager.PipelineManager):
     def ensure_undo_on():
         if not pm.undoInfo(q=True, state=True):
             pm.undoInfo(state=True)
-

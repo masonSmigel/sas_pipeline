@@ -1,17 +1,19 @@
 """ This module contrains the Pipeline Manager class"""
 import os
+import shutil
 
 import sas_pipe.shared.common as common
 import sas_pipe.shared.data.abstract_data as abstract_data
-import sas_pipe.shared.naming as naming
+import sas_pipe.shared.filenames as naming
 import sas_pipe.shared.os_utils as os_util
 from sas_pipe.shared.entities import asset_, shot_, sequence_
-from sas_pipe.shared.logger import Logger
+from sas_pipe import Logger
 
+# TODO: this is not working for some people on windows
 PREFS_PATH = os.path.join(os_util.get_parent(os.path.abspath(__file__), 4), 'userPrefs.pref')
 
 
-class PipelineManager(object):
+class Pipeline(object):
     def __init__(self, root_path=None):
         self.root_path = root_path
 
@@ -41,7 +43,7 @@ class PipelineManager(object):
         # if no rootpath is provided locate the userPrefs.pref
         self.__load_user_prefs()
         if self.root_path is None:
-            if PipelineManager.validate_root():
+            if Pipeline.validate_root():
                 self.root_path = self.prefs['root']
             else:
                 Logger.critical('No root path provided or found. Use set_root_path to to set a root')
@@ -118,15 +120,16 @@ class PipelineManager(object):
         self.seq_rel_path = os.path.join(self.rel_path, common.SEQUENCES)
 
         os_util.validate_directories([self.depts_path] +
-                                 [os.path.join(self.depts_path, type) for type in self.settings['asset_tasks']] +
-                                 [os.path.join(self.depts_path, type) for type in self.settings['shot_tasks']] +
-                                 [os.path.join(self.depts_path, type) for type in self.settings['other_depts']])
+                                     [os.path.join(self.depts_path, type) for type in self.settings['asset_tasks']] +
+                                     [os.path.join(self.depts_path, type) for type in self.settings['shot_tasks']] +
+                                     [os.path.join(self.depts_path, type) for type in self.settings['other_depts']])
 
-        os_util.validate_directories([self.asset_work_path, self.asset_rel_path, self.seq_work_path, self.seq_rel_path] +
-                                 [os.path.join(d, type) for type in self.settings['asset_types'] for d in
-                                  [self.asset_work_path, self.asset_rel_path]] +
-                                 [os.path.join(d, type) for type in self.settings['sequence_types'] for d in
-                                  [self.seq_work_path, self.seq_rel_path]])
+        os_util.validate_directories(
+            [self.asset_work_path, self.asset_rel_path, self.seq_work_path, self.seq_rel_path] +
+            [os.path.join(d, type) for type in self.settings['asset_types'] for d in
+             [self.asset_work_path, self.asset_rel_path]] +
+            [os.path.join(d, type) for type in self.settings['sequence_types'] for d in
+             [self.seq_work_path, self.seq_rel_path]])
 
     def add_show(self, show_name):
         """
@@ -207,7 +210,7 @@ class PipelineManager(object):
         :return: Return a items of all shows
         :rtype: list
         """
-        return self.get_many(self.shows_path, base_only=base_only)
+        return os_util.get_many(self.shows_path, base_only=base_only)
 
     def get_show(self, show, base_only=False):
         """
@@ -216,7 +219,7 @@ class PipelineManager(object):
         :param base_only:
         :return:
         """
-        return self.get_one(show, self.get_shows(base_only=True), base_only=base_only)
+        return os_util.get_one(show, self.get_shows(base_only=True), base_only=base_only)
 
     def get_depts(self, base_only=False):
         """
@@ -226,7 +229,7 @@ class PipelineManager(object):
         :return: Return a items of all departments
         :rtype: list
         """
-        return self.get_many(self.depts_path, base_only=base_only)
+        return os_util.get_many(self.depts_path, base_only=base_only)
 
     def get_assets(self, type=None, rel=False, base_only=False):
         """
@@ -245,40 +248,12 @@ class PipelineManager(object):
         """
         result = list()
         if type:
-            result.extend(self.get_many(self.__build_asset_path(type=type, rel=rel), base_only=base_only))
+            result.extend(os_util.get_many(self.__build_asset_path(type=type, rel=rel), base_only=base_only))
         else:
             for type in self.settings['asset_types']:
-                result.extend(self.get_many(self.__build_asset_path(type=type, rel=rel), base_only=base_only))
+                result.extend(os_util.get_many(self.__build_asset_path(type=type, rel=rel), base_only=base_only))
 
         return sorted(result)
-
-    def get_asset(self, asset=None, type=None, rel=False, base_only=False):
-        """
-        Get a specific asset based on name
-        :param asset: Asset to get
-        :type asset: str
-
-        :param type: Optional - type of the asset. May be required if multiple assets have the same name
-        :type type: str
-
-        :param rel: If True will items assets in release path. False will return assets in the working path
-        :type rel: bool
-
-        :param base_only: get the full path of an object
-        :type base_only: bool
-
-        :return:
-        """
-        result = list()
-        if type:
-            result.extend(self.get_one(asset, self.__build_asset_path(type=type, rel=rel), base_only=base_only))
-        else:
-            for type in self.settings['asset_types']:
-                result.extend(self.get_one(asset, self.__build_asset_path(type=type, rel=rel), base_only=base_only))
-        if len(result) > 0:
-            return asset_.Asset(common.getFirstIndex(result))
-        else:
-            return None
 
     def get_sequences(self, type=None, rel=False, base_only=False):
         """
@@ -297,41 +272,11 @@ class PipelineManager(object):
         """
         result = list()
         if type:
-            result.extend(self.get_many(self.__build_seq_path(type=type, rel=rel), base_only=base_only))
+            result.extend(os_util.get_many(self.__build_seq_path(type=type, rel=rel), base_only=base_only))
         else:
             for type in self.settings['sequence_types']:
-                result.extend(self.get_many(self.__build_seq_path(type=type, rel=rel), base_only=base_only))
+                result.extend(os_util.get_many(self.__build_seq_path(type=type, rel=rel), base_only=base_only))
         return sorted(result)
-
-    def get_sequence(self, sequence, type=None, rel=False, base_only=False):
-        """
-        Get a specicific sequence based on sequence name
-        :param sequence: sequence to get
-        :type sequence: str
-
-        :param type: Optional - Sequence type to return.
-        :type type: str
-
-        :param rel: If True will items sequences in release path. False will return sequences in the working path
-        :type rel: bool
-
-        :param base_only: get the full path of an object
-        :type base_only: bool
-
-        :return: path to sequence
-        :rtype: list
-        """
-        result = list()
-        if type:
-            result.extend(self.get_one(sequence, self.__build_seq_path(type=type, rel=rel), base_only=base_only))
-        else:
-            for type in self.settings['sequence_types']:
-                result.extend(self.get_one(sequence, self.__build_seq_path(type=type, rel=rel), base_only=base_only))
-
-        if len(result) > 0:
-            return sequence_.Sequence(common.getFirstIndex(result))
-        else:
-            return None
 
     def get_shots(self, sequence, type=None, rel=False, base_only=False):
         """
@@ -355,10 +300,40 @@ class PipelineManager(object):
         path = self.__build_shot_path(sequence=sequence, type=type, rel=rel)
         if path:
             result.extend(
-                self.get_many(self.__build_shot_path(sequence=sequence, type=type, rel=rel), base_only=base_only))
+                os_util.get_many(self.__build_shot_path(sequence=sequence, type=type, rel=rel), base_only=base_only))
         return sorted(result)
 
-    def get_shot(self, shot, sequence, type=None, rel=False, base_only=False):
+    def find_sequence(self, sequence, type=None, rel=False, base_only=False):
+        """
+        Get a specicific sequence based on sequence name
+        :param sequence: sequence to get
+        :type sequence: str
+
+        :param type: Optional - Sequence type to return.
+        :type type: str
+
+        :param rel: If True will items sequences in release path. False will return sequences in the working path
+        :type rel: bool
+
+        :param base_only: get the full path of an object
+        :type base_only: bool
+
+        :return: path to sequence
+        :rtype: list
+        """
+        result = list()
+        if type:
+            result.extend(os_util.get_one(sequence, self.__build_seq_path(type=type, rel=rel), base_only=base_only))
+        else:
+            for type in self.settings['sequence_types']:
+                result.extend(os_util.get_one(sequence, self.__build_seq_path(type=type, rel=rel), base_only=base_only))
+
+        if len(result) > 0:
+            return sequence_.Sequence(common.getFirstIndex(result))
+        else:
+            return None
+
+    def find_shot(self, shot, sequence, type=None, rel=False, base_only=False):
         """
         :param shot: name of the shot to get
         :type shot: str
@@ -382,14 +357,42 @@ class PipelineManager(object):
         path = self.__build_shot_path(sequence=sequence, type=type, rel=rel)
         if path:
             result.extend(
-                self.get_one(shot, self.__build_shot_path(sequence=sequence, type=type, rel=rel), base_only=base_only))
+                os_util.get_one(shot, self.__build_shot_path(sequence=sequence, type=type, rel=rel), base_only=base_only))
 
         if len(result) > 0:
             return shot_.Shot(common.getFirstIndex(result))
         else:
             return None
 
-    def save_new_version(self, entity, task, file_type, warble=None):
+    def find_asset(self, asset=None, type=None, rel=False, base_only=False):
+        """
+        Get a specific asset based on name
+        :param asset: Asset to get
+        :type asset: str
+
+        :param type: Optional - type of the asset. May be required if multiple assets have the same name
+        :type type: str
+
+        :param rel: If True will items assets in release path. False will return assets in the working path
+        :type rel: bool
+
+        :param base_only: get the full path of an object
+        :type base_only: bool
+
+        :return:
+        """
+        result = list()
+        if type:
+            result.extend(os_util.get_one(asset, self.__build_asset_path(type=type, rel=rel), base_only=base_only))
+        else:
+            for type in self.settings['asset_types']:
+                result.extend(os_util.get_one(asset, self.__build_asset_path(type=type, rel=rel), base_only=base_only))
+        if len(result) > 0:
+            return asset_.Asset(common.getFirstIndex(result))
+        else:
+            return None
+
+    def save_new_version(self, entity, task, file_type, variant='base', warble=None):
         """
         Save an entity at the next available version.
 
@@ -402,16 +405,21 @@ class PipelineManager(object):
         :param file_type: file type of the save file
         :type file_type: str
 
+        :param variant: variant of the enity
+
         :param warble: warble to add the the name
         :type warble: str
         """
 
+        # if isinstance(entity, (asset_.Asset, shot_.Shot)):
+        #     filename = naming.get_unique_filename(work=True, base=entity.name, task=task, warble=warble, ext=file_type,
+        #                                           path=os.path.join(entity.work_path, task))
+        #     return self._save_file(os.path.join(entity.work_path, task, filename))
+        # else:
+        #     Logger.error("Entity '{}' is not of type Shot or Asset.".format(entity))
+
         if isinstance(entity, (asset_.Asset, shot_.Shot)):
-            filename = naming.get_unique_filename(work=True, base=entity.name, task=task, warble=warble, ext=file_type,
-                                                  path=os.path.join(entity.work_path, task))
-            return self._save_file(os.path.join(entity.work_path, task, filename))
-        else:
-            Logger.error("Entity '{}' is not of type Shot or Asset.".format(entity))
+            pass
 
     def publish_file(self, entity, task, file_type, warble=None):
         """
@@ -429,49 +437,57 @@ class PipelineManager(object):
         :param warble: warble to add the the name
         :type warble: str
         """
-        if isinstance(entity, (asset_.Asset, shot_.Shot)):
-            filename = naming.get_unique_filename(work=False, base=entity.name, task=task, warble=warble, ext=file_type,
-                                                  path=os.path.join(entity.rel_path, task))
-            return self._save_file(os.path.join(entity.rel_path, task, filename))
-
-        else:
+        if not isinstance(entity, (asset_.Asset, shot_.Shot)):
             Logger.error("Entity '{}' is not of type Shot or Asset.".format(entity))
+            return
 
-    def get_one(self, item, dir, base_only=False):
-        """
-        Get one item from a path
-        :param item: Item to get
-        :param dir: path to look in
-        :param base_only: return full path of an object
-        :return:
-        """
-        for i in self.get_many(dir=dir, base_only=True):
-            if i == item:
-                if base_only:
-                    return i
-                else:
-                    return common.toList(os.path.join(dir, i))
-        return list()
+        filename = naming.get_unique_filename(work=False, base=entity.name, task=task, warble=warble, ext=file_type,
+                                              path=os.path.join(entity.rel_path, task))
+        if os.path.exists(os.path.join(entity.path, task, filename)):
+            versions_path = os.path.join(entity.path, task, ".versions")
+            os_util.create_directory(versions_path)
+            version_name = naming.get_unique_filename(work=True, base=entity.name, task=task, warble=warble,
+                                                      ext=file_type,
+                                                      path=versions_path)
+            shutil.copyfile(os.path.join(entity.path, task, filename), os.path.join(versions_path, version_name))
 
-    def get_many(self, dir, base_only=False):
-        """
-        Get all items from a path
-        :param dir: path to look in
-        :type dir: str
+        return self._save_file(os.path.join(entity.rel_path, task, filename))
 
-        :param base_only: get path relative to the root path
-        :type base_only: bool
-
-        :return: items
-        :rtype: list
-        """
-        abs_dir = os.path.join(self.root_path, dir)
-        contents = [f for f in os.listdir(abs_dir) if os.path.isdir(os.path.join(dir, f))]
-        if base_only:
-            return [one.encode('UTF8') for one in contents]
-        else:
-            many = [os.path.relpath(os.path.join(dir, content), self.root_path) for content in contents]
-            return [one.encode('UTF8') for one in many]
+    # def get_one(self, item, dir, base_only=False):
+    #     """
+    #     Get one item from a path
+    #     :param item: Item to get
+    #     :param dir: path to look in
+    #     :param base_only: return full path of an object
+    #     :return:
+    #     """
+    #     for i in self.get_many(dir=dir, base_only=True):
+    #         if i == item:
+    #             if base_only:
+    #                 return i
+    #             else:
+    #                 return common.toList(os.path.join(dir, i))
+    #     return list()
+    # 
+    # def get_many(self, dir, base_only=False):
+    #     """
+    #     Get all items from a path
+    #     :param dir: path to look in
+    #     :type dir: str
+    # 
+    #     :param base_only: get path relative to the root path
+    #     :type base_only: bool
+    # 
+    #     :return: items
+    #     :rtype: list
+    #     """
+    #     abs_dir = os.path.join(self.root_path, dir)
+    #     contents = [f for f in os.listdir(abs_dir) if os.path.isdir(os.path.join(dir, f))]
+    #     if base_only:
+    #         return [one.encode('UTF8') for one in contents]
+    #     else:
+    #         many = [os.path.relpath(os.path.join(dir, content), self.root_path) for content in contents]
+    #         return [one.encode('UTF8') for one in many]
 
     # Utility methods
     def get_relative_path(self, path, start=None):
@@ -567,7 +583,7 @@ class PipelineManager(object):
         mode_path = self.seq_rel_path if rel else self.seq_work_path
         if not type:
             type = os_util.locate(sequence, [os.path.join(mode_path, type) for type in self.settings['sequence_types']],
-                              base_only=True)
+                                  base_only=True)
         if type in self.settings['sequence_types']:
             if shot:
                 return os.path.join(mode_path, type, sequence, shot)
@@ -627,4 +643,27 @@ class PipelineManager(object):
 
 
 if __name__ == '__main__':
-    pipe = PipelineManager('/Users/masonsmigel/Documents/jobs/animAide_job/pipeline/projects_root/SAS')
+    # pipe = PipelineManager('/Users/masonsmigel/Documents/jobs/animAide_job/pipeline/projects_root/SAS')
+    pipe = Pipeline()
+    pipe.set_show('UNTD')
+
+    print pipe.current_show, pipe.root_path
+
+    props_list = ["hoe", "trout", "wheatBags", "sickle", "wheatSifter", "combine", "cookBook", "measuringSpoon",
+                  "measuringCups", "loose flour", "towel", "breadTin", "scooper", "beaversCar", "dogTruck",
+                  "shoppingBasket", "shoppingCart", "wheatBerries", "butterflyNet", "butterfly", "guitar", "train",
+                  "mixingSpoon"]
+
+    for prop_name in props_list:
+        pipe.add_asset(prop_name, 'prop')
+
+    setpeice_list = ["shrubbery", "trees", "wheatStalk", "apple", "bananas", "lettuce", "eggPlant", "snowman", "beats",
+                     "radishes", "tomatoes", "carrots"]
+
+    for setpeice_name in setpeice_list:
+        pipe.add_asset(setpeice_name, 'setPeice')
+
+    set_list = ["shirleyShack", "bonnieBakery", "factory"]
+
+    for set_name in set_list:
+        pipe.add_asset(set_name, 'set')

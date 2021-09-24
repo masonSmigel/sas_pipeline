@@ -9,10 +9,9 @@ from PySide2 import QtUiTools
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 
-import sas_pipe.maya.maya_manager as maya_manager
-import sas_pipe.shared.naming as naming
-from sas_pipe.shared.logger import Logger
-
+import sas_pipe.maya.maya_pipe as maya_manager
+import sas_pipe.shared.filenames as filenames
+from sas_pipe import Logger
 
 def maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
@@ -51,7 +50,7 @@ class SaveVersionUi(QtWidgets.QDialog):
         self.create_connections()
 
     def init_ui(self):
-        self.pipe = maya_manager.MayaManager()
+        self.pipe = maya_manager.MayaPipeline()
 
         self.e = self.pipe.get_entity_from_curent_file()
         self.t = self.pipe.get_task_from_current_file()
@@ -105,7 +104,7 @@ class SaveVersionUi(QtWidgets.QDialog):
             self.ui.path_le.setText(self.pipe.get_relative_path(self.e.path))
             self.ui.entity_le.setText(self.e.name)
             self.ui.task_le.setText(self.t)
-            self.ui.versionIndex_le.setText(str(naming.get_highest_index(os.path.join(self.e.path, self.t)) + 1))
+            self.ui.versionIndex_le.setText(str(filenames.get_highest_index(os.path.join(self.e.path, self.t)) + 1))
         else:
             Logger.warning('Invalid Task selected. Please Select a task within the Entity you are working on')
             self.ui.path_le.clear()
