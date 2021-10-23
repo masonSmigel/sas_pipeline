@@ -73,7 +73,6 @@ class AddShotUI(QtWidgets.QDialog):
 
     def apply(self):
         shot_name = self.ui.shotName_le.text()
-        print shot_name
         if shot_name:
             seq_type = self.ui.seqType_cb.currentText()
             clean_name = re.sub("[0-9_{}.]", "", str(shot_name))

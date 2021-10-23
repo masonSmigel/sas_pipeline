@@ -177,7 +177,6 @@ def get_many(dir, base_only=False):
     :return: items
     :rtype: list
     """
-    print dir
     contents = [f for f in os.listdir(dir) if os.path.isdir(os.path.join(dir, f))]
     if base_only:
         return [one.encode('UTF8') for one in contents]

@@ -22,9 +22,9 @@ CURRENTSHOW_PATH = SHOWS_PATH + '/{currentShow}'
 REL_PATH = CURRENTSHOW_PATH + '/rel'
 WORK_PATH = CURRENTSHOW_PATH + '/work'
 
-ASSET_WORK_PATH = WORK_PATH + "/assets"
+ASSET_WORK_PATH = WORK_PATH + "/elements"
 SEQ_WORK_PATH = WORK_PATH + "/sequences"
-ASSET_REL_PATH = REL_PATH + "/assets"
+ASSET_REL_PATH = REL_PATH + "/elements"
 SEQ_REL_PATH = REL_PATH + "/sequences"
 
 ESSENTIAL_PATHS = [SHOWS_PATH, DEPTS_PATH, CURRENTSHOW_PATH, REL_PATH, WORK_PATH, ASSET_WORK_PATH, SEQ_WORK_PATH,
@@ -45,7 +45,7 @@ SHOT_PADDING = 3
 # File type constants
 MAYA_FILE_TYPE = 'ma'
 
-DATATYPES = ['StudioData', 'ShowData', 'SeqData', 'ShotData', 'AssetData']
+DATATYPES = ['Studio', 'Show', 'Seq', 'Shot', 'Element']
 
 
 def toList(values):

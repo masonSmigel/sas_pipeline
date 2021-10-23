@@ -120,7 +120,6 @@ class OpenAssetUi(QtWidgets.QDialog):
         self.pipe = maya_manager.MayaPipeline()
         self.ui.assetType_cb.clear()
         types = show_settings.ShowSettings.get_data('asset_types')
-        print types
         for type in types:
             self.ui.assetType_cb.addItem(type)
 
@@ -187,7 +186,6 @@ class OpenAssetUi(QtWidgets.QDialog):
             self.entity = None
 
     def file_opperation(self, file):
-        print file 
         self.pipe._open_file(file)
 
     def on_show(self):

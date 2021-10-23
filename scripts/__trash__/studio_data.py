@@ -21,7 +21,7 @@ class StudioData(abstract_data.AbstractData):
         """
         depts = list()
         shows = list()
-        depts_path = os.path.join(item, common.)
+        depts_path = os.path.join(item, )
         shows_path = os.path.join(item, 'shows')
 
         for dept in os_util.get_contents(depts_path, files=False, dirs=True):

@@ -34,7 +34,7 @@ class UserPrefs(object):
     def set_current_show(cls, show):
         prefs = cls.prefs_obj()
         data = prefs.read(PREFS_PATH)
-        data['current_show'] = show
+        data['lastShow'] = show
         prefs.setData(data)
         prefs.write(PREFS_PATH)
 
@@ -50,6 +50,6 @@ class UserPrefs(object):
     def get_currentShow(cls):
         prefs = cls.prefs_obj()
         data = prefs.read(PREFS_PATH)
-        if data.has_key('current_show'):
-            return data['current_show']
+        if data.has_key('lastShow'):
+            return data['lastShow']
         return None

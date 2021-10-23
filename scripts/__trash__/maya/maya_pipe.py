@@ -9,8 +9,8 @@ import __trash__.maya.sas_menu as sas_menu
 import sas_pipe.common as common
 import sas_pipe.utils.pipeline as pipeline
 from sas_pipe.entities import shot
-from sas_pipe.entities import asset
-import sas_pipe.user_prefs as user_prefs
+from sas_pipe.entities import element
+import sas_pipe.manager.user_prefs as user_prefs
 from sas_pipe import Logger
 
 
@@ -55,7 +55,7 @@ class MayaPipeline(pipeline.Pipeline):
                 for task in common.ASSET_TASKS:
                     if task in path:
                         split_path = path.rsplit('{}{}'.format('/', task), 1)
-                        return asset.Asset(split_path[0])
+                        return element.Asset(split_path[0])
             elif file_info['stage'] == common.SEQUENCES:
                 for task in common.SHOT_TASKS:
                     if task in path:
@@ -121,7 +121,6 @@ class MayaPipeline(pipeline.Pipeline):
         if isinstance(path, (list, tuple)):
             path = path[0]
         namespace = os.path.splitext(os.path.basename(path))[0]
-        print namespace
         pm.importFile(path, ns=namespace)
         self.ensure_undo_on()
 

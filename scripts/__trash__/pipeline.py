@@ -6,9 +6,9 @@ import sas_pipe.common as common
 import sas_pipe.utils.filenames as naming
 import sas_pipe.utils.osutil as os_util
 from sas_pipe.entities import shot
-from sas_pipe.entities import asset
+from sas_pipe.entities import element
 from sas_pipe import Logger
-import sas_pipe.user_prefs as user_prefs
+import sas_pipe.manager.user_prefs as user_prefs
 import __trash__.show_settings as show_settings
 
 
@@ -413,7 +413,7 @@ class Pipeline(object):
         # else:
         #     Logger.error("Entity '{}' is not of type Shot or Asset.".format(entity))
 
-        if isinstance(entity, (asset.Asset, shot.Shot)):
+        if isinstance(entity, (element.Asset, shot.Shot)):
             pass
 
     def publish_file(self, entity, task, file_type, warble=None):
@@ -432,7 +432,7 @@ class Pipeline(object):
         :param warble: warble to add the the name
         :type warble: str
         """
-        if not isinstance(entity, (asset.Asset, shot.Shot)):
+        if not isinstance(entity, (element.Asset, shot.Shot)):
             Logger.error("Entity '{}' is not of type Shot or Asset.".format(entity))
             return
 

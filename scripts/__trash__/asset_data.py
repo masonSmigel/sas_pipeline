@@ -9,10 +9,6 @@ class AssetData(abstract_data.AbstractData):
         """
         super(AssetData, self).__init__()
 
-    def add_variant(self, variant, data):
-        data["variant"] = True
-        self._data[variant] = data
-
 
 if __name__ == '__main__':
     a = EntityData()

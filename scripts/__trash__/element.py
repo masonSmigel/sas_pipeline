@@ -5,7 +5,7 @@ import sas_pipe.utils.data.asset_data as asset_data
 import sas_pipe.utils.osutil as os_utils
 
 
-class Asset(entity.Entity):
+class Element(entity.Entity):
     base_data = OrderedDict({'variant': False,
                              'mod': 'mod',
                              'rig': 'rig',
@@ -14,7 +14,7 @@ class Asset(entity.Entity):
                              })
 
     def __init__(self, path):
-        super(Asset, self).__init__(path)
+        super(Element, self).__init__(path)
 
     def assign_lookdev(self):
         print('Assign lookdev to {}'.format(self.name))
