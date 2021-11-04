@@ -1,0 +1,12 @@
+#!/usr/bin/env python2
+import sas_pipe.api.cmds as sas
+
+sas.initenv()
+seq_input = raw_input("Enter a sequence name: ")
+shot_input = raw_input("Enter a shot name: ")
+type_input = raw_input("Enter a shot type (or press enter to skip): ")
+if type_input is '': type_input = None
+
+sas.rmshot(seq=seq_input, shot=shot_input, type=type_input)
+print('Deleted Sequence {}/{}!'.format(seq_input, shot_input))
+

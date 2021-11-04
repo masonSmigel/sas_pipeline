@@ -1,0 +1,8 @@
+#!/usr/bin/env python2
+import sas_pipe.api.cmds as sas
+
+sas.initenv()
+show_name = raw_input('Enter a name of Show: ')
+sas.rmshow(show=show_name)
+print('Deleted show {}!'.format(show_name))
+

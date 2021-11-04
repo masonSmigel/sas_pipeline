@@ -2,8 +2,8 @@
 
 import os
 import getpass
-from time import gmtime, \
-    strftime
+import re
+from time import gmtime, strftime
 import json
 from collections import OrderedDict
 
@@ -23,9 +23,11 @@ class AbstractEntity(object):
         if pipeutils.checkTag(path, self.__class__.__name__):
             self.path = path
 
-
-            if not name: self.name = os.path.basename(path)
-            else: self.name = name
+            if not name:
+                self.name = os.path.basename(path)
+            else:
+                self.name = name
+            self.name = re.sub("[^A-Za-z0-9_{}]", "", str(self.name))
             self.type = self.__class__.__name__
 
             self.manifest_path = os.path.join(self.path, '{}.manifest'.format(self.name))

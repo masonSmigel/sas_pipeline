@@ -1,0 +1,6 @@
+#!/usr/bin/env python2
+import sas_pipe.api.cmds as sas
+
+path_input = raw_input("Enter path to Studio: ")
+sas.setstudio(str(path_input))
+print('Set studio to "{}"'.format(str(path_input)))

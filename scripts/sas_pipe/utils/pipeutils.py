@@ -13,7 +13,6 @@ def addEntityTag(path, type):
     :return:
     """
     tag_file = path + "/.{}".format(type.lower())
-    print tag_file
     if type.lower() not in [x.lower() for x in common.DATATYPES]:
         raise ValueError('{} is not a valid tag.'.format(type))
 
@@ -32,6 +31,9 @@ def checkTag(path, tag):
     :param tag: tag to check for
     :return:
     """
+    if not os.path.exists(path):
+        return False
+
     if '.{}'.format(tag.lower()) in osutil.get_contents(path, files=True, dirs=False):
         return True
     return False

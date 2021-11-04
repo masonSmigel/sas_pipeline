@@ -19,18 +19,18 @@ def isShow(path):
 class Show(abstract_entity.AbstractEntity):
     """Studio class. Accepts the studio root as a parameter"""
     DEFAULT_DATA = OrderedDict(sequence_types=common.SEQUENCE_TYPES,
-                               asset_types=common.ASSET_TYPES,
+                               element_types=common.ASSET_TYPES,
                                maya_file_type=common.MAYA_FILE_TYPE
                                )
 
     def __init__(self, path):
         super(Show, self).__init__(path)
-        self.assetTypes = self._data['asset_types']
+        self.elementTypes = self._data['element_types']
         self.sequenceTypes = self._data['sequence_types']
 
     def set_assetTypes(self, values):
         data = self._data
-        data['asset_types'] = values
+        data['element_types'] = values
         self.setData(data)
 
     def set_sequenceTypes(self, values):
@@ -39,7 +39,7 @@ class Show(abstract_entity.AbstractEntity):
         self.setData(data)
 
     def get_assetTypes(self):
-        return self._data['asset_types']
+        return self._data['element_types']
 
     def get_sequenceTypes(self):
         return self._data['sequence_types']

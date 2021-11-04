@@ -1,0 +1,7 @@
+#!/usr/bin/env python2
+import sas_pipe.api.cmds as sas
+
+sas.initenv()
+show_name = raw_input('Enter a name of Show: ')
+sas.mkshow(show_name)
+print('New Show created {}'.format(str(show_name).upper()))

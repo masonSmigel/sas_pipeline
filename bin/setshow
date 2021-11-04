@@ -1,0 +1,6 @@
+#!/usr/bin/env python2
+import sas_pipe.api.cmds as sas
+
+show_name = str(raw_input("Enter name of Show: ").upper())
+sas.setshow(show_name)
+print('Set show to "{}"'.format(show_name))

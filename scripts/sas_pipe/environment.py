@@ -5,7 +5,6 @@ Get and set some enviornment variables
 import os
 from collections import OrderedDict
 
-
 VAR_PREFIX = 'SAS_'
 
 
@@ -39,11 +38,9 @@ def getAll():
     return res
 
 
-
 if __name__ == '__main__':
     setEnv('Root', '/Users/masonsmigel/Documents/jobs/animAide/pipeline/projects_root')
     setEnv('user', 'me')
     setEnv('currentShow', 'HOWB')
-
 
     print getAll()

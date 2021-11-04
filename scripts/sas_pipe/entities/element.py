@@ -1,20 +1,20 @@
-import sas_pipe.entities.entity as entity
 import os
 from collections import OrderedDict
 import sas_pipe.utils.osutil as os_utils
 import sas_pipe.utils.pipeutils as pipeutils
+import sas_pipe.entities.abstract_entity as abstract_entity
 
 
 def isElement(path):
     """
-    Check is a path is an element
+    Check is a path is an elm
     :param path:
     :return:
     """
     return pipeutils.checkTag(path, 'element')
 
 
-class Element(entity.Entity):
+class Element(abstract_entity.AbstractEntity):
     DEFAULT_VARIANT = OrderedDict(
         [('conc', 'conc'), ('mod', 'mod'), ('rig', 'rig'), ('tex', 'look/tex'), ('mat', 'look/mat')])
 
@@ -37,6 +37,33 @@ class Element(entity.Entity):
             '''
 
         return description.format(name=self.name, work_path=self.work_path, rel_path=self.rel_path, type=self.type)
+
+    def set_tasks(self, values):
+        data = self._data
+        data['tasks'] = values
+        self.setData(data)
+
+    def get_tasks(self):
+        return self._data['tasks']
+
+    def add_task(self, new, path=None):
+        """
+        Add a new task
+        :param new: new task
+        :param path: path to task files
+        :return:
+        """
+        data = self._data
+        if new not in data['tasks']:
+            data['tasks'].append(new)
+            if path:
+                data['variants']['base'][new] = path
+                os.makedirs(os.path.join(self.work_path, path))
+                os.makedirs(os.path.join(self.rel_path, path))
+            self.setData(data)
+        else:
+            raise ValueError('Task "{}" already exists on asset "{}"'.format(new, self.name))
+        return new
 
     def add_variant(self, variant, **kwargs):
         """
@@ -79,7 +106,6 @@ class Element(entity.Entity):
         :return:
         """
         if not variant: variant = 'base'
-
         path = os.path.join(self.work_path, self.validate_variant_data(variant, task))
         return os_utils.get_contents(path, files=True, dirs=False)
 

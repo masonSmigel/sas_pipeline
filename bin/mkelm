@@ -1,0 +1,10 @@
+#!/usr/bin/env python2
+import sas_pipe.api.cmds as sas
+
+sas.initenv()
+element_input = raw_input("Enter an element name: ")
+type_input = raw_input("Enter an element type: ")
+elm = sas.mkelm(element=element_input, type=type_input)
+print('New Element created!')
+print(elm)
+print('')
