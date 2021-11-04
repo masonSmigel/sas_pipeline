@@ -8,7 +8,7 @@ SCAD Animation Studios Pipeline Tools 2.0
 Instructions to install SAS Pipeline. 
 NOTE: an easier install is coming!! This is still a WIP. 
 1. Open a terminal and add `./scripts` path to your PYTHONPATH variable and `./bin` path to the PATH variable. 
-    - you can add theese perminately by adding the following lines to your `./bashrc` or `./zshrc` files:
+    - you can add these perminately by adding the following lines to your `./bashrc` or `./zshrc` files:
          ```
          export PYTHONPATH="path/to/package/sas_pipeline/scripts:$PYTHONPATH"
          export PATH="path/to/package/sas_pipeline/bin:$PATH"
