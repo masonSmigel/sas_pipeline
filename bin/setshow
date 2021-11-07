@@ -1,6 +1,19 @@
 #!/usr/bin/env python2
+from argparse import ArgumentParser
 import sas_pipe.api.cmds as sas
 
-show_name = str(raw_input("Enter name of Show: ").upper())
-sas.setshow(show_name)
-print('Set show to "{}"'.format(show_name))
+
+def setShow(show=None):
+    show = str(raw_input("Enter name of Show: ")) if not show else show
+    show = sas.setshow(show.upper())
+    print('Set show to "{}"'.format(show))
+
+
+if __name__ == '__main__':
+    parser = ArgumentParser()
+    parser.add_argument("-n", "--name", dest="showname",
+                        help="show name to set", metavar="SHOW")
+    args = vars(parser.parse_args())
+
+    show = args['showname'] if args['showname'] else None
+    setShow(show=show)

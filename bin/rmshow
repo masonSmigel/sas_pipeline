@@ -1,8 +1,20 @@
 #!/usr/bin/env python2
+from argparse import ArgumentParser
 import sas_pipe.api.cmds as sas
 
-sas.initenv()
-show_name = raw_input('Enter a name of Show: ')
-sas.rmshow(show=show_name)
-print('Deleted show {}!'.format(show_name))
 
+def rmshow(show=None):
+    sas.initenv()
+    show_name = raw_input('Enter a name of Show: ') if not show else show
+    sas.rmshow(show=show_name)
+    print('Deleted show {}!'.format(show_name))
+
+
+if __name__ == '__main__':
+    parser = ArgumentParser()
+    parser.add_argument("-n", "--name", dest="showname",
+                        help="show name to delete", metavar="SHOW")
+    args = vars(parser.parse_args())
+
+    show = args['showname'] if args['showname'] else None
+    rmshow(show=show)

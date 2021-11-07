@@ -1,8 +1,25 @@
 #!/usr/bin/env python2
+from argparse import ArgumentParser
 import sas_pipe.api.cmds as sas
 
-sas.initenv()
-studio_name = raw_input('Enter a name of Studio: ')
-studio_path = raw_input('Enter path location: ')
-sas.mkstudio(studio_name, studio_path)
-print('New Studio created at {}/{}'.format(studio_path, studio_name))
+
+def mkstudio(studio_name=None, studio_path=None):
+    sas.initenv()
+    studio_name = raw_input('Enter a name of Studio: ') if not studio_name else studio_name
+    studio_path = raw_input('Enter path location: ') if not studio_path else studio_path
+
+    studio = sas.mkstudio(studio_name, studio_path)
+    print('New Studio created at {}'.format(studio.path))
+
+
+if __name__ == '__main__':
+    parser = ArgumentParser()
+    parser.add_argument("-n", "--name", dest="studioname",
+                        help="name of the studio", metavar="NAME")
+    parser.add_argument("-p", "--path", dest="studiopath",
+                        help="path to base dir of studio", metavar="PATH")
+    args = vars(parser.parse_args())
+
+    name = args['studioname'] if args['studioname'] else None
+    path = args['studiopath'] if args['studiopath'] else None
+    mkstudio(studio_name=name, studio_path=path)
