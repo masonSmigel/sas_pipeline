@@ -31,6 +31,8 @@ def setstudio(path):
     :param path: path to the studio
     :return:
     """
+    path = os.path.realpath(path)
+
     if not sas_pipe.entities.studio.isstudio(path=path):
         raise UserError('The path "{}" is not a studio. Please pick a valid studio'.format(path))
     user_prefs.UserPrefs.set_root(path)
@@ -40,6 +42,7 @@ def setstudio(path):
 
     environment.setEnv('shows_path', os.path.join(environment.getEnv('root'), 'shows'))
     environment.setEnv('depts_path', os.path.join(environment.getEnv('root'), 'depts'))
+    return path
 
 
 def setshow(show):
@@ -68,6 +71,8 @@ def setshow(show):
     environment.setEnv('elm_rel_path', os.path.join(environment.getEnv('rel_path'), 'elements'))
     environment.setEnv('seq_rel_path', os.path.join(environment.getEnv('rel_path'), 'sequences'))
 
+    return show
+
 
 def initenv():
     """
@@ -92,6 +97,7 @@ def mkstudio(studio, path):
     :param path: path to create a studio at.
     :return:
     """
+    path = os.path.realpath(path)
     studio_path = osutil.clean_path(os.path.join(path, studio))
     if os.path.exists(studio_path):
         raise UserError('Studio already exists at : {}'.format(path))
@@ -179,6 +185,15 @@ def rmshow(show):
         raise TypeError('{} is not a show.'.format(show_path))
 
 
+def lsshow():
+    """
+    list all shows in the studio
+    :return:
+    """
+    studio_entity = sas_pipe.entities.studio.Studio(environment.getEnv('root'))
+    return studio_entity._data['shows']
+
+
 # ELEMENT
 def mkelm(element, type, var_data=None):
     """
@@ -254,6 +269,27 @@ def nrelm(element, type=None):
     :return: element release directory
     """
     return nav(element, entityType='elm', work=False, type=type)
+
+
+def lselm(types=None):
+    """
+    List elmeents
+    :return: dict of elment types and elments within the type
+    """
+    show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
+    elm_work_path = osutil.clean_path(os.path.join(environment.getEnv('elm_work_path')))
+    elm_dict = dict()
+    types = show_entity.get_assetTypes() if not types else common.toList(types)
+    for type in types:
+        type_elmenets = list()
+        contents = osutil.get_contents(os.path.join(elm_work_path, type))
+        for content in contents:
+            elm_path = os.path.join(elm_work_path, type, content)
+            if sas_pipe.entities.element.isElement(elm_path):
+                elm = sas_pipe.entities.element.Element(elm_path)
+                type_elmenets.append(elm.name)
+        elm_dict[type] = sorted(type_elmenets)
+    return elm_dict
 
 
 # SHOT
@@ -343,6 +379,29 @@ def nrshot(seq, shot, type=None):
     return nav(code, entityType='shot', work=False, type=type)
 
 
+def lsshot(types=None):
+    """
+    List elmeents
+    :return: dict of elment types and elments within the type
+    """
+    show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
+    seq_work_path = osutil.clean_path(os.path.join(environment.getEnv('seq_work_path')))
+    shot_dict = dict()
+    types = show_entity.get_sequenceTypes() if not types else common.toList(types)
+    for type in types:
+        type_dict = list()
+        sequences = osutil.get_contents(os.path.join(seq_work_path, type))
+        for seq in sequences:
+            seq_path = os.path.join(seq_work_path, type, seq)
+            shots = osutil.get_contents(seq_path)
+            for shot in shots:
+                if sas_pipe.entities.shot.isShot(os.path.join(seq_path, shot)):
+                    shot = sas_pipe.entities.shot.Shot(os.path.join(seq_path, shot))
+                    type_dict.append(shot.name)
+        shot_dict[type] = sorted(type_dict)
+    return shot_dict
+
+
 def nav(code, entityType='elm', work=True, type=None):
     """
     Navigate to an element
@@ -386,28 +445,3 @@ if __name__ == '__main__':
     # setstudio('/Users/masonsmigel/Documents/jobs/animAide/pipeline/projects_root/testStudio')
     setshow('TEST')
     initenv()
-    print environment.getAll()
-    # user_prefs.UserPrefs.set_current_show('TEST')
-
-    # print nshot('010', '0010')
-    # print nrshot('010', '0010')
-
-    # print nelm('testCharacter')
-    # initenv()
-    # # print mkstudio('testStudio', '/Users/masonsmigel/Documents/jobs/animAide/pipeline/projects_root')
-    # show = mkshow('DEMO')
-
-    try:
-        rmshow('DEMO')
-    #     rmelm('testB', 'prop')
-    #     rmshot('010', '0010')
-    except:
-        pass
-
-    # print mkshow('demo')
-    # elm = mkelm('testC', 'prop')
-    # shot = mkshot('010', '0010')
-    #
-    # rmshow('TEST')
-
-    # print json.dumps(environment.getAll(), indent=2)

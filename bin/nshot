@@ -1,16 +1,19 @@
 #!/usr/bin/env python2
+import os
 from argparse import ArgumentParser
 import sas_pipe.api.cmds as sas
 
 
-def mkshot(seq=None, shot=None, type=None):
+def nshot(seq=None, shot=None, type=None):
     sas.initenv()
     seq_input = raw_input("Enter a sequence name: ") if not seq else seq
     shot_input = raw_input("Enter a shot name: ") if not shot else shot
     type_input = type
 
-    shot = sas.mkshot(seq=seq_input, shot=shot_input, type=type_input)
-    print('New Shot created!\n{}\n '.format(shot))
+    path = sas.nshot(seq=seq_input, shot=shot_input, type=type_input)
+    os.chdir(os.path.realpath(path))
+    os.system('pwd')
+    os.system('/bin/zsh')
 
 
 if __name__ == '__main__':
@@ -26,4 +29,4 @@ if __name__ == '__main__':
     seq = args['sequencename'] if args['sequencename'] else None
     shot = args['shotname'] if args['shotname'] else None
     type = args['shottype'] if args['shottype'] else None
-    mkshot(seq=seq, shot=shot, type=type)
+    nshot(seq=seq, shot=shot, type=type)

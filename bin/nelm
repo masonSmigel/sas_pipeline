@@ -1,0 +1,27 @@
+#!/usr/bin/env python2
+import os
+from argparse import ArgumentParser
+import sas_pipe.api.cmds as sas
+
+
+def nelm(element=None, type=None):
+    sas.initenv()
+    elemenent = raw_input("Enter an element name: ") if not element else element
+    type = raw_input("Enter an element type: ") if not type else type
+    path = sas.nelm(element=elemenent, type=type)
+    os.chdir(os.path.realpath(path))
+    os.system('pwd')
+    os.system('/bin/zsh')
+
+
+if __name__ == '__main__':
+    parser = ArgumentParser()
+    parser.add_argument("-n", "--name", dest="elementname",
+                        help="name of the element", metavar="NAME")
+    parser.add_argument("-t", "--type", dest="elementtype",
+                        help="element type", metavar="PATH")
+    args = vars(parser.parse_args())
+
+    elm = args['elementname'] if args['elementname'] else None
+    type = args['elementtype'] if args['elementtype'] else None
+    nelm(element=elm, type=type)
