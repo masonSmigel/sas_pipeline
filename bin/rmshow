@@ -5,15 +5,15 @@ import sas_pipe.api.cmds as sas
 
 def rmshow(show=None):
     sas.initenv()
-    show_name = raw_input('Enter a name of Show: ') if not show else show
-    sas.rmshow(show=show_name)
-    print('Deleted show {}!'.format(show_name))
+    sas.rmshow(show=show)
+    print('Deleted show {}!'.format(show))
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser()
-    parser.add_argument("-n", "--name", dest="showname",
-                        help="show name to delete", metavar="SHOW")
+    parser = ArgumentParser(description="""
+    Remove a show
+    """)
+    parser.add_argument("showname",help="name of the show", metavar="PATH")
     args = vars(parser.parse_args())
 
     show = args['showname'] if args['showname'] else None

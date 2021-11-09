@@ -6,27 +6,22 @@ import sas_pipe.api.cmds as sas
 
 def nrshot(seq=None, shot=None, type=None):
     sas.initenv()
-    seq_input = raw_input("Enter a sequence name: ") if not seq else seq
-    shot_input = raw_input("Enter a shot name: ") if not shot else shot
-    type_input = type
-
-    path = sas.nrshot(seq=seq_input, shot=shot_input, type=type_input)
+    path = sas.nrshot(seq=seq, shot=shot, type=type)
     os.chdir(os.path.realpath(path))
     os.system('pwd')
     os.system('/bin/zsh')
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser()
-    parser.add_argument("-seq", "--sequence", dest="sequencename",
-                        help="name of the sequence", metavar="SEQ")
-    parser.add_argument("-shot", "--shot", dest="shotname",
-                        help="name of the shot", metavar="SHOT")
-    parser.add_argument("-t", "--type", dest="shottype",
-                        help="type of shot", metavar="TYPE", default=None)
+    parser = ArgumentParser(description="""
+    Navigate to the release area of a shot
+    """)
+    parser.add_argument("sequence", help="name of the sequence", metavar="SEQ")
+    parser.add_argument("shot", help="name of the shot", metavar="SHOT")
+    parser.add_argument("-t", "--type", dest="shottype", help="type of shot", metavar="TYPE")
     args = vars(parser.parse_args())
 
-    seq = args['sequencename'] if args['sequencename'] else None
-    shot = args['shotname'] if args['shotname'] else None
+    seq = args['sequence'] if args['sequence'] else None
+    shot = args['shot'] if args['shot'] else None
     type = args['shottype'] if args['shottype'] else None
     nrshot(seq=seq, shot=shot, type=type)

@@ -16,7 +16,9 @@ def lsshot(types=None):
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser()
+    parser = ArgumentParser(description="""
+    List all shots within the show
+    """)
     parser.add_argument("-t", "--type-list", dest="shottype", nargs='+',
                         help="specify a type of shot to get", metavar="TYPE")
     args = vars(parser.parse_args())

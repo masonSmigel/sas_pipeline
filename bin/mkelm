@@ -5,20 +5,18 @@ import sas_pipe.api.cmds as sas
 
 def mkelm(element=None, type=None):
     sas.initenv()
-    elemenent = raw_input("Enter an element name: ") if not element else element
-    type = raw_input("Enter an element type: ") if not type else type
-    elm = sas.mkelm(element=elemenent, type=type)
+    elm = sas.mkelm(element=element, type=type)
     print('New Element created!\n{}\n '.format(elm))
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser()
-    parser.add_argument("-n", "--name", dest="elementname",
-                        help="name of the element", metavar="NAME")
-    parser.add_argument("-t", "--type", dest="elementtype",
-                        help="element type", metavar="PATH")
+    parser = ArgumentParser(description="""
+    Make a new element
+    """)
+    parser.add_argument("elementname", help="name of the element", metavar="NAME")
+    parser.add_argument("elementtype", help="element type", metavar="TYPE")
     args = vars(parser.parse_args())
 
-    elm = args['elementname'] if args['elementname'] else None
+    element = args['elementname'] if args['elementname'] else None
     type = args['elementtype'] if args['elementtype'] else None
-    mkelm(element=elm, type=type)
+    mkelm(element=element, type=type)

@@ -445,3 +445,5 @@ if __name__ == '__main__':
     # setstudio('/Users/masonsmigel/Documents/jobs/animAide/pipeline/projects_root/testStudio')
     setshow('TEST')
     initenv()
+
+    rmshow('demo')

@@ -5,20 +5,18 @@ import sas_pipe.api.cmds as sas
 
 def rmelm(element=None, type=None):
     sas.initenv()
-    element_input = raw_input("Enter an element name: ") if not element else element
-    type_input = raw_input("Enter an element type: ") if not type else type
-    sas.rmelm(element=element_input, type=type_input)
-    print('Deleted element {}/{}!'.format(type, element))
+    sas.rmelm(element=element, type=type)
+    print('Deleted element: {}/{}!'.format(type, element))
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser()
-    parser.add_argument("-n", "--name", dest="elementname",
-                        help="name of the element", metavar="NAME")
-    parser.add_argument("-t", "--type", dest="elementtype",
-                        help="element type", metavar="PATH")
+    parser = ArgumentParser(description="""
+    Remove an element
+    """)
+    parser.add_argument("elementname", help="name of the element", metavar="NAME")
+    parser.add_argument("elementtype", help="element type", metavar="TYPE")
     args = vars(parser.parse_args())
 
-    elm = args['elementname'] if args['elementname'] else None
+    element = args['elementname'] if args['elementname'] else None
     type = args['elementtype'] if args['elementtype'] else None
-    rmelm(element=elm, type=type)
+    rmelm(element=element, type=type)

@@ -4,15 +4,15 @@ import sas_pipe.api.cmds as sas
 
 
 def setStudio(path=None):
-    path = raw_input("Enter path to Studio: ") if not path else path
     path = sas.setstudio(str(path))
-    print('Set studio to "{}"'.format(str(path)))
+    print('Set studio to: "{}"'.format(str(path)))
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser()
-    parser.add_argument("-p", "--path", dest="studiopath",
-                        help="path to the studio to set", metavar="STUDIOPATH")
+    parser = ArgumentParser(description="""
+    Set the studio
+    """)
+    parser.add_argument("studiopath", help="path to the studio to set", metavar="STUDIOPATH")
     args = vars(parser.parse_args())
 
     path = args['studiopath'] if args['studiopath'] else None

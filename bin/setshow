@@ -4,16 +4,16 @@ import sas_pipe.api.cmds as sas
 
 
 def setShow(show=None):
-    show = str(raw_input("Enter name of Show: ")) if not show else show
     show = sas.setshow(show.upper())
     print('Set show to "{}"'.format(show))
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser()
-    parser.add_argument("-n", "--name", dest="showname",
-                        help="show name to set", metavar="SHOW")
+    parser = ArgumentParser(description="""
+    Set the show
+    """)
+    parser.add_argument("name", help="show name to set")
     args = vars(parser.parse_args())
 
-    show = args['showname'] if args['showname'] else None
+    show = args['name'] if args['name'] else None
     setShow(show=show)

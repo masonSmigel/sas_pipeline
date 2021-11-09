@@ -16,7 +16,9 @@ def lselm(type=None):
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser()
+    parser = ArgumentParser(description="""
+    List all elements within the show
+    """)
     parser.add_argument("-t", "--type-list", dest="elmenettype", nargs='+',
                         help="specify a type of element to get", metavar="TYPE")
     args = vars(parser.parse_args())
