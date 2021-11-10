@@ -71,7 +71,7 @@ def setshow(show):
     environment.setEnv('elm_rel_path', os.path.join(environment.getEnv('rel_path'), 'elements'))
     environment.setEnv('seq_rel_path', os.path.join(environment.getEnv('rel_path'), 'sequences'))
 
-    return show
+    return environment.getEnv('show_path')
 
 
 def initenv():
