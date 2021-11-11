@@ -8,18 +8,18 @@ SCAD Animation Studios Pipeline Tools 2.0
 Instructions to install SAS Pipeline. 
 NOTE: an easier install is coming!! This is still a WIP. 
 1. Open a terminal and add `./scripts` path to your PYTHONPATH variable and `./bin` path to the PATH variable. 
-    - you can add theese perminately by adding the following lines to your `./bashrc` or `./zshrc` files:
+    - you can add these perminately by adding the following lines to your `./bashrc` or `./zshrc` files:
          ```
          export PYTHONPATH="path/to/package/sas_pipeline/scripts:$PYTHONPATH"
          export PATH="path/to/package/sas_pipeline/bin:$PATH"
         ```
 2. you can now run pipeline commands from terminal. 
 
-#Usage
+# Usage
 1. with the `./scripts` and `./bin` in your system you can run SAS pipeline commands. 
 
 
-#Commands 
+# Commands 
 command line commands are designed for high level management of the project. This includes things like creating new
 entities, seting your workspace and removing entities. 
 
@@ -42,7 +42,7 @@ entities, seting your workspace and removing entities.
 `rmshow`: removes a show
 
 
-#Philosophy
+# Philosophy
 SAS pipeline is built of different entities, studios, shows, elements, and shots. 
 Each entitiy contains a .manifest file with holds and manages data about that entity, and a hidden file to tag the 
 directory as an entity. 
