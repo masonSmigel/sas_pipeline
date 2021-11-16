@@ -10,7 +10,7 @@ def lselm(type=None):
     for key in elm_dict.keys():
         contents = elm_dict[key]
         lines = ("{}".format('\t' * 3).join(contents[i:i + 3]) for i in xrange(0, len(contents), 3))
-        print('\n{}\n{}'.format(key, '-'*80))
+        print('\n{}\n{}'.format(key, '-'*70))
         print('\n'.join(lines))
         print('\n')
 
