@@ -9,7 +9,7 @@ def nrelm(element=None, type=None):
     path = sas.nrelm(element=element, type=type)
     os.chdir(os.path.realpath(path))
     os.system('pwd')
-    os.system('/bin/zsh')
+    os.system('/bin/bash')
 
 
 if __name__ == '__main__':

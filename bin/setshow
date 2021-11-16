@@ -9,7 +9,7 @@ def setShow(show=None):
     os.chdir(os.path.realpath(show))
     print('Set show to: {}'.format(show.split('/')[-1]))
     os.system('pwd')
-    os.system('/bin/zsh')
+    os.system('/bin/bash')
 
 
 if __name__ == '__main__':

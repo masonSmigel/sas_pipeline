@@ -9,7 +9,7 @@ def setStudio(path=None):
     os.chdir(os.path.realpath(path))
     print('Set studio to: {}'.format(path))
     os.system('pwd')
-    os.system('/bin/zsh')
+    os.system('/bin/bash')
 
 
 if __name__ == '__main__':

@@ -9,7 +9,7 @@ def nshot(seq=None, shot=None, type=None):
     path = sas.nshot(seq=seq, shot=shot, type=type)
     os.chdir(os.path.realpath(path))
     os.system('pwd')
-    # os.system('/bin/zsh')
+    os.system('/bin/bash')
 
 
 if __name__ == '__main__':
