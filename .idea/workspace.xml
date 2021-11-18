@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/bin/nelm" beforeDir="false" afterPath="$PROJECT_DIR$/bin/nelm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/nrelm" beforeDir="false" afterPath="$PROJECT_DIR$/bin/nrelm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/nrshot" beforeDir="false" afterPath="$PROJECT_DIR$/bin/nrshot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/nshot" beforeDir="false" afterPath="$PROJECT_DIR$/bin/nshot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/setshow" beforeDir="false" afterPath="$PROJECT_DIR$/bin/setshow" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/setstudio" beforeDir="false" afterPath="$PROJECT_DIR$/bin/setstudio" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Stub" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="ONTO" value="refs/heads/master" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectId" id="1wAq1bGvkCm7I3Adt3dxyI6dbqe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/bin" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/scripts/__trash__" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/utils/data" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/manager" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/api" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/bin" />
+      <recent name="$PROJECT_DIR$/scripts/__trash__" />
+      <recent name="$PROJECT_DIR$/scripts/__trash__/maya" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.scratch_5">
+    <configuration name="Unnamed" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MayaCharm Configuration Factory">
+      <option name="mayaSdkPath" value="/Applications/Autodesk/maya2020/Maya.app/Contents/bin/mayapy" />
+      <option name="scriptFilePath" value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
+      <method v="2" />
+    </configuration>
+    <configuration name="cmds" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="sas_pipeline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/sas_pipe/api" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="element" type="PythonConfigurationType" factoryName="Python">
+      <module name="sas_pipeline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/sas_pipe/entities" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="lselm" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="sas_pipeline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/lselm" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="lsshot" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="sas_pipeline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/lsshot" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="lsshow" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="sas_pipeline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/lsshow" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="scratch_5" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="sas_pipeline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_5.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="MayaCharm.Unnamed" />
+      <item itemvalue="Python.element" />
+      <item itemvalue="Python.cmds" />
+      <item itemvalue="Python.lsshow" />
+      <item itemvalue="Python.lselm" />
+      <item itemvalue="Python.lsshot" />
+      <item itemvalue="Python.scratch_5" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.scratch_5" />
+        <item itemvalue="Python.cmds" />
+        <item itemvalue="Python.lsshot" />
+        <item itemvalue="Python.lselm" />
+        <item itemvalue="Python.lsshow" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="" />
+      <created>1627911526542</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1627911526542</updated>
+    </task>
+    <task id="LOCAL-00001" summary="intial commit after refactor. Uses plugin, icon, scripts folder instead.">
+      <created>1627917321036</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1627917321036</updated>
+    </task>
+    <task id="LOCAL-00002" summary="ignore .idea">
+      <created>1627917527487</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1627917527487</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added README">
+      <created>1627917975105</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1627917975105</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated about ui">
+      <created>1627919064422</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1627919064422</updated>
+    </task>
+    <task id="LOCAL-00005" summary="updated installation process. Shelf created on Drop">
+      <created>1628107149285</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1628107149285</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Updated set root to not add a new show when root is changed.">
+      <created>1628107173419</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1628107173419</updated>
+    </task>
+    <task id="LOCAL-00007" summary="updated README.md">
+      <created>1628107214790</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1628107214790</updated>
+    </task>
+    <task id="LOCAL-00008" summary="updated README.md">
+      <created>1628107394144</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1628107394144</updated>
+    </task>
+    <task id="LOCAL-00009" summary="updated README.md">
+      <created>1628107407782</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1628107407782</updated>
+    </task>
+    <task id="LOCAL-00010" summary="updated README">
+      <created>1628107997448</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1628107997448</updated>
+    </task>
+    <task id="LOCAL-00011" summary="before cleanup of shot and pipeline refactor">
+      <created>1632522735119</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1632522735119</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Version 2.0 inital commit. Before refactoring">
+      <created>1633453778050</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1633453778050</updated>
+    </task>
+    <task id="LOCAL-00013" summary="update path checking">
+      <created>1633453880493</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1633453880493</updated>
+    </task>
+    <task id="LOCAL-00014" summary="added __trash__ to gitignore">
+      <created>1633453894562</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1633453894562</updated>
+    </task>
+    <task id="LOCAL-00015" summary="full_refactor">
+      <created>1635025795262</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1635025795262</updated>
+    </task>
+    <task id="LOCAL-00016" summary="intial commit for v2.0.0">
+      <created>1636002303428</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1636002303428</updated>
+    </task>
+    <task id="LOCAL-00017" summary="updated README">
+      <created>1636003471795</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1636003471795</updated>
+    </task>
+    <task id="LOCAL-00018" summary="updated README">
+      <created>1636003512391</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1636003512391</updated>
+    </task>
+    <task id="LOCAL-00019" summary="updated README">
+      <created>1636003512659</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1636003512659</updated>
+    </task>
+    <task id="LOCAL-00020" summary="added system arugments">
+      <created>1636317613465</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1636317613465</updated>
+    </task>
+    <task id="LOCAL-00021" summary="added nav commands to bin">
+      <created>1636327563838</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1636327563838</updated>
+    </task>
+    <task id="LOCAL-00022" summary="replaced optional arugments with positional arguments. removed python (input)">
+      <created>1636423440620</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1636423440620</updated>
+    </task>
+    <task id="LOCAL-00023" summary="added navigation to set studio and set show">
+      <created>1636579060102</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1636579060102</updated>
+    </task>
+    <task id="LOCAL-00024" summary="added gitignore to gitignore">
+      <created>1636674781178</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1636674781178</updated>
+    </task>
+    <task id="LOCAL-00025" summary="updated printing to match terminal">
+      <created>1637034357180</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1637034357181</updated>
+    </task>
+    <task id="LOCAL-00026" summary="changed shell type from zsh to bash">
+      <created>1637035279190</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1637035279190</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:/Users/masonsmigel/Documents/dev/maya/sas_pipeline/.idea" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="intial commit after refactor. Uses plugin, icon, scripts folder instead." />
+    <MESSAGE value="ignore .idea" />
+    <MESSAGE value="added README" />
+    <MESSAGE value="updated about ui" />
+    <MESSAGE value="updated installation process. Shelf created on Drop" />
+    <MESSAGE value="Updated set root to not add a new show when root is changed." />
+    <MESSAGE value="updated README.md" />
+    <MESSAGE value="before cleanup of shot and pipeline refactor" />
+    <MESSAGE value="Version 2.0 inital commit. Before refactoring" />
+    <MESSAGE value="update path checking" />
+    <MESSAGE value="added __trash__ to gitignore" />
+    <MESSAGE value="full_refactor" />
+    <MESSAGE value="intial commit for v2.0.0" />
+    <MESSAGE value="updated README" />
+    <MESSAGE value="added system arugments" />
+    <MESSAGE value="added nav commands to bin" />
+    <MESSAGE value="replaced optional arugments with positional arguments. removed python (input)" />
+    <MESSAGE value="added navigation to set studio and set show" />
+    <MESSAGE value="added gitignore to gitignore" />
+    <MESSAGE value="updated printing to match terminal" />
+    <MESSAGE value="changed shell type from zsh to bash" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed shell type from zsh to bash" />
+  </component>
+</project>

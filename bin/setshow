@@ -9,7 +9,8 @@ def setShow(show=None):
     os.chdir(os.path.realpath(show))
     print('Set show to: {}'.format(show.split('/')[-1]))
     os.system('pwd')
-    os.system('/bin/bash')
+    login_shell = (os.environ['SHELL'])
+    os.system(login_shell)
 
 
 if __name__ == '__main__':
