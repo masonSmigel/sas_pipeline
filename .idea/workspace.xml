@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/bin/nelm" beforeDir="false" afterPath="$PROJECT_DIR$/bin/nelm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/nrelm" beforeDir="false" afterPath="$PROJECT_DIR$/bin/nrelm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/nrshot" beforeDir="false" afterPath="$PROJECT_DIR$/bin/nrshot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/nshot" beforeDir="false" afterPath="$PROJECT_DIR$/bin/nshot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/setshow" beforeDir="false" afterPath="$PROJECT_DIR$/bin/setshow" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/setstudio" beforeDir="false" afterPath="$PROJECT_DIR$/bin/setstudio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -23,6 +23,8 @@ NOTE: an easier install is coming!! This is still a WIP.
 command line commands are designed for high level management of the project. This includes things like creating new
 entities, seting your workspace and removing entities. 
 
+NOTE: use the help flag in the command line for full docmentaion
+
 `setstudio`: sets the current active studio
 
 `setshow`: sets the current active show
@@ -41,6 +43,21 @@ entities, seting your workspace and removing entities.
 
 `rmshow`: removes a show
 
+`nelm`: navigate to the working directory of an element
+
+`nrelm`: navigate to the release directory of an element
+
+`nshot`: navigate to the working directory of a shot 
+
+`nrshot`: navigate to the release directory of a shot 
+
+`lsshow`: list all shows availble in the studio 
+
+`lselm`: list all elements availble in the current show 
+
+`lsshot`: list all shots availble in the current show 
+
+
 
 # Philosophy
 SAS pipeline is built of different entities, studios, shows, elements, and shots. 
@@ -48,7 +65,7 @@ Each entitiy contains a .manifest file with holds and manages data about that en
 directory as an entity. 
 
 Each entity and the tasks it performs are completely software agnostic, it can then be wrapped into more complex
-situations such as a maya shot assemebler. 
+situations specific to each DCC. 
 
 
 
