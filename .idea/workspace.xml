@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/sas_info" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__trash__/maya/ui/widgets/menuBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/menuBase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/lsshow" beforeDir="false" afterPath="$PROJECT_DIR$/bin/lsshow" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/mkshow" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mkshow" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/mkstudio" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mkstudio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drag_into_maya.py" beforeDir="false" afterPath="$PROJECT_DIR$/drag_into_maya.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,11 +71,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/scripts/__trash__" />
       <recent name="$PROJECT_DIR$/scripts/sas_pipe/utils/data" />
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe/manager" />
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe/api" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/bin" />
@@ -427,7 +440,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637035279190</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="updated README">
+      <created>1638467422981</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1638467422982</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -488,7 +508,6 @@
     <MESSAGE value="added __trash__ to gitignore" />
     <MESSAGE value="full_refactor" />
     <MESSAGE value="intial commit for v2.0.0" />
-    <MESSAGE value="updated README" />
     <MESSAGE value="added system arugments" />
     <MESSAGE value="added nav commands to bin" />
     <MESSAGE value="replaced optional arugments with positional arguments. removed python (input)" />
@@ -496,6 +515,7 @@
     <MESSAGE value="added gitignore to gitignore" />
     <MESSAGE value="updated printing to match terminal" />
     <MESSAGE value="changed shell type from zsh to bash" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed shell type from zsh to bash" />
+    <MESSAGE value="updated README" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated README" />
   </component>
 </project>

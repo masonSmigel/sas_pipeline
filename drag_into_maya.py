@@ -39,6 +39,3 @@ def onMayaDroppedPythonFile(*args):
     if python_path not in sys.path:
         sys.path.append(python_path)
 
-    # build the shelf ui
-    import sas_pipe.maya.sas_shelf as sas_shelf
-    _sas_shelf = sas_shelf.SASShelf(name='SAS')

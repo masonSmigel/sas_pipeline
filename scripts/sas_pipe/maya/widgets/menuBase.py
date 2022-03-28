@@ -1,13 +1,13 @@
 import re
 
-import pymel.core as pm
-
+import maya.cmds as cmds
+import maya.mel as mel
 
 def _null(*args):
     pass
 
 
-class _menu:
+class _menu(object):
     """
     A simple class to build menus in maya. Since the build method is empty,
     it should be extended by the derived class to build the necessary shelf elements.
@@ -24,7 +24,6 @@ class _menu:
         self.labelColour = (.9, .9, .9)
 
         self._cleanOldMenu()
-        # pm.setParent(self.name)
         self.build()
 
     def build(self):
@@ -34,7 +33,7 @@ class _menu:
         """
         pass
 
-    def addMenuItem(self, label, parent=None, command=_null, icon="", **kwargs):
+    def addMenuItem(self, label, parent=None, command=_null, icon=None, **kwargs):
         """
         Adds a shelf button with the specified label, command, double click command and image.
         """
@@ -42,7 +41,7 @@ class _menu:
             icon = self.iconPath + icon
         if not parent:
             parent = self.menu_obj
-        return pm.menuItem(p=parent, l=label, c=command, i=icon, **kwargs)
+        return cmds.menuItem(p=parent, l=label, c=command, i=icon, **kwargs)
 
     def addSubMenu(self, label, parent=None, icon=None, tearOff=True, **kwargs):
         """
@@ -52,7 +51,7 @@ class _menu:
             icon = self.iconPath + icon
         if not parent:
             parent = self.menu_obj
-        return pm.menuItem(l=label, subMenu=True, tearOff=tearOff, p=parent, **kwargs)
+        return cmds.menuItem(l=label, subMenu=True, tearOff=tearOff, p=parent, **kwargs)
 
     def addDivider(self, parent=None):
         """
@@ -60,21 +59,22 @@ class _menu:
         """
         if not parent:
             parent = self.menu_obj
-        return pm.menuItem(divider=True, parent=parent)
+        return cmds.menuItem(divider=True, parent=parent)
 
     def _cleanOldMenu(self):
         """
         Checks if the shelf exists and empties it if it does or creates it if it does not.
         """
-        main_window = pm.language.melGlobals['gMainWindow']
+        # main_window = cmds.language.melGlobals['gMainWindow']
+        main_window = mel.eval('string $temp = $gMainWindow')
 
-        if pm.menu(self.menu_obj, l=self.name, ex=1):
-            if pm.menu(self.menu_obj, q=True, ia=True):
-                for each in pm.menu(self.menu_obj, q=True, ia=True):
-                    pm.deleteUI(each)
+        if cmds.menu(self.menu_obj, l=self.name, ex=1):
+            if cmds.menu(self.menu_obj, q=True, ia=True):
+                for each in cmds.menu(self.menu_obj, q=True, ia=True):
+                    cmds.deleteUI(each)
 
         else:
-            pm.menu(self.menu_obj, l=self.name, p=main_window, tearOff=True)
+            cmds.menu(self.menu_obj, l=self.name, p=main_window, tearOff=True)
 
     def teardown(self):
-        pm.deleteUI(self.menu_obj)
+        cmds.deleteUI(self.menu_obj)

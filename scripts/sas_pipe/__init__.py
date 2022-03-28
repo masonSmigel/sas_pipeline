@@ -14,7 +14,7 @@ __author__ = 'Mason Smigel'
 __all__ = ['version', 'version_info', '__version__']
 
 
-def reloadModule(name='sas_pipe'):
+def reloadModule(name='sas_pipe', log=True):
     """
     Reload a module
     :param name:
@@ -22,7 +22,8 @@ def reloadModule(name='sas_pipe'):
     """
     for mod in sys.modules.keys():
         if mod.startswith(name):
-            Logger.info("Removing module: {}".format(mod))
+            if log:
+                Logger.info("Removing module: {}".format(mod))
             del sys.modules[mod]
 
 

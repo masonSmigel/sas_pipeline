@@ -4,7 +4,7 @@ import sas_pipe.api.cmds as sas
 
 
 def mkstudio(studio_name=None, studio_path=None):
-    sas.initenv()
+    sas.initenv(silent=True)
     studio = sas.mkstudio(studio_name, studio_path)
     print('New Studio created at {}'.format(studio.path))
 

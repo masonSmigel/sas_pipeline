@@ -74,10 +74,10 @@ def setshow(show):
     return environment.getEnv('show_path')
 
 
-def initenv():
+def initenv(silent=False):
     """
     initalize our enviornment from out userprefs.
-    :return:
+    :return:ls
     """
     # set the show enviornment variables
     if not environment.getEnv('show'):
@@ -85,7 +85,8 @@ def initenv():
         if show:
             setshow(show)
         else:
-            raise WorkspaceError('No show is set. Set a show to continue')
+            if not silent:
+                raise WorkspaceError('No show is set. Set a show to continue')
 
 
 # STUDIO
@@ -112,6 +113,7 @@ def mkstudio(studio, path):
     # tag the folder as a studio root
     pipeutils.addEntityTag(studio_path, 'studio')
 
+    setstudio(studio_path)
     return sas_pipe.entities.studio.Studio(studio_path)
 
 

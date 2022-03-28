@@ -4,7 +4,7 @@ import sas_pipe.api.cmds as sas
 
 
 def mkshow(show=None):
-    sas.initenv()
+    sas.initenv(silent=True)
     sas.mkshow(show)
     print('New Show created: {}'.format(str(show).upper()))
 

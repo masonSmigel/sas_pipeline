@@ -1,0 +1,31 @@
+#!/usr/bin/env python2
+import os
+from argparse import ArgumentParser
+import sas_pipe.api.cmds as sas
+import sas_pipe.environment as environment
+import sas_pipe.api.user_prefs as user_prefs
+
+
+def sas_info():
+    sas.initenv(silent=True)
+
+    if environment.getEnv("root"):
+        print("\n\tEnviornment:")
+        print("\t\tStudio: {}".format(environment.getEnv("root")))
+        print("\t\tShow: {}".format(environment.getEnv("show")))
+        print("\t\tShow Path: {}".format(environment.getEnv("show_path")))
+        print("\n")
+
+    else:
+        print("\n\t No Studio initalized")
+
+    print("\n\tUser preferences:")
+    print("\t\tStudio: {}".format(user_prefs.UserPrefs.get_root()))
+    print("\t\tShow: {}".format(user_prefs.UserPrefs.get_currentShow()))
+    print("\n")
+
+if __name__ == '__main__':
+    parser = ArgumentParser(description="""
+    Display info about the current SAS enviornment
+    """)
+    sas_info()
