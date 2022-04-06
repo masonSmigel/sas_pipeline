@@ -18,8 +18,8 @@ def isShot(path):
 
 class Shot(elm.Element):
     DEFAULT_VARIANT = OrderedDict(
-        [('anim', 'anim'), ('audio', 'audio'), ('comp', 'comp'), ('crowd', 'anim/crowd'), ('fx', 'fx'), ('lay', 'lay'),
-         ('lght', 'lght'), ('sim', 'sim'), ('fin', 'fin')])
+        [('anim', 'anim'), ('audio', 'audio'), ('comp', 'comp'), ('crowd', 'crowd'), ('fx', 'fx'), ('lay', 'lay'),
+         ('lght', 'lght'), ('cfx', 'cfx'), ('mocap', 'mocap')])
 
     DEFAULT_TASKS = DEFAULT_VARIANT.keys()
 
@@ -108,18 +108,17 @@ class Shot(elm.Element):
             if override: data['elements'][elementCode]['override'] = override
             self.setData(data)
         else:
-            raise KeyError('Element "{}" is not part of this shot'.format(element))
+            raise KeyError('Element "{}" is not part of this shot'.format(elementCode))
 
 
 if __name__ == '__main__':
-    sh = Shot(
-        "/Users/masonsmigel/Documents/jobs/animAide/pipeline/projects_root/testStudio/shows/TEST/work/sequences/seq/010/0010")
+    sh = Shot("/Users/masonsmigel/Documents/SAS_DEV/shows/TEST/sequences/seq/010/0010")
     # sh.add_task('new')
 
-    # print sh.add_element('testCharacter', 'char', 'rig')
-    # sh.get_element_data('testCharacter')
-    # sh.set_element('testCharacter1', task='mod', override='rig/test.ma')
-
+    print sh.add_element('testCharacter', 'char', 'rig')
+    sh.get_element_data('testCharacter')
+    sh.set_element('testCharacter', task='mod', override='rig/test.ma')
+    #
     # elements = sh.get_elements()
-
+    #
     # sh.rm_element('testCharacter')

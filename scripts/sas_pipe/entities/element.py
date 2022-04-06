@@ -2,6 +2,7 @@ import os
 from collections import OrderedDict
 import sas_pipe.utils.osutil as os_utils
 import sas_pipe.utils.pipeutils as pipeutils
+import sas_pipe.common as common
 import sas_pipe.entities.abstract_entity as abstract_entity
 
 
@@ -16,7 +17,7 @@ def isElement(path):
 
 class Element(abstract_entity.AbstractEntity):
     DEFAULT_VARIANT = OrderedDict(
-        [('conc', 'conc'), ('mod', 'mod'), ('rig', 'rig'), ('tex', 'look/tex'), ('mat', 'look/mat')])
+        [('art', 'art'), ('mod', 'mod'), ('rig', 'rig'), ('tex', 'look/tex'), ('mat', 'look/mat')])
 
     DEFAULT_TASKS = DEFAULT_VARIANT.keys()
 
@@ -24,19 +25,16 @@ class Element(abstract_entity.AbstractEntity):
 
     def __init__(self, path, name=None):
         super(Element, self).__init__(path, name)
-        self.work_path = self.path.replace('/rel/', '/work/', )
-        self.rel_path = self.path.replace('/work/', '/rel/')
 
     def __str__(self):
         description = \
             '''
             name: {name}
             type: {type}
-            work_path: {work_path}
-            rel_path: {rel_path}
+            path: {path}
             '''
 
-        return description.format(name=self.name, work_path=self.work_path, rel_path=self.rel_path, type=self.type)
+        return description.format(name=self.name, path=self.path, type=self.type)
 
     def set_tasks(self, values):
         data = self._data
@@ -58,8 +56,9 @@ class Element(abstract_entity.AbstractEntity):
             data['tasks'].append(new)
             if path:
                 data['variants']['base'][new] = path
-                os.makedirs(os.path.join(self.work_path, path))
-                os.makedirs(os.path.join(self.rel_path, path))
+                os.makedirs(os.path.join(self.path, path, common.WORK_TOKEN))
+                os.makedirs(os.path.join(self.path, path, common.REL_TOKEN))
+                os.makedirs(os.path.join(self.path, path, common.VER_TOKEN))
             self.setData(data)
         else:
             raise ValueError('Task "{}" already exists on asset "{}"'.format(new, self.name))
@@ -135,12 +134,11 @@ class Element(abstract_entity.AbstractEntity):
 
 
 if __name__ == '__main__':
-    e = Element(
-        '/Users/masonsmigel/Documents/jobs/animAide/pipeline/projects_root/testStudio/shows/TEST/work/elements/char/testCharacter')
+    e = Element('/Users/masonsmigel/Documents/SAS_DEV/shows/TEST/elements/char/testCharacter')
     e.get_tasks()
-    e.add_task('bshp', 'rig/bshp')
-    # e.add_task('bshp', 'rig/bshp')
+    # e.add_task('face', 'rig/face')
+    # e.add_task('body', 'rig/body')
     # e.add_variant('worn', rig='rig/wear')
     # e.add_task('bshps', 'rig/bshps')
     # e.add_variant('worn', mod='mod/worn')
-    # print e.get_all_variants()
+    print e.get_all_variants()

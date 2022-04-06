@@ -2,20 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bin/sas_info" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icons/afdesign/pipeline_logos.afdesign" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icons/search.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/file.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__trash__/maya/ui/widgets/menuBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/menuBase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/lsshow" beforeDir="false" afterPath="$PROJECT_DIR$/bin/lsshow" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/mkshow" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mkshow" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/mkstudio" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mkstudio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drag_into_maya.py" beforeDir="false" afterPath="$PROJECT_DIR$/drag_into_maya.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/rmshot" beforeDir="false" afterPath="$PROJECT_DIR$/bin/rmshot" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/api/user_prefs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/api/user_prefs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/environment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/utils/pipeutils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/utils/pipeutils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,23 +64,24 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/bin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts/sas_pipe/maya" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/__trash__" />
       <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya" />
       <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/scripts/__trash__" />
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe/utils/data" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/api" />
       <recent name="$PROJECT_DIR$/bin" />
       <recent name="$PROJECT_DIR$/scripts/__trash__" />
       <recent name="$PROJECT_DIR$/scripts/__trash__/maya" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -96,13 +96,34 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.scratch_5">
+  <component name="RunManager" selected="MayaCharm.Unnamed">
     <configuration name="Unnamed" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MayaCharm Configuration Factory">
       <option name="mayaSdkPath" value="/Applications/Autodesk/maya2020/Maya.app/Contents/bin/mayapy" />
-      <option name="scriptFilePath" value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
+      <option name="scriptFilePath" value="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" />
       <method v="2" />
     </configuration>
-    <configuration name="cmds" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="assetBrowser" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="sas_pipeline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/sas_pipe/maya/ui" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="cmds_m" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="sas_pipeline" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -144,7 +165,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="lselm" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="environment" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="sas_pipeline" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -152,53 +173,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/sas_pipe" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/lselm" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="lsshot" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="sas_pipeline" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/lsshot" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="lsshow" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="sas_pipeline" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bin/lsshow" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/sas_pipe/environment.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -228,22 +207,43 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="shot" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="sas_pipeline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/sas_pipe/entities" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="MayaCharm.Unnamed" />
       <item itemvalue="Python.element" />
-      <item itemvalue="Python.cmds" />
-      <item itemvalue="Python.lsshow" />
-      <item itemvalue="Python.lselm" />
-      <item itemvalue="Python.lsshot" />
       <item itemvalue="Python.scratch_5" />
+      <item itemvalue="Python.cmds_m" />
+      <item itemvalue="Python.shot" />
+      <item itemvalue="Python.assetBrowser" />
+      <item itemvalue="Python.environment" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.environment" />
+        <item itemvalue="Python.assetBrowser" />
+        <item itemvalue="Python.cmds_m" />
+        <item itemvalue="Python.shot" />
         <item itemvalue="Python.scratch_5" />
-        <item itemvalue="Python.cmds" />
-        <item itemvalue="Python.lsshot" />
-        <item itemvalue="Python.lselm" />
-        <item itemvalue="Python.lsshow" />
       </list>
     </recent_temporary>
   </component>
@@ -447,7 +447,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638467422982</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="commit before merge hierarchy">
+      <created>1648493975204</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1648493975204</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -516,6 +523,7 @@
     <MESSAGE value="updated printing to match terminal" />
     <MESSAGE value="changed shell type from zsh to bash" />
     <MESSAGE value="updated README" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated README" />
+    <MESSAGE value="commit before merge hierarchy" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit before merge hierarchy" />
   </component>
 </project>

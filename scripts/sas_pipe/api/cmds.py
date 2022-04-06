@@ -1,5 +1,6 @@
 """
-Manager functions for creating and editing entities
+Manager functions for creating and editing entities.
+MERGED Publish and release hierarhcy
 """
 import os
 import re
@@ -39,7 +40,6 @@ def setstudio(path):
 
     # setup the enviornment variables
     environment.setEnv('root', path)
-
     environment.setEnv('shows_path', os.path.join(environment.getEnv('root'), 'shows'))
     environment.setEnv('depts_path', os.path.join(environment.getEnv('root'), 'depts'))
     return path
@@ -57,19 +57,22 @@ def setshow(show):
         if prefs_root:
             setstudio(prefs_root)
         else:
-            raise WorkspaceError('No show is studio. Set a studio to continue')
+            raise Warning('No show is studio. Set a studio to continue')
 
     environment.setEnv('show', show)
     user_prefs.UserPrefs.set_current_show(show)
 
     # setup the show specific enviornment variables
     environment.setEnv('show_path', os.path.join(environment.getEnv('shows_path'), environment.getEnv('show')))
-    environment.setEnv('rel_path', os.path.join(environment.getEnv('show_path'), 'rel'))
-    environment.setEnv('work_path', os.path.join(environment.getEnv('show_path'), 'work'))
-    environment.setEnv('elm_work_path', os.path.join(environment.getEnv('work_path'), 'elements'))
-    environment.setEnv('seq_work_path', os.path.join(environment.getEnv('work_path'), 'sequences'))
-    environment.setEnv('elm_rel_path', os.path.join(environment.getEnv('rel_path'), 'elements'))
-    environment.setEnv('seq_rel_path', os.path.join(environment.getEnv('rel_path'), 'sequences'))
+    environment.setEnv('elm_path', os.path.join(environment.getEnv('show_path'), 'elements'))
+    environment.setEnv('seq_path', os.path.join(environment.getEnv('show_path'), 'sequences'))
+
+    # other stuff
+    environment.setEnv('pipe_path', os.path.join(environment.getEnv('show_path'), 'pipeline'))
+    environment.setEnv('develop_path', os.path.join(environment.getEnv('show_path'), 'development'))
+    environment.setEnv('rnd_path', os.path.join(environment.getEnv('show_path'), 'rnd'))
+    environment.setEnv('editorial_path', os.path.join(environment.getEnv('show_path'), 'editorial'))
+    environment.setEnv('out_path', os.path.join(environment.getEnv('show_path'), 'out'))
 
     return environment.getEnv('show_path')
 
@@ -80,13 +83,12 @@ def initenv(silent=False):
     :return:ls
     """
     # set the show enviornment variables
-    if not environment.getEnv('show'):
-        show = user_prefs.UserPrefs.get_currentShow()
-        if show:
-            setshow(show)
-        else:
-            if not silent:
-                raise WorkspaceError('No show is set. Set a show to continue')
+    show = user_prefs.UserPrefs.get_currentShow()
+    if show:
+        setshow(show)
+    else:
+        if not silent:
+            raise Warning('No show is set. Set a show to continue')
 
 
 # STUDIO
@@ -129,6 +131,10 @@ def rmstudio(path):
         raise TypeError('{} is not a studio.'.format(path))
 
 
+def getstudio():
+    return environment.getEnv('root')
+
+
 # SHOW
 def mkshow(show, elementTypes=None, sequenceTypes=None):
     """
@@ -163,13 +169,20 @@ def mkshow(show, elementTypes=None, sequenceTypes=None):
     if sequenceTypes:
         show_entity.set_sequenceTypes(sequenceTypes)
 
+    # Make folders for element and sequence types
     for type in show_entity._data['element_types']:
-        os.makedirs(os.path.join(environment.getEnv('elm_work_path'), type))
-        os.makedirs(os.path.join(environment.getEnv('elm_rel_path'), type))
+        os.makedirs(os.path.join(environment.getEnv('elm_path'), type))
 
     for type in show_entity._data['sequence_types']:
-        os.makedirs(os.path.join(environment.getEnv('seq_work_path'), type))
-        os.makedirs(os.path.join(environment.getEnv('seq_rel_path'), type))
+        os.makedirs(os.path.join(environment.getEnv('seq_path'), type))
+
+    # make other root folders
+    os.makedirs(os.path.join(environment.getEnv('pipe_path')))
+    os.makedirs(os.path.join(environment.getEnv('develop_path')))
+    os.makedirs(os.path.join(environment.getEnv('rnd_path')))
+    os.makedirs(os.path.join(environment.getEnv('editorial_path')))
+    os.makedirs(os.path.join(environment.getEnv('out_path')))
+
     return show_entity
 
 
@@ -196,6 +209,14 @@ def lsshow():
     return studio_entity._data['shows']
 
 
+def getshowpath():
+    return environment.getEnv('show_path')
+
+
+def getshow():
+    return environment.getEnv('show')
+
+
 # ELEMENT
 def mkelm(element, type, var_data=None):
     """
@@ -213,18 +234,15 @@ def mkelm(element, type, var_data=None):
 
     # clean the name of the element before we create stuff
     element = re.sub("[^A-Za-z0-9_{}]", "", str(element))
-    elm_work_path = osutil.clean_path(os.path.join(environment.getEnv('elm_work_path'), type, element))
-    elm_rel_path = osutil.clean_path(os.path.join(environment.getEnv('elm_rel_path'), type, element))
+    elm_path = osutil.clean_path(os.path.join(environment.getEnv('elm_path'), type, element))
 
     # setup the element
-    os.makedirs(elm_work_path)
-    os.makedirs(elm_rel_path)
+    os.makedirs(elm_path)
 
     # Tag the folder as a show
-    pipeutils.addEntityTag(elm_work_path, 'element')
-    pipeutils.addEntityTag(elm_rel_path, 'element')
+    pipeutils.addEntityTag(elm_path, 'element')
 
-    elm_entity = sas_pipe.entities.element.Element(elm_work_path)
+    elm_entity = sas_pipe.entities.element.Element(elm_path)
 
     # if we pass var_data then add that to the elm_entity
     if var_data:
@@ -233,8 +251,9 @@ def mkelm(element, type, var_data=None):
 
     variant_data = elm_entity.get_variant_tasks('base')
     for task in elm_entity.get_tasks():
-        os.makedirs(os.path.join(elm_entity.work_path, variant_data[task]))
-        os.makedirs(os.path.join(elm_entity.rel_path, variant_data[task]))
+        os.makedirs(os.path.join(elm_entity.path, variant_data[task], common.WORK_TOKEN))
+        os.makedirs(os.path.join(elm_entity.path, variant_data[task], common.REL_TOKEN))
+        os.makedirs(os.path.join(elm_entity.path, variant_data[task], common.VER_TOKEN))
 
     return elm_entity
 
@@ -245,12 +264,10 @@ def rmelm(element, type):
     :param element: name of element to delete
     :param type: type of element
     """
-    elm_work_path = osutil.clean_path(os.path.join(environment.getEnv('elm_work_path'), type, element))
-    elm_rel_path = osutil.clean_path(os.path.join(environment.getEnv('elm_rel_path'), type, element))
+    elm_path = osutil.clean_path(os.path.join(environment.getEnv('elm_path'), type, element))
 
-    if sas_pipe.entities.element.isElement(elm_work_path) and sas_pipe.entities.element.isElement(elm_rel_path):
-        shutil.rmtree(elm_work_path)
-        shutil.rmtree(elm_rel_path)
+    if sas_pipe.entities.element.isElement(elm_path):
+        shutil.rmtree(elm_path)
 
 
 def nelm(element, type=None):
@@ -260,17 +277,7 @@ def nelm(element, type=None):
     :param type: Optional- provide a specific type
     :return: element work directory
     """
-    return nav(element, entityType='elm', work=True, type=type)
-
-
-def nrelm(element, type=None):
-    """
-     Navigate to an element release directory
-    :param element: Name of the element to navigate to
-    :param type: Optional- provide a specific type
-    :return: element release directory
-    """
-    return nav(element, entityType='elm', work=False, type=type)
+    return nav(element, entityType='elm', type=type)
 
 
 def lselm(types=None):
@@ -279,16 +286,16 @@ def lselm(types=None):
     :return: dict of elment types and elments within the type
     """
     show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
-    elm_work_path = osutil.clean_path(os.path.join(environment.getEnv('elm_work_path')))
+    elm_path = osutil.clean_path(os.path.join(environment.getEnv('elm_path')))
     elm_dict = dict()
     types = show_entity.get_assetTypes() if not types else common.toList(types)
     for type in types:
         type_elmenets = list()
-        contents = osutil.get_contents(os.path.join(elm_work_path, type))
+        contents = osutil.get_contents(os.path.join(elm_path, type))
         for content in contents:
-            elm_path = os.path.join(elm_work_path, type, content)
-            if sas_pipe.entities.element.isElement(elm_path):
-                elm = sas_pipe.entities.element.Element(elm_path)
+            elm_entity_path = os.path.join(elm_path, type, content)
+            if sas_pipe.entities.element.isElement(elm_entity_path):
+                elm = sas_pipe.entities.element.Element(elm_entity_path)
                 type_elmenets.append(elm.name)
         elm_dict[type] = sorted(type_elmenets)
     return elm_dict
@@ -309,18 +316,15 @@ def mkshot(seq, shot, type=None, var_data=None):
     if type not in show_entity.sequenceTypes:
         raise KeyError("{} is not a valid type. Types are: {}".format(type, show_entity.sequenceTypes))
 
-    shot_work_path = osutil.clean_path(os.path.join(environment.getEnv('seq_work_path'), type, seq, shot))
-    shot_rel_path = osutil.clean_path(os.path.join(environment.getEnv('seq_rel_path'), type, seq, shot))
+    shot_path = osutil.clean_path(os.path.join(environment.getEnv('seq_path'), type, seq, shot))
 
     # setup the element
-    os.makedirs(shot_work_path)
-    os.makedirs(shot_rel_path)
+    os.makedirs(shot_path)
 
     # Tag the folder as a show
-    pipeutils.addEntityTag(shot_work_path, 'shot')
-    pipeutils.addEntityTag(shot_rel_path, 'shot')
+    pipeutils.addEntityTag(shot_path, 'shot')
 
-    shot_entity = sas_pipe.entities.shot.Shot(shot_work_path)
+    shot_entity = sas_pipe.entities.shot.Shot(shot_path)
 
     # if we pass var_data then add that to the elm_entity
     if var_data:
@@ -329,8 +333,9 @@ def mkshot(seq, shot, type=None, var_data=None):
 
     variant_data = shot_entity.get_variant_tasks('base')
     for task in shot_entity.get_tasks():
-        os.makedirs(os.path.join(shot_entity.work_path, variant_data[task]))
-        os.makedirs(os.path.join(shot_entity.rel_path, variant_data[task]))
+        os.makedirs(os.path.join(shot_entity.path, variant_data[task], common.WORK_TOKEN))
+        os.makedirs(os.path.join(shot_entity.path, variant_data[task], common.REL_TOKEN))
+        os.makedirs(os.path.join(shot_entity.path, variant_data[task], common.VER_TOKEN))
 
     return shot_entity
 
@@ -347,14 +352,10 @@ def rmshot(seq, shot, type=None):
     if type not in show_entity.sequenceTypes:
         raise KeyError("{} is not a valid type. Types are: {}".format(type, show_entity.sequenceTypes))
 
-    shot_work_path = osutil.clean_path(os.path.join(environment.getEnv('seq_work_path'), type, seq, shot))
-    shot_rel_path = osutil.clean_path(os.path.join(environment.getEnv('seq_rel_path'), type, seq, shot))
+    shot_path = osutil.clean_path(os.path.join(environment.getEnv('seq_path'), type, seq, shot))
 
-    print shot_work_path, shot_rel_path
-
-    if sas_pipe.entities.shot.isShot(shot_work_path) and sas_pipe.entities.shot.isShot(shot_rel_path):
-        shutil.rmtree(shot_work_path)
-        shutil.rmtree(shot_rel_path)
+    if sas_pipe.entities.shot.isShot(shot_path):
+        shutil.rmtree(shot_path)
 
 
 def nshot(seq, shot, type=None):
@@ -366,19 +367,7 @@ def nshot(seq, shot, type=None):
     :return: shot work directory
     """
     code = '/'.join([seq, shot])
-    return nav(code, entityType='shot', work=True, type=type)
-
-
-def nrshot(seq, shot, type=None):
-    """
-    Navigate to a relase shot directory
-    :param seq: name of the sequence
-    :param shot: name of the shot
-    :param type: Optional- provide a specific type
-    :return: relase shot directory
-    """
-    code = '/'.join([seq, shot])
-    return nav(code, entityType='shot', work=False, type=type)
+    return nav(code, entityType='shot', type=type)
 
 
 def lsshot(types=None):
@@ -387,39 +376,36 @@ def lsshot(types=None):
     :return: dict of elment types and elments within the type
     """
     show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
-    seq_work_path = osutil.clean_path(os.path.join(environment.getEnv('seq_work_path')))
+    seq_path = osutil.clean_path(os.path.join(environment.getEnv('seq_path')))
     shot_dict = dict()
     types = show_entity.get_sequenceTypes() if not types else common.toList(types)
     for type in types:
         type_dict = list()
-        sequences = osutil.get_contents(os.path.join(seq_work_path, type))
+        sequences = osutil.get_contents(os.path.join(seq_path, type))
         for seq in sequences:
-            seq_path = os.path.join(seq_work_path, type, seq)
-            shots = osutil.get_contents(seq_path)
+            seq_entity_path = os.path.join(seq_path, type, seq)
+            shots = osutil.get_contents(seq_entity_path)
             for shot in shots:
-                if sas_pipe.entities.shot.isShot(os.path.join(seq_path, shot)):
-                    shot = sas_pipe.entities.shot.Shot(os.path.join(seq_path, shot))
+                if sas_pipe.entities.shot.isShot(os.path.join(seq_entity_path, shot)):
+                    shot = sas_pipe.entities.shot.Shot(os.path.join(seq_entity_path, shot))
                     type_dict.append(shot.name)
         shot_dict[type] = sorted(type_dict)
     return shot_dict
 
 
-def nav(code, entityType='elm', work=True, type=None):
+def nav(code, entityType='elm', type=None):
     """
     Navigate to an element
     :param code: name of the element to find. for shots use '010/0010'
     :param entityType: type of element. Valid values are 'elm' or 'shot'
-    :param work: specify if the file is a work of release file
     :param type: Optional- provide a specific type to speed up the opperation.
     :return:
     """
     show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
 
     types = show_entity.elementTypes if entityType is 'elm' else show_entity.sequenceTypes
-    if work:
-        env_path = environment.getEnv('elm_work_path') if entityType is 'elm' else environment.getEnv('seq_work_path')
-    else:
-        env_path = environment.getEnv('elm_rel_path') if entityType is 'elm' else environment.getEnv('seq_rel_path')
+
+    env_path = environment.getEnv('elm_path') if entityType is 'elm' else environment.getEnv('seq_path')
 
     if type:
         elm_path = osutil.clean_path((os.path.join(env_path, type, code)))
@@ -435,17 +421,13 @@ def nav(code, entityType='elm', work=True, type=None):
             if entityType == 'elm':
                 if sas_pipe.entities.element.isElement(elm_path):
                     return elm_path
-        else:
-            if sas_pipe.entities.shot.isShot(elm_path):
-                return elm_path
+            else:
+                if sas_pipe.entities.shot.isShot(elm_path):
+                    return elm_path
 
 
 if __name__ == '__main__':
     import json
-
-    #
-    # setstudio('/Users/masonsmigel/Documents/jobs/animAide/pipeline/projects_root/testStudio')
-    setshow('TEST')
     initenv()
 
-    rmshow('demo')
+    print n

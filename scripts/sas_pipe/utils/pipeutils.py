@@ -33,6 +33,8 @@ def checkTag(path, tag):
     """
     if not os.path.exists(path):
         return False
+    if osutil.is_file(path):
+        return False
 
     if '.{}'.format(tag.lower()) in osutil.get_contents(path, files=True, dirs=False):
         return True

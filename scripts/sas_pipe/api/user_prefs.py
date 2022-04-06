@@ -10,6 +10,7 @@ DEFAULT_DATA = {'root': ''}
 class UserPrefs(object):
     _prefs_obj = None
 
+    # TODO: update to use something else cause this is not working when the file is changed.
     @classmethod
     def prefs_obj(cls):
         if not cls._prefs_obj:

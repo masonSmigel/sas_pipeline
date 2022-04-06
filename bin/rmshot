@@ -6,7 +6,7 @@ import sas_pipe.api.cmds as sas
 def rmshot(seq=None, shot=None, type=None):
     sas.initenv()
     sas.rmshot(seq=seq, shot=shot, type=type)
-    print('Deleted Sequence {}/{}!'.format(seq, shot))
+    print('Deleted Shot {}/{}!'.format(seq, shot))
 
 
 if __name__ == '__main__':

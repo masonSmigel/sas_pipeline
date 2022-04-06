@@ -38,6 +38,15 @@ def getAll():
     return res
 
 
+def flushEnv():
+
+    environ_varibles = os.environ.copy()
+    print environ_varibles
+    for key, val in environ_varibles.iteritems():
+        if key.startswith(VAR_PREFIX):
+            del os.environ[key]
+
+
 if __name__ == '__main__':
     setEnv('Root', '/Users/masonsmigel/Documents/jobs/animAide/pipeline/projects_root')
     setEnv('user', 'me')

@@ -8,9 +8,9 @@ from collections import OrderedDict
 current_path = __file__.replace('\\', '/')
 
 # Maya module paths
-ICONS_PATH = '/'.join(current_path.split('/')[0:-4]) + '/icons'
-PLUGIN_PATH = '/'.join(current_path.split('/')[0:-4]) + '/plug-ins'
-SCRIPTS_PATH = '/'.join(current_path.split('/')[0:-4]) + '/scripts'
+ICONS_PATH = '/'.join(current_path.split('/')[0:-3]) + '/icons'
+PLUGIN_PATH = '/'.join(current_path.split('/')[0:-3]) + '/plug-ins'
+SCRIPTS_PATH = '/'.join(current_path.split('/')[0:-3]) + '/scripts'
 
 # path constants.
 # Paths are relative to the root of the project.
@@ -19,22 +19,17 @@ DEPTS_PATH = 'depts'
 
 CURRENTSHOW_PATH = SHOWS_PATH + '/{currentShow}'
 
-REL_PATH = CURRENTSHOW_PATH + '/rel'
-WORK_PATH = CURRENTSHOW_PATH + '/work'
+REL_TOKEN = 'publish'
+VER_TOKEN = 'publish/versions'
+WORK_TOKEN = 'work'
 
-ASSET_WORK_PATH = WORK_PATH + "/elements"
-SEQ_WORK_PATH = WORK_PATH + "/sequences"
-ASSET_REL_PATH = REL_PATH + "/elements"
-SEQ_REL_PATH = REL_PATH + "/sequences"
-
-ESSENTIAL_PATHS = [SHOWS_PATH, DEPTS_PATH, CURRENTSHOW_PATH, REL_PATH, WORK_PATH, ASSET_WORK_PATH, SEQ_WORK_PATH,
-                   ASSET_REL_PATH, SEQ_REL_PATH]
+# ESSENTIAL_PATHS = [SHOWS_PATH, DEPTS_PATH, CURRENTSHOW_PATH, REL_PATH, WORK_PATH]
 
 # Project Defaults
-ASSET_TYPES = ['char', 'prop', 'set', 'setPeice']  # Asset types
-SEQUENCE_TYPES = ['pub', 'seq']  # sequence type
-ASSET_TASKS = ['mod', 'rig', 'look', 'conc']  # Asset Departments
-SHOT_TASKS = ['audio', 'lay', 'anim', 'crowd', 'fx', 'sim', 'lgt', 'comp']  # Shot Departments
+ASSET_TYPES = ['char', 'prop', 'envi', 'envi/parts', 'temp']  # Asset types
+SEQUENCE_TYPES = ['mrkt', 'seq']  # sequence type
+ASSET_TASKS = ['mod', 'rig', 'look', 'art']  # Asset Departments
+SHOT_TASKS = ['audio', 'lay', 'anim', 'crowd', 'fx', 'cfx', 'lgt', 'comp', 'mocap']  # Shot Departments
 OTHER_DEPTS = ['core']  # Other Departments
 
 DEPTS = ASSET_TASKS + SHOT_TASKS + OTHER_DEPTS
