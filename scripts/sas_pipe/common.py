@@ -11,6 +11,7 @@ current_path = __file__.replace('\\', '/')
 ICONS_PATH = '/'.join(current_path.split('/')[0:-3]) + '/icons'
 PLUGIN_PATH = '/'.join(current_path.split('/')[0:-3]) + '/plug-ins'
 SCRIPTS_PATH = '/'.join(current_path.split('/')[0:-3]) + '/scripts'
+PUBLISHSTEPS_PATH = '/'.join(current_path.split('/')[0:-3]) + '/scripts/sas_pipe/maya/publish'
 
 # path constants.
 # Paths are relative to the root of the project.
