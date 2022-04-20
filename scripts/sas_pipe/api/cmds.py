@@ -237,6 +237,8 @@ def mkelm(element, type, var_data=None):
     elm_path = osutil.clean_path(os.path.join(environment.getEnv('elm_path'), type, element))
 
     # setup the element
+    if os.path.exists(elm_path):
+        raise UserError("Element with that name already exists")
     os.makedirs(elm_path)
 
     # Tag the folder as a show
@@ -319,6 +321,8 @@ def mkshot(seq, shot, type=None, var_data=None):
     shot_path = osutil.clean_path(os.path.join(environment.getEnv('seq_path'), type, seq, shot))
 
     # setup the element
+    if os.path.exists(shot_path):
+        raise UserError("Shot with that name already exists")
     os.makedirs(shot_path)
 
     # Tag the folder as a show
