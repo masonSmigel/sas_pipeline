@@ -2,19 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/icons/afdesign/pipeline_logos.afdesign" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/search.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/file.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/publish/MLdeleteUnused.mel" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/publish/clean_elements.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/publish/clean_mod.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/publishFile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/pathSelector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/path.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/rmshot" beforeDir="false" afterPath="$PROJECT_DIR$/bin/rmshot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/api/user_prefs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/api/user_prefs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__trash__/maya/ui/widgets/function_executer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/drag_into_maya.py" beforeDir="false" afterPath="$PROJECT_DIR$/drag_into_maya.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/icons/afdesign/pipeline_logos.afdesign" beforeDir="false" afterPath="$PROJECT_DIR$/icons/afdesign/pipeline_logos.afdesign" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/icons/sas_x128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/icons/sas_x32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/icons/sas_x64.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plug-ins/sasPipe_maya.py" beforeDir="false" afterPath="$PROJECT_DIR$/plug-ins/sasPipe_maya.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/environment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/utils/pipeutils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/utils/pipeutils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,24 +68,24 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts/sas_pipe/maya" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/__trash__" />
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya" />
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/scripts/__trash__" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/ui" />
       <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya" />
       <recent name="$PROJECT_DIR$/scripts/sas_pipe/api" />
-      <recent name="$PROJECT_DIR$/bin" />
-      <recent name="$PROJECT_DIR$/scripts/__trash__" />
-      <recent name="$PROJECT_DIR$/scripts/__trash__/maya" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/__trash__/maya/ui/widgets" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/publish" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/ui" />
+      <recent name="$PROJECT_DIR$/__trash__" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -454,7 +458,42 @@
       <option name="project" value="LOCAL" />
       <updated>1648493975204</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="added asset browser">
+      <created>1649224004368</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1649224004368</updated>
+    </task>
+    <task id="LOCAL-00030" summary="added create options and thumbnails">
+      <created>1650416299762</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1650416299762</updated>
+    </task>
+    <task id="LOCAL-00031" summary="added create thumbnails">
+      <created>1650416307700</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1650416307700</updated>
+    </task>
+    <task id="LOCAL-00032" summary="updated mk method">
+      <created>1650416328835</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1650416328835</updated>
+    </task>
+    <task id="LOCAL-00033" summary="updated mk method">
+      <created>1650416334077</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1650416334077</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -502,7 +541,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="intial commit after refactor. Uses plugin, icon, scripts folder instead." />
     <MESSAGE value="ignore .idea" />
     <MESSAGE value="added README" />
     <MESSAGE value="updated about ui" />
@@ -524,6 +562,10 @@
     <MESSAGE value="changed shell type from zsh to bash" />
     <MESSAGE value="updated README" />
     <MESSAGE value="commit before merge hierarchy" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit before merge hierarchy" />
+    <MESSAGE value="added asset browser" />
+    <MESSAGE value="added create options and thumbnails" />
+    <MESSAGE value="added create thumbnails" />
+    <MESSAGE value="updated mk method" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated mk method" />
   </component>
 </project>

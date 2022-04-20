@@ -26,7 +26,7 @@ def onMayaDroppedPythonFile(*args):
     # Write our module file
     with open(maya_mod_file, 'w') as moduleFile:
 
-        output = '+ sasPipe 1.0 {}'.format(module_root)
+        output = '+ sasPipe 2.0 {}'.format(module_root)
 
         # Add the path to plugin path on first use
         if plugin_path not in pymel.util.getEnv("MAYA_PLUG_IN_PATH"):
@@ -38,4 +38,7 @@ def onMayaDroppedPythonFile(*args):
     # add the python path on initalize
     if python_path not in sys.path:
         sys.path.append(python_path)
+
+    # load the plugin
+    cmds.loadPlugin("sasPipe_maya")
 

@@ -39,7 +39,7 @@ def initializePlugin(obj):
     """
     :param obj: OpenMaya.MObject
     """
-    plugin = OpenMaya.MFnPlugin(obj, 'SCAD Animation Studios', '1.0.1', 'Any')
+    plugin = OpenMaya.MFnPlugin(obj, 'SCAD Animation Studios', '2.0.0', 'Any')
     try:
         plugin.registerCommand(SASPipe.kPluginCmdName, SASPipe.cmdCreator)
         load()
@@ -77,18 +77,10 @@ def load():
         sys.path.append(python_root)
 
     # Setup the tools
-    import sas_pipe.maya.sas_menu as sas_menu
-    import sas_pipe.maya.maya_pipe as maya_pipe
-    from sas_pipe.shared.logger import Logger
+    import sas_pipe.maya.menu as menu
 
-    _sas_menu = sas_menu.SASMenu(name='SAS Pipeline')
-    UI_CREATED.append(_sas_menu.menu_obj)
-    if not maya_pipe.MayaPipeline.validate_root():
-        import sas_pipe.maya.ui.set_root as set_root
-        set_root.run()
-    pipe = maya_pipe.MayaPipeline()
-    if pipe.current_show is None:
-        Logger.warning('No show is set!')
+    sas_menu = menu.SAS_menu()
+    UI_CREATED.append(sas_menu.menu_obj)
 
 
 def teardown():
@@ -99,8 +91,9 @@ def teardown():
     """
 
     # Remove our Python root from sys.path
-    for sysPath in sys.path:
-        if sysPath == python_root:
+    for p in sys.path:
+        print p
+        if p == python_root:
             sys.path.remove(sysPath)
 
     # Delete our UI

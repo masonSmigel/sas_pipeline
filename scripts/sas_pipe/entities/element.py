@@ -119,6 +119,9 @@ class Element(abstract_entity.AbstractEntity):
         path = os.path.join(self.rel_path, self.validate_variant_data(variant, task))
         return os_utils.get_contents(path, files=True, dirs=False)
 
+    def get_thumbnail_path(self):
+        return os.path.join(self.path, 'thumbnail_{}.jpg'.format(self.name))
+
     def validate_variant_data(self, variant, task):
         """
         Get the data from a given variant and task.
@@ -132,6 +135,15 @@ class Element(abstract_entity.AbstractEntity):
                 return self._data['variants'][variant][task]
         return self._data['variants']['base'][task]
 
+    def get_thumbnail(self):
+        """
+        return the thumbnail image if one exists.
+        :return:
+        """
+        if os.path.exists(self.get_thumbnail_path()):
+            return self.get_thumbnail_path()
+        else:
+            return None
 
 if __name__ == '__main__':
     e = Element('/Users/masonsmigel/Documents/SAS_DEV/shows/TEST/elements/char/testCharacter')
