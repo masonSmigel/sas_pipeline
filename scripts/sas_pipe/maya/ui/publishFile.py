@@ -87,7 +87,6 @@ class FunctionExecuter(QtWidgets.QWidget):
                     for key, value in all_functions:
                         # for each function if they do not take arguments run the function
                         # if len(inspect.getargspec(value).args) < 1:
-                        print key
                         if not key.startswith("__"):
                             self.add_child_item(name=key, data=value, parent=parent)
 
