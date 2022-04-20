@@ -653,6 +653,10 @@ class CreateElementDialog(QtWidgets.QDialog):
         elm_type = self.elm_type_cb.currentText()
         elm_name = self.name_le.text()
 
+        if not elm_name:
+            logger.error("Must provide an element name")
+            return
+
         elm = sas_cmds.mkelm(elm_name, elm_type)
         print "{}\nCreated New Element\n{}".format("-" * 80, "-" *80)
         print elm
@@ -728,6 +732,10 @@ class CreateShotDialog(CreateElementDialog):
         seq_type = self.elm_type_cb.currentText()
         seq_name = self.seq_le.text()
         shot_name = self.shot_le.text()
+
+        if not seq_name and not shot_name:
+            logger.error("Must provide a Sequence and Shot name")
+            return
 
         shot = sas_cmds.mkshot(seq_name, shot_name, seq_type)
         print "{}\nCreated New Shot\n{}".format("-" * 80, "-" *80)

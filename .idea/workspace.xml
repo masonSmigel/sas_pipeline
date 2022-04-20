@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/publish/MLdeleteUnused.mel" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/publish/clean_elements.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/publish/clean_mod.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/publishFile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/pathSelector.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/path.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__trash__/maya/ui/widgets/function_executer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/drag_into_maya.py" beforeDir="false" afterPath="$PROJECT_DIR$/drag_into_maya.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/icons/afdesign/pipeline_logos.afdesign" beforeDir="false" afterPath="$PROJECT_DIR$/icons/afdesign/pipeline_logos.afdesign" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/icons/sas_x128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/icons/sas_x32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/icons/sas_x64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plug-ins/sasPipe_maya.py" beforeDir="false" afterPath="$PROJECT_DIR$/plug-ins/sasPipe_maya.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -493,7 +478,21 @@
       <option name="project" value="LOCAL" />
       <updated>1650416334077</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="updated with sas studio feedback">
+      <created>1650416407852</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1650416407852</updated>
+    </task>
+    <task id="LOCAL-00035" summary="updated with sas studio feedback">
+      <created>1650419637680</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1650419637680</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -541,7 +540,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="ignore .idea" />
     <MESSAGE value="added README" />
     <MESSAGE value="updated about ui" />
     <MESSAGE value="updated installation process. Shelf created on Drop" />
@@ -566,6 +564,7 @@
     <MESSAGE value="added create options and thumbnails" />
     <MESSAGE value="added create thumbnails" />
     <MESSAGE value="updated mk method" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated mk method" />
+    <MESSAGE value="updated with sas studio feedback" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated with sas studio feedback" />
   </component>
 </project>
