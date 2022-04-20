@@ -18,11 +18,14 @@ import sas_pipe.api.cmds as sas
 import sas_pipe.environment as environment
 from sas_pipe.entities import studio, show, sequence, shot, element
 import sas_pipe.maya.file as maya_file
+import sas_pipe.api.cmds as sas_cmds
 
 logger = logging.getLogger(__name__)
 
+
 class SAS_EntityInfo(QtWidgets.QWidget):
     VARIANT_WGDTS = list()
+    BLANK_IMAGE = os.path.join(common.ICONS_PATH, "blankImage.png")
 
     def __init__(self):
         super(SAS_EntityInfo, self).__init__()
@@ -39,6 +42,13 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         custom_font = QtGui.QFont()
         custom_font.setPointSize(14)
         self.entity_name_la.setFont(custom_font)
+
+        self.thumbnail_la = QtWidgets.QLabel()
+        self.capture_thumbnail_action = QtWidgets.QAction("Capture Thumbnail")
+        self.capture_thumbnail_action.triggered.connect(self.capture_thumbnail)
+
+        self.thumbnail_la.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
+        self.thumbnail_la.addAction(self.capture_thumbnail_action)
 
         self.info_te = QtWidgets.QTextEdit()
         self.info_te.setReadOnly(True)
@@ -64,6 +74,12 @@ class SAS_EntityInfo(QtWidgets.QWidget):
 
         entity_layout = QtWidgets.QHBoxLayout()
         entity_layout.addWidget(QtWidgets.QLabel("Entity:"))
+
+        thumbnail_layout = QtWidgets.QHBoxLayout()
+        thumbnail_layout.addWidget(self.thumbnail_la)
+        thumbnail_layout.addStretch()
+
+        self.main_layout.addLayout(thumbnail_layout)
         entity_layout.addWidget(self.entity_name_la)
         entity_layout.addStretch()
 
@@ -109,6 +125,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
             self.info_te.append("{}: created".format(manifest_file_info.created().toString("yyyy-MM-dd hh:mm:ss")))
             self.info_te.append("{}: modified".format(data['time']))
             self.info_te.append("modified by: {}".format(data['user']))
+            self.thumbnail_la.setPixmap(None)
 
             if entity.type in ['Studio', 'Show']:
                 self.enable_variant_widgets(False)
@@ -121,6 +138,13 @@ class SAS_EntityInfo(QtWidgets.QWidget):
 
                 for task in entity.get_tasks():
                     self.task_cb.addItem(task)
+
+                # check for a thumbnail. if we dont have one use the default blank image icon
+                if entity.get_thumbnail():
+                    thumbnail = entity.get_thumbnail()
+                else:
+                    thumbnail = self.BLANK_IMAGE
+                self.update_thumbnail(thumbnail)
 
     def _find_entity(self, item_path):
         # look if the current shot is an entity
@@ -159,9 +183,32 @@ class SAS_EntityInfo(QtWidgets.QWidget):
             res = entity.validate_variant_data(variant, task)
             self.variant_te.append("{}: {}".format(task, res))
 
+    def update_thumbnail(self, image_path):
+        img = QtGui.QImage(image_path)
+        pixmap = QtGui.QPixmap(img.scaledToWidth(128))
+        pixmap.scaled(128, 128, QtCore.Qt.KeepAspectRatio)
+        self.thumbnail_la.setScaledContents(True)
+        self.thumbnail_la.setPixmap(pixmap)
+
+    def capture_thumbnail(self):
+        """ do a thumbnial capture"""
+        entity = self._find_entity(self.current_item_path)
+        thumbnail_path = entity.get_thumbnail_path()
+
+        current_time = cmds.currentTime(q=True)
+        cmds.playblast(p=100, w=512, h=512, framePadding=0, st=current_time, et=current_time,
+                       viewer=False, forceOverwrite=True, orn=False,
+                       format="image", compression="jpg", cf=thumbnail_path)
+
+        self.update_thumbnail(entity.get_thumbnail())
+
 
 class SAS_AssetBrowser(QtWidgets.QDialog):
     WINDOW_TITLE = "SAS Asset Browser"
+    dlg_instance = None
+
+    mkelm_instance = None
+    mkshot_instance = None
 
     @classmethod
     def show_dialog(cls):
@@ -203,18 +250,13 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
     def create_actions(self):
         # CREATE
         self.create_elm_action = QtWidgets.QAction("Create Element", self)
+        self.create_elm_action.triggered.connect(self.create_elm)
         self.create_shot_action = QtWidgets.QAction("Create Shot", self)
+        self.create_shot_action.triggered.connect(self.create_shot)
 
         # TOOLS
-        self.flush_env_action = QtWidgets.QAction("Flush Environ", self)
+        self.flush_env_action = QtWidgets.QAction("Flush Environment", self)
         self.flush_env_action.triggered.connect(environment.flushEnv)
-
-        # HELP
-        self.show_documentation_action = QtWidgets.QAction("Documentation", self)
-        self.show_documentation_action.triggered.connect(self.show_documentation)
-
-        self.show_about_action = QtWidgets.QAction("About", self)
-        self.show_about_action.triggered.connect(self.show_about)
 
     def create_menus(self):
         self.main_menu = QtWidgets.QMenuBar()
@@ -225,10 +267,6 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
         tools_menu = self.main_menu.addMenu("Tools")
         tools_menu.addAction(self.flush_env_action)
-
-        help_menu = self.main_menu.addMenu("Help")
-        help_menu.addAction(self.show_documentation_action)
-        help_menu.addAction(self.show_about_action)
 
     def create_widgets(self):
         self.studio_path_le = QtWidgets.QLineEdit()
@@ -292,6 +330,7 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
         self.browser_grp = QtWidgets.QGroupBox('File Browser')
         self.entity_info_grp = QtWidgets.QGroupBox('Entity Info')
+        self.entity_info_grp.setMaximumWidth(300)
 
         searchbar_layout = QtWidgets.QHBoxLayout()
         searchbar_layout.addWidget(self.search_icon)
@@ -410,13 +449,13 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
         filename, file_extension = os.path.splitext(path)
         if file_extension in ['.ma', '.mb']:
-            maya_file.open_(path)
+            maya_file.open_(path, f=True)
         else:
-            if platform.system() == 'Darwin':       # macOS
+            if platform.system() == 'Darwin':  # macOS
                 subprocess.call(('open', path))
-            elif platform.system() == 'Windows':    # Windows
+            elif platform.system() == 'Windows':  # Windows
                 os.startfile(path)
-            else:                                   # linux variants
+            else:  # linux variants
                 subprocess.call(('xdg-open', path))
 
     def import_file(self):
@@ -526,6 +565,178 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
         if QtCore.QProcess.startDetached("/usr/bin/osascript", args):
             return True
         return False
+
+    def create_elm(self):
+        CreateElementDialog().exec_()
+
+    def create_shot(self):
+        CreateShotDialog().exec_()
+
+
+class CreateElementDialog(QtWidgets.QDialog):
+    WINDOW_TITLE = "Create an Element"
+
+    def __init__(self):
+        if sys.version_info.major < 3:
+            maya_main_window = wrapInstance(long(omui.MQtUtil.mainWindow()), QtWidgets.QWidget)
+        else:
+            maya_main_window = wrapInstance(int(omui.MQtUtil.mainWindow()), QtWidgets.QWidget)
+
+        super(CreateElementDialog, self).__init__(maya_main_window)
+        self.rig_env = None
+
+        self.setWindowTitle(self.WINDOW_TITLE)
+        if cmds.about(ntOS=True):
+            self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
+        elif cmds.about(macOS=True):
+            self.setProperty("saveWindowPref", True)
+            self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
+        self.setFixedSize(375, 75)
+
+        self.create_widgets()
+        self.create_layouts()
+        self.create_connections()
+
+    def create_widgets(self):
+        self.elm_type_la = QtWidgets.QLabel("Type:")
+        self.elm_type_la.setFixedWidth(30)
+        self.elm_type_cb = QtWidgets.QComboBox()
+
+        show_enitity = show.Show(environment.getEnv("show_path"))
+        for type in show_enitity.get_assetTypes():
+            self.elm_type_cb.addItem(type)
+
+        # self.path_la = QtWidgets.QLabel("Path: ")
+        # self.path_la.setFixedWidth(30)
+        # self.path_le = QtWidgets.QLineEdit()
+
+        self.name_la = QtWidgets.QLabel("Name:")
+        self.name_la.setFixedWidth(30)
+        self.name_le = QtWidgets.QLineEdit()
+
+        self.create_btn = QtWidgets.QPushButton("Create")
+        self.apply_btn = QtWidgets.QPushButton("Apply")
+        self.cancel_btn = QtWidgets.QPushButton("Cancel")
+
+    def create_layouts(self):
+        main_layout = QtWidgets.QVBoxLayout(self)
+        main_layout.setContentsMargins(6, 6, 6, 6)
+        main_layout.setSpacing(4)
+
+        elm_type_layout = QtWidgets.QHBoxLayout()
+        elm_type_layout.addWidget(self.elm_type_la)
+        elm_type_layout.addWidget(self.elm_type_cb)
+        elm_type_layout.addSpacing(20)
+        elm_type_layout.addWidget(self.name_la)
+        elm_type_layout.addWidget(self.name_le)
+
+        # path_layout = QtWidgets.QHBoxLayout()
+        # path_layout.addWidget(self.path_la)
+        # path_layout.addWidget(self.path_le)
+
+        btn_layout = QtWidgets.QHBoxLayout()
+        btn_layout.addStretch()
+        btn_layout.addWidget(self.cancel_btn)
+        btn_layout.addWidget(self.apply_btn)
+        btn_layout.addWidget(self.create_btn)
+
+        main_layout.addLayout(elm_type_layout)
+        # main_layout.addWidget(self.variant_te)
+        main_layout.addLayout(btn_layout)
+
+    def create_connections(self):
+        self.cancel_btn.clicked.connect(self.close)
+        self.apply_btn.clicked.connect(self.apply)
+        self.create_btn.clicked.connect(self.create)
+
+    def apply(self):
+        elm_type = self.elm_type_cb.currentText()
+        elm_name = self.name_le.text()
+
+        elm = sas_cmds.mkelm(elm_name, elm_type)
+        print "{}\nCreated New Element\n{}".format("-" * 80, "-" *80)
+        print elm
+        print "-" * 80
+
+    def create(self):
+        self.apply()
+        self.close()
+
+    def clear(self):
+        self.name_le.clear()
+
+
+class CreateShotDialog(CreateElementDialog):
+    WINDOW_TITLE = "Create a Shot"
+
+    def __init__(self):
+        super(CreateShotDialog, self).__init__()
+
+    def create_widgets(self):
+        self.elm_type_la = QtWidgets.QLabel("Type:")
+        self.elm_type_la.setFixedWidth(30)
+        self.elm_type_cb = QtWidgets.QComboBox()
+
+        show_enitity = show.Show(environment.getEnv("show_path"))
+        for type in show_enitity.get_sequenceTypes():
+            self.elm_type_cb.addItem(type)
+
+        index = self.elm_type_cb.findText(show_enitity.get_sequenceTypes()[-1], QtCore.Qt.MatchFixedString)
+        self.elm_type_cb.setCurrentIndex(index)
+
+        self.seq_la = QtWidgets.QLabel("Seq:")
+        self.seq_la.setFixedWidth(30)
+        self.seq_le = QtWidgets.QLineEdit()
+
+        self.shot_la = QtWidgets.QLabel("Shot:")
+        self.shot_la.setFixedWidth(30)
+        self.shot_le = QtWidgets.QLineEdit()
+
+        self.create_btn = QtWidgets.QPushButton("Create")
+        self.apply_btn = QtWidgets.QPushButton("Apply")
+        self.cancel_btn = QtWidgets.QPushButton("Cancel")
+
+    def create_layouts(self):
+        main_layout = QtWidgets.QVBoxLayout(self)
+        main_layout.setContentsMargins(6, 6, 6, 6)
+        main_layout.setSpacing(4)
+
+        elm_type_layout = QtWidgets.QHBoxLayout()
+        elm_type_layout.addWidget(self.elm_type_la)
+        elm_type_layout.addWidget(self.elm_type_cb)
+        elm_type_layout.addSpacing(20)
+        elm_type_layout.addWidget(self.seq_la)
+        elm_type_layout.addWidget(self.seq_le)
+        elm_type_layout.addSpacing(20)
+        elm_type_layout.addWidget(self.shot_la)
+        elm_type_layout.addWidget(self.shot_le)
+
+        # path_layout = QtWidgets.QHBoxLayout()
+        # path_layout.addWidget(self.path_la)
+        # path_layout.addWidget(self.path_le)
+
+        btn_layout = QtWidgets.QHBoxLayout()
+        btn_layout.addStretch()
+        btn_layout.addWidget(self.cancel_btn)
+        btn_layout.addWidget(self.apply_btn)
+        btn_layout.addWidget(self.create_btn)
+
+        main_layout.addLayout(elm_type_layout)
+        main_layout.addLayout(btn_layout)
+
+    def apply(self):
+        seq_type = self.elm_type_cb.currentText()
+        seq_name = self.seq_le.text()
+        shot_name = self.shot_le.text()
+
+        shot = sas_cmds.mkshot(seq_name, shot_name, seq_type)
+        print "{}\nCreated New Shot\n{}".format("-" * 80, "-" *80)
+        print shot
+        print "-" * 80
+
+    def clear(self):
+        self.seq_le.clear()
+        self.shot_le.clear()
 
 
 if __name__ == '__main__':
