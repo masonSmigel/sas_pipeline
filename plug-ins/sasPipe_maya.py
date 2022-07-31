@@ -79,7 +79,7 @@ def load():
     # Setup the tools
     import sas_pipe.maya.menu as menu
 
-    sas_menu = menu.SAS_menu()
+    sas_menu = menu.MainMenu()
     UI_CREATED.append(sas_menu.menu_obj)
 
 

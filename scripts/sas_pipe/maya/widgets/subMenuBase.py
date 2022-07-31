@@ -1,29 +1,31 @@
 import re
 
+
 import maya.cmds as cmds
 import maya.mel as mel
+
+from sas_pipe import path
 
 def _null(*args):
     pass
 
 
-class _menu(object):
+class SubMenu(object):
     """
     A simple class to build menus in maya. Since the build method is empty,
     it should be extended by the derived class to build the necessary shelf elements.
     By default it creates an empty shelf called "customShelf".
     """
 
-    def __init__(self, name="customMenu", iconPath=""):
+    def __init__(self, name="customMenu", parent=None, iconPath=""):
         self.name = name
-        self.menu_obj = re.sub("[^A-Za-z0-9_{}]", "", str(self.name) + 'Menu')
 
+        self.parent=parent
         self.iconPath = iconPath
 
         self.labelBackground = (0, 0, 0, 0)
         self.labelColour = (.9, .9, .9)
 
-        self._cleanOldMenu()
         self.build()
 
     def build(self):
@@ -39,10 +41,10 @@ class _menu(object):
         """
         if icon:
             iconpath = self.iconPath + icon
-            icon = iconpath if path.is_file(iconpath) else None
+            icon = iconpath if path.is_file(iconpath) else ''
 
         if not parent:
-            parent = self.menu_obj
+            parent = self.parent
         return cmds.menuItem(p=parent, l=label, c=command, i=icon, **kwargs)
 
     def addSubMenu(self, label, parent=None, icon=None, tearOff=True, **kwargs):
@@ -50,7 +52,7 @@ class _menu(object):
         Adds a sub menu item with the specified label and icon to the specified parent popup menu.
         """
         if not parent:
-            parent = self.menu_obj
+            parent = self.parent
         return cmds.menuItem(l=label, subMenu=True, tearOff=tearOff, p=parent, **kwargs)
 
     def addDivider(self, parent=None):
@@ -58,23 +60,5 @@ class _menu(object):
         Add a separator
         """
         if not parent:
-            parent = self.menu_obj
+            parent = self.parent
         return cmds.menuItem(divider=True, parent=parent)
-
-    def _cleanOldMenu(self):
-        """
-        Checks if the shelf exists and empties it if it does or creates it if it does not.
-        """
-        # main_window = cmds.language.melGlobals['gMainWindow']
-        main_window = mel.eval('string $temp = $gMainWindow')
-
-        if cmds.menu(self.menu_obj, l=self.name, ex=1):
-            if cmds.menu(self.menu_obj, q=True, ia=True):
-                for each in cmds.menu(self.menu_obj, q=True, ia=True):
-                    cmds.deleteUI(each)
-
-        else:
-            cmds.menu(self.menu_obj, l=self.name, p=main_window, tearOff=True)
-
-    def teardown(self):
-        cmds.deleteUI(self.menu_obj)

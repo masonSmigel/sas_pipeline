@@ -2,7 +2,6 @@ import os
 import imp
 import inspect
 import re
-import logging
 
 import maya.OpenMayaUI as omui
 from PySide2 import QtCore
@@ -18,8 +17,6 @@ import sas_pipe.maya.widgets.pathSelector as pathSelector
 import sas_pipe.maya.file as sas_file
 
 MAYA_FILTER = "Maya Files (*.ma *.mb);;Maya ASCII (*.ma);;Maya Binary (*.mb)"
-
-logger = logging.getLogger(__name__)
 
 
 def maya_main_window():
@@ -131,7 +128,7 @@ class PublishEntityUi(QtWidgets.QDialog):
         super(PublishEntityUi, self).__init__(parent)
 
         self.setWindowTitle("Publish Entity")  # Window title name
-        self.setBaseSize(405, 460)  # Window minimum width
+        self.setFixedSize(405, 460)  # Window minimum width
 
         self.setWindowFlags(QtCore.Qt.Window)  # window type
 
@@ -152,9 +149,7 @@ class PublishEntityUi(QtWidgets.QDialog):
         self.discription_te.setFixedHeight(100)
 
         self.out_file_path_selector = pathSelector.PathSelector("Output File", cap="Select an output file", ff=MAYA_FILTER,
-                                                                fm=0)
-        self.save_version_cb = QtWidgets.QCheckBox("Save Version")
-        self.save_version_cb.setChecked(True)
+                                                                fm=2)
 
         self.cancel_btn = QtWidgets.QPushButton("Cancel")
         self.cleanup_btn = QtWidgets.QPushButton("Run Cleanup")
@@ -170,15 +165,10 @@ class PublishEntityUi(QtWidgets.QDialog):
         btn_layout.addWidget(self.cleanup_btn)
         btn_layout.addWidget(self.publish_btn)
 
-        path_layout = QtWidgets.QHBoxLayout()
-        path_layout.addWidget(self.out_file_path_selector)
-        path_layout.addWidget(self.save_version_cb)
-
         main_layout.addWidget(QtWidgets.QLabel("Publish Steps:"))
         main_layout.addWidget(self.tree)
         main_layout.addWidget(self.discription_te)
-        main_layout.addLayout(path_layout)
-
+        main_layout.addWidget(self.out_file_path_selector)
         main_layout.addLayout(btn_layout)
 
     def create_connections(self):
@@ -195,25 +185,7 @@ class PublishEntityUi(QtWidgets.QDialog):
 
         path = self.out_file_path_selector.get_path()
         if path:
-            sas_file.saveAs(self.out_file_path_selector.get_path())
-            if self.save_version_cb.isChecked():
-
-                dir_name = os.path.dirname(path)
-                file_name = os.path.basename(path)
-
-                # get the version directory, file
-                version_dir = os.path.join(dir_name, 'versions')
-                filebase = ".".join(file_name.split('.')[:-1])
-                fileext = file_name.split('.')[-1]
-
-                # format the new file name and file path
-                version_file = "{}_{}.{}".format(filebase, 'v000', fileext)
-                version_path = os.path.join(version_dir, version_file)
-
-                # make the output directory and save the file
-                sas_path.make_dir(version_dir)
-                version_path = sas_file.incrimentSave(version_path, log=False)
-                logger.info("out rig archived: {}".format(version_path))
+            sas_file.saveAs( self.out_file_path_selector.get_path())
 
     def update_description(self):
         self.discription_te.setText(self.tree.get_item_docstring())

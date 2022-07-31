@@ -10,7 +10,7 @@ class Logger(object):
     LOGGER_NAME = 'SAS_Pipe'
 
     LEVEL_DEFAULT = logging.INFO
-    PROPAGATE_DEFAULT = True
+    PROPAGATE_DEFAULT = False
 
     _logger_obj = None
 
