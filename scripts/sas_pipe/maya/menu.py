@@ -57,7 +57,7 @@ def _findMenus(path, excludedFolders, excludedFiles):
 
 
 class MainMenu(menuBase._menu):
-    def __init__(self, name='SAS_pipeline', iconsPath=common.ICONS_PATH):
+    def __init__(self, name='SAS', iconsPath=common.ICONS_PATH):
         super(MainMenu, self).__init__(name=name, iconPath=iconsPath)
 
     def build(self):
