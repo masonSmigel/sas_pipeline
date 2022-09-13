@@ -4,21 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="commit before working on the new task template">
+    <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="updated with task template files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/mkstudio" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mkstudio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/abstract_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/abstract_entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.json" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.json" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/show.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/show.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/studio.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/studio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/utils/data/abstract_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/utils/data/abstract_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,11 +225,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.assetBrowser" />
         <item itemvalue="Python.scratch_7" />
         <item itemvalue="Python.cmds_m" />
         <item itemvalue="Python.menu" />
         <item itemvalue="Python.environment" />
-        <item itemvalue="Python.assetBrowser" />
       </list>
     </recent_temporary>
   </component>
@@ -536,7 +525,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663040385026</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="updated with task template files">
+      <created>1663101157725</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1663101157725</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -577,7 +573,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="before cleanup of shot and pipeline refactor" />
     <MESSAGE value="Version 2.0 inital commit. Before refactoring" />
     <MESSAGE value="update path checking" />
     <MESSAGE value="added __trash__ to gitignore" />
@@ -602,7 +597,8 @@
     <MESSAGE value="added CHANGELOG.md" />
     <MESSAGE value="renamed menu" />
     <MESSAGE value="commit before working on the new task template" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit before working on the new task template" />
+    <MESSAGE value="updated with task template files" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated with task template files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

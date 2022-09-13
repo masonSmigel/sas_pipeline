@@ -78,6 +78,12 @@ class Element(abstract_entity.AbstractEntity):
 
         return element_entity
 
+    def composePath(self):
+        """
+
+        :return:
+        """
+
     def add_task(self, new, path=None):
         """
         Add a new task
@@ -111,6 +117,17 @@ class Element(abstract_entity.AbstractEntity):
         filename = self.FILENAME_SYNTAX.format(name=self.name, task=task, variant=variant, intials=user)
         return filename
 
+    def compose_path(self, task, step, variant=None, fileName=None):
+        """
+        compose the file path
+        :return:
+        """
+        if not variant: variant = 'base'
+        if not fileName:
+            return os.path.join(self.path, self.validate_variant_data(variant, task), step)
+        else:
+            return os.path.join(self.path, self.validate_variant_data(variant, task), step, fileName)
+
     def get_work_files(self, task, variant=None):
         """
         return a list of all the work files
@@ -119,10 +136,10 @@ class Element(abstract_entity.AbstractEntity):
         :return:
         """
         if not variant: variant = 'base'
-        path = os.path.join(self.work_path, self.validate_variant_data(variant, task))
+        path = self.compose_path(task, step=constants.WORK_TOKEN, variant=variant)
         return os_utils.get_contents(path, files=True, dirs=False)
 
-    def get_rel_files(self, task, variant=None):
+    def get_publish_files(self, task, variant=None):
         """
         return a list of all the work files
         :param variant: Optional - specify a variant to get the files for. Otherwise just get the 'base'
@@ -130,7 +147,18 @@ class Element(abstract_entity.AbstractEntity):
         :return:
         """
         if not variant: variant = 'base'
-        path = os.path.join(self.rel_path, self.validate_variant_data(variant, task))
+        path = self.compose_path(task, step=constants.REL_TOKEN, variant=variant)
+        return os_utils.get_contents(path, files=True, dirs=False)
+
+    def get_publish_version_files(self, task, variant=None):
+        """
+
+        :param task:
+        :param variant:
+        :return:
+        """
+        if not variant: variant = 'base'
+        path = self.compose_path(task, step=constants.VER_TOKEN, variant=variant)
         return os_utils.get_contents(path, files=True, dirs=False)
 
     def get_thumbnail_path(self):
@@ -179,6 +207,9 @@ class Element(abstract_entity.AbstractEntity):
         :param task: task to read
         :return: path to the data of a cariant, relative to asset
         """
+        if not task:
+            return None
+
         if self._data['variants'].has_key(variant):
             if self._data['variants'][variant].has_key(task):
                 return self._data['variants'][variant][task]
@@ -186,5 +217,5 @@ class Element(abstract_entity.AbstractEntity):
 
 
 if __name__ == '__main__':
-    e = Element('/Users/masonsmigel/Documents/NewShowsStudio/shows/TLD/elements/char/paladin')
-    print e.get_tasks()
+    e = Element('/Users/masonsmigel/Documents/sastld2023/shows/TLD/elements/char/paladin')
+    print e.get_work_files('rig-body')

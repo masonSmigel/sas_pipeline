@@ -36,6 +36,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         self.create_layouts()
         self.create_connections()
 
+        self.current_entity = None
         self.current_item_path = None
 
     def create_widgets(self):
@@ -56,21 +57,25 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         self.info_te = QtWidgets.QTextEdit()
         self.info_te.setReadOnly(True)
 
-        self.variant_la = QtWidgets.QLabel("variants:")
-        self.variant_la.setFixedWidth(60)
-        self.variant_cb = QtWidgets.QComboBox()
+        # self.variant_la = QtWidgets.QLabel("variants:")
+        # self.variant_la.setFixedWidth(60)
+        # self.variant_cb = QtWidgets.QComboBox()
 
-        self.variant_te = QtWidgets.QTextEdit()
-        self.variant_te.setReadOnly(True)
-        self.variant_te.resize(self.variant_te.sizeHint().width(), 50)
+        # self.variant_te = QtWidgets.QTextEdit()
+        # self.variant_te.setReadOnly(True)
+        # self.variant_te.resize(self.variant_te.sizeHint().width(), 50)
 
         self.task_cb = QtWidgets.QComboBox()
-        self.open_varant_mgr_btn = QtWidgets.QPushButton("Open Variant Manager")
-        self.open_work_btn = QtWidgets.QPushButton("Open work")
-        self.reference_publish_btn = QtWidgets.QPushButton("Reference Publish")
+        self.task_cb.setMinimumWidth(180)
 
-        self.VARIANT_WGDTS = [self.variant_la, self.variant_cb, self.variant_te, self.task_cb, self.open_varant_mgr_btn,
-                              self.reference_publish_btn, self.open_work_btn]
+        self.task_te = QtWidgets.QTextEdit()
+        self.task_te.setReadOnly(True)
+        self.task_te.resize(self.task_te.sizeHint().width(), 100)
+
+        self.open_varant_mgr_btn = QtWidgets.QPushButton("Open Variant Manager")
+        self.open_work_btn = QtWidgets.QPushButton("Open (Work File)")
+        self.import_publish_btn = QtWidgets.QPushButton("Import (Publish File)")
+        self.reference_publish_btn = QtWidgets.QPushButton("Reference (Publish File)")
 
     def create_layouts(self):
         self.main_layout = QtWidgets.QVBoxLayout(self)
@@ -89,62 +94,70 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         self.main_layout.addLayout(entity_layout)
         self.main_layout.addWidget(self.info_te)
 
-        variant_layout = QtWidgets.QHBoxLayout()
-        variant_layout.addWidget(self.variant_la)
-        variant_layout.addWidget(self.variant_cb)
+        # variant_layout = QtWidgets.QHBoxLayout()
+        # variant_layout.addWidget(self.variant_la)
+        # variant_layout.addWidget(self.variant_cb)
+        #
+        # self.main_layout.addLayout(variant_layout)
+        # self.main_layout.addWidget(self.variant_te)
+        # self.main_layout.addWidget(self.open_varant_mgr_btn)
 
-        self.main_layout.addLayout(variant_layout)
-        self.main_layout.addWidget(self.variant_te)
-        self.main_layout.addWidget(self.open_varant_mgr_btn)
+        open_layout = QtWidgets.QVBoxLayout()
+        taskLayout = QtWidgets.QHBoxLayout()
+        taskLayout.addWidget(QtWidgets.QLabel("Task:"))
+        taskLayout.addWidget(self.task_cb)
 
-        # open_layout = QtWidgets.QHBoxLayout()
-        # open_layout.addWidget(self.task_cb)
-        # open_layout.addWidget(self.open_work_btn)
-        # open_layout.addWidget(self.reference_publish_btn)
-        # self.main_layout.addLayout(open_layout)
+        open_layout.addLayout(taskLayout)
+        open_layout.addWidget(self.task_te)
+        open_layout.addWidget(self.open_work_btn)
+        open_layout.addWidget(self.import_publish_btn)
+        open_layout.addWidget(self.reference_publish_btn)
+        self.main_layout.addLayout(open_layout)
 
     def create_connections(self):
-        self.variant_cb.currentIndexChanged.connect(self.update_variant_data)
+        self.task_cb.currentIndexChanged.connect(self.update_task_data)
+        self.open_work_btn.clicked.connect(self.open_file)
+        self.import_publish_btn.clicked.connect(self.import_file)
+        self.reference_publish_btn.clicked.connect(self.reference_file)
+        # self.variant_cb.currentIndexChanged.connect(self.update_variant_data)
 
     def set_item(self, item_path):
         file_info = QtCore.QFileInfo(item_path)
 
-        entity = self._find_entity(file_info.filePath())
+        self.current_entity = self._find_entity(file_info.filePath())
         self.current_item_path = file_info.filePath()
         self.info_te.clear()
         self.task_cb.clear()
+        self.task_te.clear()
 
-        if entity:
+        if self.current_entity:
             # edit the main file info
-            self.entity_name_la.setText(entity.name)
+            self.entity_name_la.setText(self.current_entity.name)
 
             # read the manifest file so we can grab some data from there
-            manifest_file_info = QtCore.QFileInfo(entity.manifest_path)
+            manifest_file_info = QtCore.QFileInfo(self.current_entity.manifest_path)
             f = open(manifest_file_info.filePath(), 'r')
             data = json.loads(f.read().decode('utf-8'), object_pairs_hook=OrderedDict)
             f.close()
 
-            self.info_te.append("entity type: {}".format(entity.type))
+            self.info_te.append("entity type: {}".format(self.current_entity.type))
             self.info_te.append("{}: created".format(manifest_file_info.created().toString("yyyy-MM-dd hh:mm:ss")))
             self.info_te.append("{}: modified".format(data['time']))
             self.info_te.append("modified by: {}".format(data['user']))
             self.thumbnail_la.setPixmap(None)
 
-            if entity.type in ['Studio', 'Show']:
-                self.enable_variant_widgets(False)
-            elif entity.type in ["Element", 'Shot']:
-                self.enable_variant_widgets(True)
-                # setup variants
-                self.variant_cb.clear()
-                for variant in entity.get_all_variants():
-                    self.variant_cb.addItem(variant)
-
-                for task in entity.get_tasks():
+            if self.current_entity.type in ['Studio', 'Show']:
+                pass
+            if self.current_entity.type in ["Element", 'Shot']:
+                for task in self.current_entity.get_tasks():
                     self.task_cb.addItem(task)
 
+                # setup some task info
+                self.update_task_data()
+
                 # check for a thumbnail. if we dont have one use the default blank image icon
-                if entity.get_thumbnail_path():
-                    thumbnail = entity.get_thumbnail_path()
+                if self.current_entity.get_thumbnail_path():
+                    thumbnail = self.current_entity.get_thumbnail_path()
                 else:
                     thumbnail = self.BLANK_IMAGE
                 self.update_thumbnail(thumbnail)
@@ -164,27 +177,27 @@ class SAS_EntityInfo(QtWidgets.QWidget):
             parent_path = os.path.realpath(os.path.join(item_path, ".."))
             return self._find_entity(parent_path)
 
-    def enable_variant_widgets(self, value):
-        """enable or disable the variant section of the ui """
-        if value:
-            for wdgt in self.VARIANT_WGDTS:
-                wdgt.setDisabled(False)
-        else:
-            for wdgt in self.VARIANT_WGDTS:
-                wdgt.setDisabled(True)
+    # def enable_variant_widgets(self, value):
+    #     """enable or disable the variant section of the ui """
+    #     if value:
+    #         for wdgt in self.VARIANT_WGDTS:
+    #             wdgt.setDisabled(False)
+    #     else:
+    #         for wdgt in self.VARIANT_WGDTS:
+    #             wdgt.setDisabled(True)
+    #
+    #             if wdgt.__class__ in [QtWidgets.QTextEdit, QtWidgets.QComboBox]:
+    #                 wdgt.clear()
 
-                if wdgt.__class__ in [QtWidgets.QTextEdit, QtWidgets.QComboBox]:
-                    wdgt.clear()
-
-    def update_variant_data(self):
-        entity = self._find_entity(self.current_item_path)
-        variant = self.variant_cb.currentText()
-
-        self.variant_te.clear()
-        tasks = entity.get_tasks()
-        for task in tasks:
-            res = entity.validate_variant_data(variant, task)
-            self.variant_te.append("{}: {}".format(task, res))
+    # def update_variant_data(self):
+    #     entity = self._find_entity(self.current_item_path)
+    #     variant = self.variant_cb.currentText()
+    #
+    #     self.variant_te.clear()
+    #     tasks = entity.get_tasks()
+    #     for task in tasks:
+    #         res = entity.validate_variant_data(variant, task)
+    #         self.variant_te.append("{}: {}".format(task, res))
 
     def update_thumbnail(self, image_path):
         img = QtGui.QImage(image_path)
@@ -192,6 +205,21 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         pixmap.scaled(128, 128, QtCore.Qt.KeepAspectRatio)
         self.thumbnail_la.setScaledContents(True)
         self.thumbnail_la.setPixmap(pixmap)
+
+    def update_task_data(self):
+        # setup some task info
+        self.task_te.clear()
+
+        if self.task_cb.currentText() == '':
+            return
+
+        publishedFiles = self.current_entity.get_publish_files(self.task_cb.currentText())
+        versionFiles = self.current_entity.get_publish_version_files(self.task_cb.currentText())
+        workFiles = self.current_entity.get_work_files(self.task_cb.currentText())
+
+        self.task_te.append("published file: {}".format("True" if len(publishedFiles) > 0 else "False"))
+        self.task_te.append("published versions: {}".format(len(versionFiles)))
+        self.task_te.append("work versions: {}".format(len(workFiles)))
 
     def capture_thumbnail(self):
         """ do a thumbnial capture"""
@@ -204,6 +232,63 @@ class SAS_EntityInfo(QtWidgets.QWidget):
                        format="image", compression="jpg", cf=thumbnail_path)
 
         self.update_thumbnail(entity.get_thumbnail_path())
+
+    def open_file(self):
+        """
+        Open a work file
+        :return:
+        """
+        task = self.task_cb.currentText()
+        workFiles = self.current_entity.get_work_files(task)
+
+        # if we dont have any work files return
+        if len(workFiles) < 1:
+            return
+
+        # Sort the files to get the file with the greatest idex
+        sortedFiles = sorted(workFiles)
+
+        # compose the full path
+        fullPath = self.current_entity.compose_path(task, sas_pipe.constants.WORK_TOKEN, fileName=sortedFiles[-1])
+
+        print fullPath
+        maya_file.open_(fullPath, f=True)
+
+    def import_file(self):
+        """
+        Open a work file
+        :return:
+        """
+        task = self.task_cb.currentText()
+        publishFiles = self.current_entity.get_publish_files(task)
+
+        # if we dont have any work files return
+        if len(publishFiles) < 1:
+            publishFiles = self.current_entity.get_work_files(self.task_cb.currentText())
+
+        # Sort the files to get the file with the greatest idex
+        sortedFiles = sorted(publishFiles)
+
+        fullPath = self.current_entity.compose_path(task, sas_pipe.constants.REL_TOKEN, fileName=sortedFiles[-1])
+        maya_file.import_(fullPath, f=True)
+
+    def reference_file(self):
+        """
+        Open a work file
+        :return:
+        """
+        task = self.task_cb.currentText()
+        publishFiles = self.current_entity.get_publish_files(task)
+
+        # if we dont have any work files return
+        if len(publishFiles) < 1:
+            publishFiles = self.current_entity.get_work_files(self.task_cb.currentText())
+
+        # Sort the files to get the file with the greatest idex
+        sortedFiles = sorted(publishFiles)
+
+        fullPath = self.current_entity.compose_path(task, sas_pipe.constants.REL_TOKEN, fileName=sortedFiles[-1])
+        maya_file.reference(fullPath,)
 
 
 class SAS_AssetBrowser(QtWidgets.QDialog):
