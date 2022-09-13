@@ -5,6 +5,7 @@ import imp
 import os
 import inspect
 import sas_pipe.common as common
+import sas_pipe.constants
 import sas_pipe.maya.widgets.menuBase as menuBase
 
 DEPTS_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'depts'))
@@ -57,20 +58,16 @@ def _findMenus(path, excludedFolders, excludedFiles):
 
 
 class MainMenu(menuBase._menu):
-    def __init__(self, name='SAS', iconsPath=common.ICONS_PATH):
+    def __init__(self, name='SAS', iconsPath=sas_pipe.constants.ICONS_PATH):
         super(MainMenu, self).__init__(name=name, iconPath=iconsPath)
 
     def build(self):
+        self.addDivider(label="Project")
         set_menu = self.addSubMenu("Setup Project")
         self.addMenuItem("Set Studio", parent=set_menu)
         self.addMenuItem("Set Show", parent=set_menu)
 
-        self.addDivider()
-
-        self.addMenuItem("Browse Entities", command=open_asset_browser)
-        self.addMenuItem("Publish File", command=open_publish_file)
-
-        self.addDivider()
+        self.addDivider(label='Departments')
 
         # for each department look for a menu.py file if one exists then we can
 
@@ -81,6 +78,10 @@ class MainMenu(menuBase._menu):
             riggingMenu = self.addSubMenu(subMenuName)
             submenu(parent=riggingMenu)
 
+        self.addDivider(label="Common")
+
+        self.addMenuItem("Browse Entities", command=open_asset_browser)
+        self.addMenuItem("Publish File", command=open_publish_file)
 
         self.addDivider()
         help_menu = self.addSubMenu("Help")

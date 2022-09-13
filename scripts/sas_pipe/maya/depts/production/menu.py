@@ -3,11 +3,12 @@ This module creates a menu for a SAS pipeline
 """
 import imp
 import sas_pipe.common as common
+import sas_pipe.constants
 from sas_pipe.maya.widgets import subMenuBase
 
 
 class ProductionMenu(subMenuBase.SubMenu):
-    def __init__(self, name='rigging', parent=None, iconsPath=common.ICONS_PATH):
+    def __init__(self, name='rigging', parent=None, iconsPath=sas_pipe.constants.ICONS_PATH):
         super(ProductionMenu, self).__init__(name=name, parent=parent, iconPath=iconsPath)
 
     def build(self):
@@ -22,3 +23,5 @@ class ProductionMenu(subMenuBase.SubMenu):
         self.addMenuItem("Add Shot")
         self.addMenuItem("Delete Shot")
 
+
+# TODO: build UIs for produciton stuff

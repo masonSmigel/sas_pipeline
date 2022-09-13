@@ -15,6 +15,7 @@ import maya.OpenMayaUI as omui
 
 import sas_pipe.common as common
 import sas_pipe.api.cmds as sas
+import sas_pipe.constants
 import sas_pipe.environment as environment
 from sas_pipe.entities import studio, show, sequence, shot, element
 import sas_pipe.maya.file as maya_file
@@ -22,10 +23,11 @@ import sas_pipe.api.cmds as sas_cmds
 
 logger = logging.getLogger(__name__)
 
+# TODO: update this ui.
 
 class SAS_EntityInfo(QtWidgets.QWidget):
     VARIANT_WGDTS = list()
-    BLANK_IMAGE = os.path.join(common.ICONS_PATH, "blankImage.png")
+    BLANK_IMAGE = os.path.join(sas_pipe.constants.ICONS_PATH, "blankImage.png")
 
     def __init__(self):
         super(SAS_EntityInfo, self).__init__()
@@ -291,7 +293,7 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
         # stuff for the navigate browser
         self.search_icon = QtWidgets.QLabel()
-        pixmap = QtGui.QPixmap(os.path.join(common.ICONS_PATH, "search.png"))
+        pixmap = QtGui.QPixmap(os.path.join(sas_pipe.constants.ICONS_PATH, "search.png"))
         self.search_icon.setScaledContents(True)
         self.search_icon.setPixmap(pixmap)
 

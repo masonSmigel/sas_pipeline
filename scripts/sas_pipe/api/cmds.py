@@ -7,6 +7,7 @@ import re
 import shutil
 from collections import OrderedDict
 import sas_pipe.common as common
+import sas_pipe.constants
 import sas_pipe.utils.osutil as osutil
 import sas_pipe.utils.pipeutils as pipeutils
 import sas_pipe.environment as environment
@@ -109,7 +110,7 @@ def mkstudio(studio, path):
     os.mkdir(os.path.join(studio_path, 'depts'))
     os.mkdir(os.path.join(studio_path, 'shows'))
 
-    for dept in common.DEPTS:
+    for dept in sas_pipe.constants.DEPTS:
         os.mkdir((os.path.join(studio_path, 'depts', dept)))
 
     # tag the folder as a studio root
@@ -253,9 +254,9 @@ def mkelm(element, type, var_data=None):
 
     variant_data = elm_entity.get_variant_tasks('base')
     for task in elm_entity.get_tasks():
-        os.makedirs(os.path.join(elm_entity.path, variant_data[task], common.WORK_TOKEN))
-        os.makedirs(os.path.join(elm_entity.path, variant_data[task], common.REL_TOKEN))
-        os.makedirs(os.path.join(elm_entity.path, variant_data[task], common.VER_TOKEN))
+        os.makedirs(os.path.join(elm_entity.path, variant_data[task], sas_pipe.constants.WORK_TOKEN))
+        os.makedirs(os.path.join(elm_entity.path, variant_data[task], sas_pipe.constants.REL_TOKEN))
+        os.makedirs(os.path.join(elm_entity.path, variant_data[task], sas_pipe.constants.VER_TOKEN))
 
     return elm_entity
 
@@ -337,9 +338,9 @@ def mkshot(seq, shot, type=None, var_data=None):
 
     variant_data = shot_entity.get_variant_tasks('base')
     for task in shot_entity.get_tasks():
-        os.makedirs(os.path.join(shot_entity.path, variant_data[task], common.WORK_TOKEN))
-        os.makedirs(os.path.join(shot_entity.path, variant_data[task], common.REL_TOKEN))
-        os.makedirs(os.path.join(shot_entity.path, variant_data[task], common.VER_TOKEN))
+        os.makedirs(os.path.join(shot_entity.path, variant_data[task], sas_pipe.constants.WORK_TOKEN))
+        os.makedirs(os.path.join(shot_entity.path, variant_data[task], sas_pipe.constants.REL_TOKEN))
+        os.makedirs(os.path.join(shot_entity.path, variant_data[task], sas_pipe.constants.VER_TOKEN))
 
     return shot_entity
 

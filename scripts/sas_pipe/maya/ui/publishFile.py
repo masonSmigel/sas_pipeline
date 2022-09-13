@@ -12,6 +12,7 @@ from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 
 import sas_pipe.common as common
+import sas_pipe.constants
 import sas_pipe.path as sas_path
 
 import sas_pipe.maya.widgets.pathSelector as pathSelector
@@ -31,8 +32,8 @@ class FunctionExecuter(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         super(FunctionExecuter, self).__init__(*args, **kwargs)
 
-        self.python_file = QtGui.QIcon(os.path.join(common.ICONS_PATH, "python_file.png"))
-        self.python_func = QtGui.QIcon(os.path.join(common.ICONS_PATH, "python.png"))
+        self.python_file = QtGui.QIcon(os.path.join(sas_pipe.constants.ICONS_PATH, "python_file.png"))
+        self.python_func = QtGui.QIcon(os.path.join(sas_pipe.constants.ICONS_PATH, "python.png"))
 
         self.create_widgets()
         self.create_layouts()
@@ -146,7 +147,7 @@ class PublishEntityUi(QtWidgets.QDialog):
 
     def create_widgets(self):
         self.tree = FunctionExecuter()
-        self.tree.load_files_from_path(common.PUBLISHSTEPS_PATH)
+        self.tree.load_files_from_path(sas_pipe.constants.PUBLISHSTEPS_PATH)
 
         self.discription_te = QtWidgets.QTextEdit()
         self.discription_te.setFixedHeight(100)

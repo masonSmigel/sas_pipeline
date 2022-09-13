@@ -9,6 +9,7 @@ from collections import OrderedDict
 from time import gmtime, strftime
 
 import sas_pipe.common as common
+import sas_pipe.constants
 from sas_pipe import Logger
 
 
@@ -117,7 +118,7 @@ class AbstractData(object):
         :type createDirectory: bool
         """
 
-        if type not in common.DATATYPES:
+        if type not in sas_pipe.constants.DATATYPES:
             type = self.__class__.__name__
 
         if not isinstance(self._data, (dict, OrderedDict)):

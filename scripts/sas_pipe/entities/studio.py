@@ -2,6 +2,7 @@ import os
 from collections import OrderedDict
 
 import sas_pipe.common as common
+import sas_pipe.constants
 import sas_pipe.entities.abstract_entity as abstract_entity
 import sas_pipe.utils.osutil as os_utils
 import sas_pipe.utils.pipeutils as pipeutils
@@ -19,7 +20,7 @@ def isstudio(path):
 
 class Studio(abstract_entity.AbstractEntity):
     """Studio class. Accepts the studio root as a parameter"""
-    DEFAULT_DATA = OrderedDict(depts=common.DEPTS, shows=[])
+    DEFAULT_DATA = OrderedDict(depts=sas_pipe.constants.DEPTS, shows=[])
 
     def __init__(self, path):
         super(Studio, self).__init__(path)

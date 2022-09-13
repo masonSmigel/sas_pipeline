@@ -3,6 +3,7 @@
 """
 import os
 import sas_pipe.common as common
+import sas_pipe.constants
 import sas_pipe.utils.osutil as osutil
 
 
@@ -13,7 +14,7 @@ def addEntityTag(path, type):
     :return:
     """
     tag_file = path + "/.{}".format(type.lower())
-    if type.lower() not in [x.lower() for x in common.DATATYPES]:
+    if type.lower() not in [x.lower() for x in sas_pipe.constants.DATATYPES]:
         raise ValueError('{} is not a valid tag.'.format(type))
 
     f = open(tag_file, "w")

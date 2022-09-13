@@ -4,11 +4,12 @@ This module creates a menu for a SAS pipeline
 import imp
 from functools import partial
 import sas_pipe.common as common
+import sas_pipe.constants
 from sas_pipe.maya.widgets import subMenuBase
 
 
 class CommonMenu(subMenuBase.SubMenu):
-    def __init__(self, name='rigging', parent=None, iconsPath=common.ICONS_PATH):
+    def __init__(self, name='rigging', parent=None, iconsPath=sas_pipe.constants.ICONS_PATH):
         super(CommonMenu, self).__init__(name=name, parent=parent, iconPath=iconsPath)
 
     def build(self):

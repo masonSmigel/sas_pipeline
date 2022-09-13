@@ -53,13 +53,13 @@ class _menu(object):
             parent = self.menu_obj
         return cmds.menuItem(l=label, subMenu=True, tearOff=tearOff, p=parent, **kwargs)
 
-    def addDivider(self, parent=None):
+    def addDivider(self, label=None,  parent=None):
         """
         Add a separator
         """
         if not parent:
             parent = self.menu_obj
-        return cmds.menuItem(divider=True, parent=parent)
+        return cmds.menuItem(divider=True, label=label, parent=parent)
 
     def _cleanOldMenu(self):
         """

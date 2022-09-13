@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="">
+    <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="renamed menu">
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/constants.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/show.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/show.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/studio.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/studio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/animation/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/animation/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/common/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/common/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/production/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/production/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/rigging/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/rigging/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/publishFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/publishFile.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/publishFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/publishFile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/menuBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/menuBase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/utils/data/abstract_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/utils/data/abstract_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/utils/pipeutils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/utils/pipeutils.py" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,46 +67,41 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1wAq1bGvkCm7I3Adt3dxyI6dbqe" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets" />
-    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
-    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/masonsmigel/Documents/dev/maya/sas_pipeline&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets" />
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe" />
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/ui" />
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya" />
-      <recent name="$PROJECT_DIR$/scripts/sas_pipe/api" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/production" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/general" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/animation" />
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/rigging" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scripts/sas_pipe" />
       <recent name="$PROJECT_DIR$/__trash__/maya/ui/widgets" />
       <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets" />
       <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/publish" />
       <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/ui" />
-      <recent name="$PROJECT_DIR$/__trash__" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="MayaCharm.Unnamed">
+  <component name="RunManager" selected="Python.menu">
     <configuration name="Unnamed" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MayaCharm Configuration Factory">
       <option name="mayaSdkPath" value="/Applications/Autodesk/maya2020/Maya.app/Contents/bin/mayapy" />
       <option name="scriptFilePath" value="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" />
@@ -175,7 +191,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="scratch_5" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="menu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="sas_pipeline" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -183,11 +199,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/sas_pipe/maya" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_5.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -218,24 +234,24 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="MayaCharm.Unnamed" />
       <item itemvalue="Python.element" />
-      <item itemvalue="Python.scratch_5" />
-      <item itemvalue="Python.cmds_m" />
-      <item itemvalue="Python.shot" />
       <item itemvalue="Python.assetBrowser" />
+      <item itemvalue="Python.cmds_m" />
       <item itemvalue="Python.environment" />
+      <item itemvalue="Python.menu" />
+      <item itemvalue="Python.shot" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.menu" />
         <item itemvalue="Python.environment" />
         <item itemvalue="Python.assetBrowser" />
         <item itemvalue="Python.cmds_m" />
         <item itemvalue="Python.shot" />
-        <item itemvalue="Python.scratch_5" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration>$USER_HOME$/.subversion</configuration>
   </component>
@@ -492,7 +508,35 @@
       <option name="project" value="LOCAL" />
       <updated>1650419637680</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="added check to ensure feilds filled out">
+      <created>1650420999901</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1650420999901</updated>
+    </task>
+    <task id="LOCAL-00037" summary="updated menus to be more modular.">
+      <created>1659306244650</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1659306244650</updated>
+    </task>
+    <task id="LOCAL-00038" summary="added CHANGELOG.md">
+      <created>1659306516198</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1659306516198</updated>
+    </task>
+    <task id="LOCAL-00039" summary="renamed menu">
+      <created>1659306525308</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1659306525308</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -525,25 +569,14 @@
         </entry>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
-    <option name="OPEN_TABS">
-      <set>
-        <option value="1" />
-      </set>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="added README" />
-    <MESSAGE value="updated about ui" />
-    <MESSAGE value="updated installation process. Shelf created on Drop" />
-    <MESSAGE value="Updated set root to not add a new show when root is changed." />
     <MESSAGE value="updated README.md" />
     <MESSAGE value="before cleanup of shot and pipeline refactor" />
     <MESSAGE value="Version 2.0 inital commit. Before refactoring" />
@@ -565,6 +598,21 @@
     <MESSAGE value="added create thumbnails" />
     <MESSAGE value="updated mk method" />
     <MESSAGE value="updated with sas studio feedback" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated with sas studio feedback" />
+    <MESSAGE value="added check to ensure feilds filled out" />
+    <MESSAGE value="updated menus to be more modular." />
+    <MESSAGE value="added CHANGELOG.md" />
+    <MESSAGE value="renamed menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed menu" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/sas_pipe/maya/depts/common/menu.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

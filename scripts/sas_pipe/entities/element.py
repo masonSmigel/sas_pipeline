@@ -1,5 +1,8 @@
 import os
+import getpass
 from collections import OrderedDict
+
+import sas_pipe.constants
 import sas_pipe.utils.osutil as os_utils
 import sas_pipe.utils.pipeutils as pipeutils
 import sas_pipe.common as common
@@ -23,6 +26,8 @@ class Element(abstract_entity.AbstractEntity):
 
     DEFAULT_DATA = OrderedDict([('tasks', DEFAULT_TASKS), ('variants', {"base": DEFAULT_VARIANT})])
 
+    FILENAME_SYNTAX = "{name}_{task}_{variant}_v{version}_{intials}"
+
     def __init__(self, path, name=None):
         super(Element, self).__init__(path, name)
 
@@ -44,6 +49,17 @@ class Element(abstract_entity.AbstractEntity):
     def get_tasks(self):
         return self._data['tasks']
 
+    @staticmethod
+    def create(type, name):
+        """
+        Create a new element based on the type and name provided
+        :param type: type of element to create
+        :param name: name of the new element to create
+        :return:
+        """
+
+
+
     def add_task(self, new, path=None):
         """
         Add a new task
@@ -56,9 +72,9 @@ class Element(abstract_entity.AbstractEntity):
             data['tasks'].append(new)
             if path:
                 data['variants']['base'][new] = path
-                os.makedirs(os.path.join(self.path, path, common.WORK_TOKEN))
-                os.makedirs(os.path.join(self.path, path, common.REL_TOKEN))
-                os.makedirs(os.path.join(self.path, path, common.VER_TOKEN))
+                os.makedirs(os.path.join(self.path, path, sas_pipe.constants.WORK_TOKEN))
+                os.makedirs(os.path.join(self.path, path, sas_pipe.constants.REL_TOKEN))
+                os.makedirs(os.path.join(self.path, path, sas_pipe.constants.VER_TOKEN))
             self.setData(data)
         else:
             raise ValueError('Task "{}" already exists on asset "{}"'.format(new, self.name))
@@ -96,6 +112,18 @@ class Element(abstract_entity.AbstractEntity):
 
     def get_all_variants(self):
         return self._data['variants']
+
+    def get_file_name(self, task, variant, work=True):
+        """
+        generate a filename
+        :param task:
+        :param variant:
+        :param work:
+        :return:
+        """
+        user = getpass.getuser()
+        filename = self.FILENAME_SYNTAX.format(name=self.name, task=task, variant=variant, intials=user)
+        print filename
 
     def get_work_files(self, task, variant=None):
         """
@@ -145,12 +173,9 @@ class Element(abstract_entity.AbstractEntity):
         else:
             return None
 
+
+
 if __name__ == '__main__':
     e = Element('/Users/masonsmigel/Documents/SAS_DEV/shows/TEST/elements/char/testCharacter')
     e.get_tasks()
-    # e.add_task('face', 'rig/face')
-    # e.add_task('body', 'rig/body')
-    # e.add_variant('worn', rig='rig/wear')
-    # e.add_task('bshps', 'rig/bshps')
-    # e.add_variant('worn', mod='mod/worn')
-    print e.get_all_variants()
+
