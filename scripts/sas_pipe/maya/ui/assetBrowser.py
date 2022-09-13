@@ -67,15 +67,22 @@ class SAS_EntityInfo(QtWidgets.QWidget):
 
         self.task_cb = QtWidgets.QComboBox()
         self.task_cb.setMinimumWidth(180)
+        self.task_cb.setMinimumHeight(30)
+        self.task_cb.setMaxVisibleItems(30)
 
         self.task_te = QtWidgets.QTextEdit()
         self.task_te.setReadOnly(True)
         self.task_te.resize(self.task_te.sizeHint().width(), 100)
 
-        self.open_varant_mgr_btn = QtWidgets.QPushButton("Open Variant Manager")
+        # self.open_varant_mgr_btn = QtWidgets.QPushButton("Open Variant Manager")
         self.open_work_btn = QtWidgets.QPushButton("Open (Work File)")
+        self.open_work_btn.setMinimumHeight(30)
+
         self.import_publish_btn = QtWidgets.QPushButton("Import (Publish File)")
+        self.import_publish_btn.setMinimumHeight(30)
+
         self.reference_publish_btn = QtWidgets.QPushButton("Reference (Publish File)")
+        self.reference_publish_btn.setMinimumHeight(30)
 
     def create_layouts(self):
         self.main_layout = QtWidgets.QVBoxLayout(self)
@@ -151,6 +158,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
             if self.current_entity.type in ["Element", 'Shot']:
                 for task in self.current_entity.get_tasks():
                     self.task_cb.addItem(task)
+                self.task_cb.adjustSize()
 
                 # setup some task info
                 self.update_task_data()
