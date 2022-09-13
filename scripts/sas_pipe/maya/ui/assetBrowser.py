@@ -251,7 +251,6 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         # compose the full path
         fullPath = self.current_entity.compose_path(task, sas_pipe.constants.WORK_TOKEN, fileName=sortedFiles[-1])
 
-        print fullPath
         maya_file.open_(fullPath, f=True)
 
     def import_file(self):
@@ -288,7 +287,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         sortedFiles = sorted(publishFiles)
 
         fullPath = self.current_entity.compose_path(task, sas_pipe.constants.REL_TOKEN, fileName=sortedFiles[-1])
-        maya_file.reference(fullPath,)
+        maya_file.reference(fullPath, )
 
 
 class SAS_AssetBrowser(QtWidgets.QDialog):
@@ -746,9 +745,9 @@ class CreateElementDialog(QtWidgets.QDialog):
             return
 
         elm = sas_cmds.mkelm(elm_name, elm_type)
-        print "{}\nCreated New Element\n{}".format("-" * 80, "-" * 80)
-        print elm
-        print "-" * 80
+        print("{}\nCreated New Element\n{}".format("-" * 80, "-" * 80))
+        print(elm)
+        print("-" * 80)
 
     def create(self):
         self.apply()
@@ -826,9 +825,9 @@ class CreateShotDialog(CreateElementDialog):
             return
 
         shot = sas_cmds.mkshot(seq_name, shot_name, seq_type)
-        print "{}\nCreated New Shot\n{}".format("-" * 80, "-" * 80)
-        print shot
-        print "-" * 80
+        print("{}\nCreated New Shot\n{}".format("-" * 80, "-" * 80))
+        print(shot)
+        print("-" * 80)
 
     def clear(self):
         self.seq_le.clear()

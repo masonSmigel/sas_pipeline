@@ -161,7 +161,7 @@ def import_(path=None, ns=False, f=False):
 
     kwargs = {"i": True, "f": f, "rnn": True}
     if ns:
-        namespace = os.path.basename(path).split('.')[0]
+        namespace = os.path.basename(path).split('.')[0].replace("-", "_")
         kwargs["ns"] = namespace
 
     file_ = cmds.file(path, **kwargs)
@@ -176,7 +176,7 @@ def reference(path=None):
     """
     if not path:
         path = _pathDialog(cap='Reference', okc='Reference', fm=0, ff=MAYA_FILE_FILTER)
-    namespace = os.path.basename(path).split('.')[0]
+    namespace = os.path.basename(path).split('.')[0].replace("-", "_")
     return cmds.file(path, r=True, ns=namespace)
 
 
