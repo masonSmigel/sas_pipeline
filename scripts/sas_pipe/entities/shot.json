@@ -1,16 +1,46 @@
 {
-  "shot": [
-    "anim_main",
-    "art",
-    "reference",
-    "",
-    "mod-deliver",
-    "rig-proxy",
-    "rig-body",
-    "rig_facialrig-deliver",
-    "look_uv",
-    "look_texture",
-    "look_surface",
-    "look_deliver"
-  ]
+    "type": "AbstractData", 
+    "user": "masonsmigel", 
+    "time": "2022-09-13 03:44:43", 
+    "data": {
+        "seq": [
+            "anim_main", 
+            "art", 
+            "reference", 
+            "audio",
+            "anim_lay",
+            "anim_crowd",
+            "cfx_crowd",
+            "cfx_main",
+            "light",
+            "comp",
+            "anim_mocap"
+        ],
+        "mrkt": [
+            "anim_main",
+            "art",
+            "reference",
+            "audio",
+            "anim_lay",
+            "anim_crowd",
+            "cfx_crowd",
+            "cfx_main",
+            "light",
+            "comp",
+            "anim_mocap"
+            ],
+    "cycles": [
+            "anim_main",
+            "art",
+            "reference",
+            "audio",
+            "anim_lay",
+            "anim_crowd",
+            "cfx_crowd",
+            "cfx_main",
+            "light",
+            "comp",
+            "anim_mocap"
+            ]
+    }
 }

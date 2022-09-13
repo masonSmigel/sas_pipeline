@@ -13,8 +13,8 @@ if __name__ == '__main__':
     parser = ArgumentParser(description="""
     Make a new studio
     """)
-    parser.add_argument("studiopath", help="path to the base dir to set", metavar="STUDIOPATH")
     parser.add_argument("studioname",help="name of the studio", metavar="PATH")
+    parser.add_argument("studiopath", help="path to the base dir to set", metavar="STUDIOPATH")
     args = vars(parser.parse_args())
 
     name = args['studioname'] if args['studioname'] else None

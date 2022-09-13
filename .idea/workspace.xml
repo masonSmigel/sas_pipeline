@@ -4,28 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="renamed menu">
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="649ec5ec-69fd-4a46-aa0e-b06332f93c75" name="Default Changelist" comment="commit before working on the new task template">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/mkstudio" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mkstudio" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/api/cmds.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/abstract_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/abstract_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.json" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/element.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.json" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/show.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/show.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/entities/studio.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/entities/studio.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/animation/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/animation/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/common/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/common/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/production/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/production/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/rigging/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/depts/rigging/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/publishFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/publishFile.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/publishFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/publishFile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/menuBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/maya/widgets/menuBase.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/utils/data/abstract_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/utils/data/abstract_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sas_pipe/utils/pipeutils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sas_pipe/utils/pipeutils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +94,7 @@
       <recent name="$PROJECT_DIR$/scripts/sas_pipe/maya/ui" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.menu">
+  <component name="RunManager" selected="Python.element">
     <configuration name="Unnamed" type="MAYACHARM_RUN_CONFIGURATION" factoryName="MayaCharm Configuration Factory">
       <option name="mayaSdkPath" value="/Applications/Autodesk/maya2020/Maya.app/Contents/bin/mayapy" />
       <option name="scriptFilePath" value="$PROJECT_DIR$/scripts/sas_pipe/maya/ui/assetBrowser.py" />
@@ -212,7 +205,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="shot" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="scratch_7" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="sas_pipeline" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -220,11 +213,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/sas_pipe/entities" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/sas_pipe/entities/shot.py" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_7.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -235,19 +228,19 @@
     </configuration>
     <list>
       <item itemvalue="Python.element" />
+      <item itemvalue="Python.scratch_7" />
       <item itemvalue="Python.assetBrowser" />
       <item itemvalue="Python.cmds_m" />
       <item itemvalue="Python.environment" />
       <item itemvalue="Python.menu" />
-      <item itemvalue="Python.shot" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.scratch_7" />
+        <item itemvalue="Python.cmds_m" />
         <item itemvalue="Python.menu" />
         <item itemvalue="Python.environment" />
         <item itemvalue="Python.assetBrowser" />
-        <item itemvalue="Python.cmds_m" />
-        <item itemvalue="Python.shot" />
       </list>
     </recent_temporary>
   </component>
@@ -536,7 +529,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659306525308</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="commit before working on the new task template">
+      <created>1663040385026</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1663040385026</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -577,7 +577,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="updated README.md" />
     <MESSAGE value="before cleanup of shot and pipeline refactor" />
     <MESSAGE value="Version 2.0 inital commit. Before refactoring" />
     <MESSAGE value="update path checking" />
@@ -602,7 +601,8 @@
     <MESSAGE value="updated menus to be more modular." />
     <MESSAGE value="added CHANGELOG.md" />
     <MESSAGE value="renamed menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="renamed menu" />
+    <MESSAGE value="commit before working on the new task template" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit before working on the new task template" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

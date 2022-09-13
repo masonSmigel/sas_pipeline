@@ -1,10 +1,14 @@
 import os
 
 from collections import OrderedDict
+
+from sas_pipe import constants
+import sas_pipe.common as common
 import sas_pipe.entities.element as elm
 import sas_pipe.utils.osutil as osutil
 import sas_pipe.utils.pipeutils as pipeutils
 import sas_pipe.environment as environment
+from sas_pipe.utils.data import abstract_data
 
 
 def isShot(path):
@@ -17,14 +21,6 @@ def isShot(path):
 
 
 class Shot(elm.Element):
-    DEFAULT_VARIANT = OrderedDict(
-        [('anim', 'anim'), ('audio', 'audio'), ('comp', 'comp'), ('crowd', 'crowd'), ('fx', 'fx'), ('lay', 'lay'),
-         ('lght', 'lght'), ('cfx', 'cfx'), ('mocap', 'mocap')])
-
-    DEFAULT_TASKS = DEFAULT_VARIANT.keys()
-
-    DEFAULT_DATA = OrderedDict(
-        [('tasks', DEFAULT_TASKS), ('variants', {"base": DEFAULT_VARIANT}), ('elements', OrderedDict())])
 
     def __init__(self, path):
         seq_type = os.path.basename(osutil.get_parent(path, 2))
@@ -33,6 +29,42 @@ class Shot(elm.Element):
         self.name = '{}_{}_{}'.format(seq_type, seq, shot)
 
         super(Shot, self).__init__(path, name=self.name)
+
+    @staticmethod
+    def create(path, shotType):
+        """
+        Create a new element based on the type and name provided
+        :param path: path to the element
+        :param shotType: type of element to create. Valid values are set in the Element Template
+        :return:
+        """
+        pipeutils.addEntityTag(path, 'shot')
+
+        shot_entity = Shot(path)
+
+        shotTemplate = abstract_data.AbstractData()
+        shotTemplate.read(constants.SHOT_TEMPLATE)
+        shotTemplateData = shotTemplate.getData()
+
+        if shotType not in shotTemplateData.keys():
+            raise Exception("No Shot type: {} specified in template".format(shotType))
+
+        data = OrderedDict()
+        variantDict = OrderedDict()
+        baseDict = OrderedDict()
+        for task in shotTemplateData[shotType]:
+            os.makedirs(os.path.join(path, task, constants.WORK_TOKEN))
+            os.makedirs(os.path.join(path, task, constants.REL_TOKEN))
+            os.makedirs(os.path.join(path, task, constants.VER_TOKEN))
+            baseDict[task] = task
+
+        variantDict['base'] = baseDict
+        data['variants'] = variantDict
+        data['elements'] = OrderedDict()
+
+        shot_entity.setData(data)
+
+        return shot_entity
 
     def add_element(self, element, type, task, variant=None, override=None):
         """

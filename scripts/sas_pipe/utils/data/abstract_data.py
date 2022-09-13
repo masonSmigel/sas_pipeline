@@ -153,7 +153,7 @@ class AbstractData(object):
         :rtype: dict
         """
         if not os.path.isfile(filepath):
-            raise RuntimeError("This {0} does not exists.".format(filepath))
+            raise RuntimeError("The file {0} does not exists.".format(filepath))
 
         f = open(filepath, 'r')
         data = json.loads(f.read().decode('utf-8'), object_pairs_hook=OrderedDict)

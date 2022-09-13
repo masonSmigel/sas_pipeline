@@ -49,6 +49,11 @@ class AbstractEntity(object):
 
         return description.format(name=self.name, path=self.path, type=self.type)
 
+    @staticmethod
+    def create():
+        """Redefine in sublclasses"""
+        pass
+
     def read(self):
         data = abstract_data.AbstractData()
         data.read(self.manifest_path)

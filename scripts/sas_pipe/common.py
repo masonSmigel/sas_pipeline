@@ -4,6 +4,7 @@ This module contains functions common to all modules and constants
 """
 from collections import OrderedDict
 
+
 def toList(values):
     """
     Converts values into a items

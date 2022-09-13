@@ -23,6 +23,7 @@ import sas_pipe.api.cmds as sas_cmds
 
 logger = logging.getLogger(__name__)
 
+
 # TODO: update this ui.
 
 class SAS_EntityInfo(QtWidgets.QWidget):
@@ -142,8 +143,8 @@ class SAS_EntityInfo(QtWidgets.QWidget):
                     self.task_cb.addItem(task)
 
                 # check for a thumbnail. if we dont have one use the default blank image icon
-                if entity.get_thumbnail():
-                    thumbnail = entity.get_thumbnail()
+                if entity.get_thumbnail_path():
+                    thumbnail = entity.get_thumbnail_path()
                 else:
                     thumbnail = self.BLANK_IMAGE
                 self.update_thumbnail(thumbnail)
@@ -202,7 +203,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
                        viewer=False, forceOverwrite=True, orn=False,
                        format="image", compression="jpg", cf=thumbnail_path)
 
-        self.update_thumbnail(entity.get_thumbnail())
+        self.update_thumbnail(entity.get_thumbnail_path())
 
 
 class SAS_AssetBrowser(QtWidgets.QDialog):
@@ -605,7 +606,7 @@ class CreateElementDialog(QtWidgets.QDialog):
         self.elm_type_cb = QtWidgets.QComboBox()
 
         show_enitity = show.Show(environment.getEnv("show_path"))
-        for type in show_enitity.get_assetTypes():
+        for type in show_enitity.get_elementTypes():
             self.elm_type_cb.addItem(type)
 
         # self.path_la = QtWidgets.QLabel("Path: ")
@@ -660,7 +661,7 @@ class CreateElementDialog(QtWidgets.QDialog):
             return
 
         elm = sas_cmds.mkelm(elm_name, elm_type)
-        print "{}\nCreated New Element\n{}".format("-" * 80, "-" *80)
+        print "{}\nCreated New Element\n{}".format("-" * 80, "-" * 80)
         print elm
         print "-" * 80
 
@@ -740,7 +741,7 @@ class CreateShotDialog(CreateElementDialog):
             return
 
         shot = sas_cmds.mkshot(seq_name, shot_name, seq_type)
-        print "{}\nCreated New Shot\n{}".format("-" * 80, "-" *80)
+        print "{}\nCreated New Shot\n{}".format("-" * 80, "-" * 80)
         print shot
         print "-" * 80
 

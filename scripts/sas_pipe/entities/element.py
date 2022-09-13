@@ -2,11 +2,13 @@ import os
 import getpass
 from collections import OrderedDict
 
-import sas_pipe.constants
+from sas_pipe import constants
 import sas_pipe.utils.osutil as os_utils
 import sas_pipe.utils.pipeutils as pipeutils
+from sas_pipe import environment
 import sas_pipe.common as common
 import sas_pipe.entities.abstract_entity as abstract_entity
+from sas_pipe.utils.data import abstract_data
 
 
 def isElement(path):
@@ -19,25 +21,17 @@ def isElement(path):
 
 
 class Element(abstract_entity.AbstractEntity):
-    DEFAULT_VARIANT = OrderedDict(
-        [('art', 'art'), ('mod', 'mod'), ('rig', 'rig'), ('tex', 'look/tex'), ('mat', 'look/mat')])
-
-    DEFAULT_TASKS = DEFAULT_VARIANT.keys()
-
-    DEFAULT_DATA = OrderedDict([('tasks', DEFAULT_TASKS), ('variants', {"base": DEFAULT_VARIANT})])
-
     FILENAME_SYNTAX = "{name}_{task}_{variant}_v{version}_{intials}"
 
     def __init__(self, path, name=None):
         super(Element, self).__init__(path, name)
 
     def __str__(self):
-        description = \
-            '''
-            name: {name}
-            type: {type}
-            path: {path}
-            '''
+        description = '''
+        name: {name}
+        type: {type}
+        path: {path}
+        '''
 
         return description.format(name=self.name, path=self.path, type=self.type)
 
@@ -47,18 +41,42 @@ class Element(abstract_entity.AbstractEntity):
         self.setData(data)
 
     def get_tasks(self):
-        return self._data['tasks']
+        return list(self._data['variants']['base'].keys())
 
     @staticmethod
-    def create(type, name):
+    def create(path, elementType):
         """
         Create a new element based on the type and name provided
-        :param type: type of element to create
-        :param name: name of the new element to create
+        :param path: path to the element
+        :param elementType: type of element to create. Valid values are set in the Element Template
         :return:
         """
+        pipeutils.addEntityTag(path, 'element')
 
+        element_entity = Element(path)
 
+        elementTemplate = abstract_data.AbstractData()
+        elementTemplate.read(constants.ELEMENT_TEMPLATE)
+        elementTempalteData = elementTemplate.getData()
+
+        if elementType not in elementTempalteData.keys():
+            raise Exception("No element type: {} specified in template".format(elementType))
+
+        data = OrderedDict()
+        variantDict = OrderedDict()
+        baseDict = OrderedDict()
+        for task in elementTempalteData[elementType]:
+            os.makedirs(os.path.join(path, task, constants.WORK_TOKEN))
+            os.makedirs(os.path.join(path, task, constants.REL_TOKEN))
+            os.makedirs(os.path.join(path, task, constants.VER_TOKEN))
+            baseDict[task] = task
+
+        variantDict['base'] = baseDict
+        data['variants'] = variantDict
+
+        element_entity.setData(data)
+
+        return element_entity
 
     def add_task(self, new, path=None):
         """
@@ -72,48 +90,15 @@ class Element(abstract_entity.AbstractEntity):
             data['tasks'].append(new)
             if path:
                 data['variants']['base'][new] = path
-                os.makedirs(os.path.join(self.path, path, sas_pipe.constants.WORK_TOKEN))
-                os.makedirs(os.path.join(self.path, path, sas_pipe.constants.REL_TOKEN))
-                os.makedirs(os.path.join(self.path, path, sas_pipe.constants.VER_TOKEN))
+                os.makedirs(os.path.join(self.path, path, constants.WORK_TOKEN))
+                os.makedirs(os.path.join(self.path, path, constants.REL_TOKEN))
+                os.makedirs(os.path.join(self.path, path, constants.VER_TOKEN))
             self.setData(data)
         else:
             raise ValueError('Task "{}" already exists on asset "{}"'.format(new, self.name))
         return new
 
-    def add_variant(self, variant, **kwargs):
-        """
-        Setup a new variant and its data.
-        :param variant: name of the variant
-        :param kwargs: tasks to set the variant tasks to. (ex: mod = 'mod', tex = 'look/tex')
-        :return:
-        """
-        data = self._data
-
-        var_data = OrderedDict()
-        for kwarg in kwargs:
-            if kwarg in self.get_tasks():
-                var_data[kwarg] = kwargs[kwarg]
-            else:
-                raise ValueError('keyword "{}" is not a task for the Element "{}"'.format(kwarg, self.name))
-
-        if not data.has_key('variants'):
-            data['variants'] = OrderedDict()
-        data['variants'][variant] = var_data
-        self.setData(data)
-
-    def set_variant(self, values):
-        data = self._data
-        data['variants'] = values
-        self.setData(data)
-
-    def get_variant_tasks(self, variant=None):
-        if not variant: variant = 'base'
-        return self._data['variants'][variant]
-
-    def get_all_variants(self):
-        return self._data['variants']
-
-    def get_file_name(self, task, variant, work=True):
+    def get_file_name(self, task, variant=None, work=True):
         """
         generate a filename
         :param task:
@@ -122,8 +107,9 @@ class Element(abstract_entity.AbstractEntity):
         :return:
         """
         user = getpass.getuser()
+        variant = variant or 'base'
         filename = self.FILENAME_SYNTAX.format(name=self.name, task=task, variant=variant, intials=user)
-        print filename
+        return filename
 
     def get_work_files(self, task, variant=None):
         """
@@ -148,7 +134,42 @@ class Element(abstract_entity.AbstractEntity):
         return os_utils.get_contents(path, files=True, dirs=False)
 
     def get_thumbnail_path(self):
-        return os.path.join(self.path, 'thumbnail_{}.jpg'.format(self.name))
+        thumbNailPath = os.path.join(self.path, 'thumbnail_{}.jpg'.format(self.name))
+
+        return thumbNailPath if os.path.exists(thumbNailPath) else None
+
+    # def add_variant(self, variant, **kwargs):
+    #     """
+    #     Setup a new variant and its data.
+    #     :param variant: name of the variant
+    #     :param kwargs: tasks to set the variant tasks to. (ex: mod = 'mod', tex = 'look/tex')
+    #     :return:
+    #     """
+    #     data = self._data
+    #
+    #     var_data = OrderedDict()
+    #     for kwarg in kwargs:
+    #         if kwarg in self.get_tasks():
+    #             var_data[kwarg] = kwargs[kwarg]
+    #         else:
+    #             raise ValueError('keyword "{}" is not a task for the Element "{}"'.format(kwarg, self.name))
+    #
+    #     if not data.has_key('variants'):
+    #         data['variants'] = OrderedDict()
+    #     data['variants'][variant] = var_data
+    #     self.setData(data)
+
+    # def set_variant(self, values):
+    #     data = self._data
+    #     data['variants'] = values
+    #     self.setData(data)
+    #
+    # def get_variant_tasks(self, variant=None):
+    #     if not variant: variant = 'base'
+    #     return self._data['variants'][variant]
+    #
+    # def get_all_variants(self):
+    #     return self._data['variants']
 
     def validate_variant_data(self, variant, task):
         """
@@ -163,19 +184,7 @@ class Element(abstract_entity.AbstractEntity):
                 return self._data['variants'][variant][task]
         return self._data['variants']['base'][task]
 
-    def get_thumbnail(self):
-        """
-        return the thumbnail image if one exists.
-        :return:
-        """
-        if os.path.exists(self.get_thumbnail_path()):
-            return self.get_thumbnail_path()
-        else:
-            return None
-
-
 
 if __name__ == '__main__':
-    e = Element('/Users/masonsmigel/Documents/SAS_DEV/shows/TEST/elements/char/testCharacter')
-    e.get_tasks()
-
+    e = Element('/Users/masonsmigel/Documents/NewShowsStudio/shows/TLD/elements/char/paladin')
+    print e.get_tasks()

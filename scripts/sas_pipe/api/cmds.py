@@ -107,17 +107,11 @@ def mkstudio(studio, path):
         raise UserError('Studio already exists at : {}'.format(path))
 
     os.mkdir(studio_path)
-    os.mkdir(os.path.join(studio_path, 'depts'))
-    os.mkdir(os.path.join(studio_path, 'shows'))
 
-    for dept in sas_pipe.constants.DEPTS:
-        os.mkdir((os.path.join(studio_path, 'depts', dept)))
-
-    # tag the folder as a studio root
-    pipeutils.addEntityTag(studio_path, 'studio')
+    studio_entity = sas_pipe.entities.studio.Studio.create(studio_path)
 
     setstudio(studio_path)
-    return sas_pipe.entities.studio.Studio(studio_path)
+    return studio_entity
 
 
 def rmstudio(path):
@@ -137,12 +131,10 @@ def getstudio():
 
 
 # SHOW
-def mkshow(show, elementTypes=None, sequenceTypes=None):
+def mkshow(show):
     """
     Make a new show. This will also set the active show to the new show.
     :param show: name of the show to remove. This will be all uppercased
-    :param elementTypes:
-    :param sequenceTypes:
     :return: show elm
     """
     show_path = osutil.clean_path(os.path.join(environment.getEnv('shows_path'), show.upper()))
@@ -156,33 +148,11 @@ def mkshow(show, elementTypes=None, sequenceTypes=None):
     user_prefs.UserPrefs.set_current_show(show)
     setshow(show)
 
-    # tag the folder as a show
-    pipeutils.addEntityTag(show_path, 'show')
-
     # add the show to the studio data
     studio_entity = sas_pipe.entities.studio.Studio(environment.getEnv('root'))
     studio_entity.add_show(show)
 
-    # create a manifest file
-    show_entity = sas_pipe.entities.show.Show(show_path)
-    if elementTypes:
-        show_entity.set_elementTypes(elementTypes)
-    if sequenceTypes:
-        show_entity.set_sequenceTypes(sequenceTypes)
-
-    # Make folders for element and sequence types
-    for type in show_entity._data['element_types']:
-        os.makedirs(os.path.join(environment.getEnv('elm_path'), type))
-
-    for type in show_entity._data['sequence_types']:
-        os.makedirs(os.path.join(environment.getEnv('seq_path'), type))
-
-    # make other root folders
-    os.makedirs(os.path.join(environment.getEnv('pipe_path')))
-    os.makedirs(os.path.join(environment.getEnv('develop_path')))
-    os.makedirs(os.path.join(environment.getEnv('rnd_path')))
-    os.makedirs(os.path.join(environment.getEnv('editorial_path')))
-    os.makedirs(os.path.join(environment.getEnv('out_path')))
+    show_entity = sas_pipe.entities.show.Show.create(show_path)
 
     return show_entity
 
@@ -240,23 +210,25 @@ def mkelm(element, type, var_data=None):
     # setup the element
     if os.path.exists(elm_path):
         raise UserError("Element with that name already exists")
+
     os.makedirs(elm_path)
 
-    # Tag the folder as a show
-    pipeutils.addEntityTag(elm_path, 'element')
-
-    elm_entity = sas_pipe.entities.element.Element(elm_path)
-
-    # if we pass var_data then add that to the elm_entity
-    if var_data:
-        elm_entity.set_tasks(var_data.keys())
-        elm_entity.set_variants(var_data)
-
-    variant_data = elm_entity.get_variant_tasks('base')
-    for task in elm_entity.get_tasks():
-        os.makedirs(os.path.join(elm_entity.path, variant_data[task], sas_pipe.constants.WORK_TOKEN))
-        os.makedirs(os.path.join(elm_entity.path, variant_data[task], sas_pipe.constants.REL_TOKEN))
-        os.makedirs(os.path.join(elm_entity.path, variant_data[task], sas_pipe.constants.VER_TOKEN))
+    elm_entity = sas_pipe.entities.element.Element.create(elm_path, elementType=type)
+    # # Tag the folder as a show
+    # # pipeutils.addEntityTag(elm_path, 'element')
+    #
+    # # elm_entity = sas_pipe.entities.element.Element(elm_path)
+    #
+    # # if we pass var_data then add that to the elm_entity
+    # if var_data:
+    #     elm_entity.set_tasks(var_data.keys())
+    #     elm_entity.set_variants(var_data)
+    #
+    # variant_data = elm_entity.get_variant_tasks('base')
+    # for task in elm_entity.get_tasks():
+    #     os.makedirs(os.path.join(elm_entity.path, variant_data[task], sas_pipe.constants.WORK_TOKEN))
+    #     os.makedirs(os.path.join(elm_entity.path, variant_data[task], sas_pipe.constants.REL_TOKEN))
+    #     os.makedirs(os.path.join(elm_entity.path, variant_data[task], sas_pipe.constants.VER_TOKEN))
 
     return elm_entity
 
@@ -291,7 +263,7 @@ def lselm(types=None):
     show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
     elm_path = osutil.clean_path(os.path.join(environment.getEnv('elm_path')))
     elm_dict = dict()
-    types = show_entity.get_assetTypes() if not types else common.toList(types)
+    types = show_entity.get_elementTypes() if not types else common.toList(types)
     for type in types:
         type_elmenets = list()
         contents = osutil.get_contents(os.path.join(elm_path, type))
@@ -326,21 +298,22 @@ def mkshot(seq, shot, type=None, var_data=None):
         raise UserError("Shot with that name already exists")
     os.makedirs(shot_path)
 
-    # Tag the folder as a show
-    pipeutils.addEntityTag(shot_path, 'shot')
-
-    shot_entity = sas_pipe.entities.shot.Shot(shot_path)
-
-    # if we pass var_data then add that to the elm_entity
-    if var_data:
-        elm_entity.set_tasks(var_data.keys())
-        elm_entity.set_variants(var_data)
-
-    variant_data = shot_entity.get_variant_tasks('base')
-    for task in shot_entity.get_tasks():
-        os.makedirs(os.path.join(shot_entity.path, variant_data[task], sas_pipe.constants.WORK_TOKEN))
-        os.makedirs(os.path.join(shot_entity.path, variant_data[task], sas_pipe.constants.REL_TOKEN))
-        os.makedirs(os.path.join(shot_entity.path, variant_data[task], sas_pipe.constants.VER_TOKEN))
+    shot_entity = sas_pipe.entities.shot.Shot.create(shot_path, shotType=type)
+    # # Tag the folder as a show
+    # pipeutils.addEntityTag(shot_path, 'shot')
+    #
+    # shot_entity = sas_pipe.entities.shot.Shot(shot_path)
+    #
+    # # if we pass var_data then add that to the elm_entity
+    # if var_data:
+    #     elm_entity.set_tasks(var_data.keys())
+    #     elm_entity.set_variants(var_data)
+    #
+    # variant_data = shot_entity.get_variant_tasks('base')
+    # for task in shot_entity.get_tasks():
+    #     os.makedirs(os.path.join(shot_entity.path, variant_data[task], sas_pipe.constants.WORK_TOKEN))
+    #     os.makedirs(os.path.join(shot_entity.path, variant_data[task], sas_pipe.constants.REL_TOKEN))
+    #     os.makedirs(os.path.join(shot_entity.path, variant_data[task], sas_pipe.constants.VER_TOKEN))
 
     return shot_entity
 
@@ -433,6 +406,7 @@ def nav(code, entityType='elm', type=None):
 
 if __name__ == '__main__':
     import json
+
     initenv()
 
-    print n
+    mkshow("TEST")

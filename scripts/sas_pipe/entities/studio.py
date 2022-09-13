@@ -20,17 +20,27 @@ def isstudio(path):
 
 class Studio(abstract_entity.AbstractEntity):
     """Studio class. Accepts the studio root as a parameter"""
-    DEFAULT_DATA = OrderedDict(depts=sas_pipe.constants.DEPTS, shows=[])
+    DEFAULT_DATA = OrderedDict(shows=[])
 
     def __init__(self, path):
         super(Studio, self).__init__(path)
 
-    def update(self):
+    @staticmethod
+    def create(path):
         """
-        Check the manifest file for updates
+        Create a new studio from the given path.
+        :param path: path to the folder to turn into a studio
         :return:
         """
-        pass
+        pipeutils.addEntityTag(path, 'studio')
+
+        studio_entity = Studio(path)
+
+        os.mkdir(os.path.join(path, 'sandbox'))
+        os.mkdir(os.path.join(path, 'shows'))
+        os.mkdir(os.path.join(path, 'welcome'))
+
+        return studio_entity
 
     def add_dept(self, dept):
         data = self._data
