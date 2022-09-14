@@ -41,7 +41,8 @@ def _findMenus(path, excludedFolders, excludedFiles):
             if r.find('reload') == -1:
                 if r == "menu.py":
                     moduleFile = r.split('.')[0]
-                    pathSplit = fullList.split('/')[:-1]
+                    cleanedPath = fullList.replace('\\', '/')
+                    pathSplit = cleanedPath.split('/')[:-1]
 
                     localPath = '.'.join(pathSplit[pathSplit.index("depts"):])
                     componentName = '{}.{}'.format(localPath, moduleFile)
