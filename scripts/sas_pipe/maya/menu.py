@@ -89,7 +89,7 @@ class MainMenu(menuBase._menu):
         self.addDivider()
         help_menu = self.addSubMenu("Help")
         self.addMenuItem("Documentation", parent=help_menu, command=open_documentation)
-        self.addMenuItem("About", parent=help_menu)
+        self.addMenuItem("About", parent=help_menu, command=show_about)
 
 
 def setStudio(*args):
@@ -123,7 +123,9 @@ def open_documentation(*args):
 
 
 def show_about():
-    pass
+    import maya.mel as mel
+    path = cmds.pluginInfo("sasPipe_maya", q=True, path=True)
+    mel.eval('displayPluginInfo "{}";'.format(path))
 
 
 # functions explicitly connected to rigamajig2
