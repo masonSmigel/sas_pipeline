@@ -24,8 +24,6 @@ import sas_pipe.api.cmds as sas_cmds
 logger = logging.getLogger(__name__)
 
 
-# TODO: update this ui.
-
 class SAS_EntityInfo(QtWidgets.QWidget):
     VARIANT_WGDTS = list()
     BLANK_IMAGE = os.path.join(sas_pipe.constants.ICONS_PATH, "blankImage.png")
@@ -56,14 +54,6 @@ class SAS_EntityInfo(QtWidgets.QWidget):
 
         self.info_te = QtWidgets.QTextEdit()
         self.info_te.setReadOnly(True)
-
-        # self.variant_la = QtWidgets.QLabel("variants:")
-        # self.variant_la.setFixedWidth(60)
-        # self.variant_cb = QtWidgets.QComboBox()
-
-        # self.variant_te = QtWidgets.QTextEdit()
-        # self.variant_te.setReadOnly(True)
-        # self.variant_te.resize(self.variant_te.sizeHint().width(), 50)
 
         self.task_cb = QtWidgets.QComboBox()
         self.task_cb.setMinimumWidth(180)
@@ -100,14 +90,6 @@ class SAS_EntityInfo(QtWidgets.QWidget):
 
         self.main_layout.addLayout(entity_layout)
         self.main_layout.addWidget(self.info_te)
-
-        # variant_layout = QtWidgets.QHBoxLayout()
-        # variant_layout.addWidget(self.variant_la)
-        # variant_layout.addWidget(self.variant_cb)
-        #
-        # self.main_layout.addLayout(variant_layout)
-        # self.main_layout.addWidget(self.variant_te)
-        # self.main_layout.addWidget(self.open_varant_mgr_btn)
 
         open_layout = QtWidgets.QVBoxLayout()
         taskLayout = QtWidgets.QHBoxLayout()
@@ -164,7 +146,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
                 self.update_task_data()
 
                 # check for a thumbnail. if we dont have one use the default blank image icon
-                if self.current_entity.get_thumbnail_path():
+                if os.path.exists(self.current_entity.get_thumbnail_path()):
                     thumbnail = self.current_entity.get_thumbnail_path()
                 else:
                     thumbnail = self.BLANK_IMAGE
@@ -185,29 +167,13 @@ class SAS_EntityInfo(QtWidgets.QWidget):
             parent_path = os.path.realpath(os.path.join(item_path, ".."))
             return self._find_entity(parent_path)
 
-    # def enable_variant_widgets(self, value):
-    #     """enable or disable the variant section of the ui """
-    #     if value:
-    #         for wdgt in self.VARIANT_WGDTS:
-    #             wdgt.setDisabled(False)
-    #     else:
-    #         for wdgt in self.VARIANT_WGDTS:
-    #             wdgt.setDisabled(True)
-    #
-    #             if wdgt.__class__ in [QtWidgets.QTextEdit, QtWidgets.QComboBox]:
-    #                 wdgt.clear()
-
-    # def update_variant_data(self):
-    #     entity = self._find_entity(self.current_item_path)
-    #     variant = self.variant_cb.currentText()
-    #
-    #     self.variant_te.clear()
-    #     tasks = entity.get_tasks()
-    #     for task in tasks:
-    #         res = entity.validate_variant_data(variant, task)
-    #         self.variant_te.append("{}: {}".format(task, res))
 
     def update_thumbnail(self, image_path):
+
+        print (image_path)
+        if not os.path.exists(image_path):
+            return
+
         img = QtGui.QImage(image_path)
         pixmap = QtGui.QPixmap(img.scaledToWidth(128))
         pixmap.scaled(128, 128, QtCore.Qt.KeepAspectRatio)
@@ -233,6 +199,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         """ do a thumbnial capture"""
         entity = self._find_entity(self.current_item_path)
         thumbnail_path = entity.get_thumbnail_path()
+        print (thumbnail_path)
 
         current_time = cmds.currentTime(q=True)
         cmds.playblast(p=100, w=512, h=512, framePadding=0, st=current_time, et=current_time,
@@ -605,12 +572,6 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
             while index.parent().isValid():
                 index = index.parent()
                 self.browser_tree.expand(index)
-
-    def show_about(self):
-        print("TODO: Show about message")
-
-    def show_documentation(self):
-        print("TODO: Show documentation message")
 
     def get_selected_file(self):
         indexes = self.browser_tree.selectedIndexes()

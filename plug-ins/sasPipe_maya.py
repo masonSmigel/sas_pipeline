@@ -92,7 +92,7 @@ def teardown():
 
     # Remove our Python root from sys.path
     for p in sys.path:
-        print p
+        print(p)
         if p == python_root:
             sys.path.remove(sysPath)
 

@@ -10,6 +10,7 @@ Updated the SAS_pipeline Menu
 ### Added: 
 * Save File menu Item to Rigging Menu 
 * Implemented setStudio Menu Item
+* Fixed a bug with the capture behavior of the thumbnail
 
 ### Removed: 
 * Production Menu. It was redudent since the same functionality exists inside the assetBrowser

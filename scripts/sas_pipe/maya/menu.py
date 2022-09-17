@@ -122,7 +122,8 @@ def open_documentation(*args):
     return urllib.urlopen('https://github.com/masonSmigel/sas_pipeline/tree/v2.0.0')
 
 
-def show_about():
+def show_about(*args):
+    import maya.cmds as cmds
     import maya.mel as mel
     path = cmds.pluginInfo("sasPipe_maya", q=True, path=True)
     mel.eval('displayPluginInfo "{}";'.format(path))

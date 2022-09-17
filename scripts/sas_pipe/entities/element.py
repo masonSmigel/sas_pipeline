@@ -163,8 +163,7 @@ class Element(abstract_entity.AbstractEntity):
 
     def get_thumbnail_path(self):
         thumbNailPath = os.path.join(self.path, 'thumbnail_{}.jpg'.format(self.name))
-
-        return thumbNailPath if os.path.exists(thumbNailPath) else None
+        return thumbNailPath
 
     # def add_variant(self, variant, **kwargs):
     #     """
@@ -218,4 +217,3 @@ class Element(abstract_entity.AbstractEntity):
 
 if __name__ == '__main__':
     e = Element('/Users/masonsmigel/Documents/sastld2023/shows/TLD/elements/char/paladin')
-    print e.get_work_files('rig-body')
