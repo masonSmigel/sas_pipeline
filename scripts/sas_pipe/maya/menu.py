@@ -63,10 +63,8 @@ class MainMenu(menuBase._menu):
         super(MainMenu, self).__init__(name=name, iconPath=iconsPath)
 
     def build(self):
-        self.addDivider(label="Project")
-        set_menu = self.addSubMenu("Setup Project")
-        self.addMenuItem("Set Studio", parent=set_menu)
-        self.addMenuItem("Set Show", parent=set_menu)
+        self.addDivider(label="Studio")
+        self.addMenuItem("Set Studio")
 
         self.addDivider(label='Departments')
 
@@ -83,6 +81,7 @@ class MainMenu(menuBase._menu):
 
         self.addMenuItem("Browse Entities", command=open_asset_browser)
         self.addMenuItem("Publish File", command=open_publish_file)
+        self.addMenuItem("Save File", command=saveIncrementedFile)
 
         self.addDivider()
         help_menu = self.addSubMenu("Help")
@@ -98,6 +97,11 @@ def open_asset_browser(*args):
 def open_publish_file(*args):
     import sas_pipe.maya.ui.publishFile as publishFile
     publishFile.PublishEntityUi().show_dialog()
+
+
+def saveIncrementedFile(*args):
+    import sas_pipe.maya.file as file
+    file.incrimentSave()
 
 
 def open_documentation(*args):

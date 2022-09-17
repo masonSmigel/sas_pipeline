@@ -22,6 +22,8 @@ class RiggingMenu(subMenuBase.SubMenu):
 
         if found:
             self.addMenuItem("Rigamajig2 Builder", command=openRigamajigBuilder)
+            self.addDivider()
+            self.addMenuItem("Reload Rigamajig2", command=reloadRigamajig)
 
 
 # functions explicitly connected to rigamajig2
@@ -29,3 +31,8 @@ def openRigamajigBuilder(*args):
     """Open the rigamajig Builder"""
     import rigamajig2.ui.builder_ui.dialog as builder_dialog
     builder_dialog.BuilderDialog.showDialog()
+
+
+def reloadRigamajig(*args):
+    import rigamajig2
+    rigamajig2.reloadModule()
