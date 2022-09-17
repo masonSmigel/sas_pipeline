@@ -39,7 +39,7 @@ def initializePlugin(obj):
     """
     :param obj: OpenMaya.MObject
     """
-    plugin = OpenMaya.MFnPlugin(obj, 'SCAD Animation Studios', '2.0.0', 'Any')
+    plugin = OpenMaya.MFnPlugin(obj, 'SCAD Animation Studios', '2.0.2', 'Any')
     try:
         plugin.registerCommand(SASPipe.kPluginCmdName, SASPipe.cmdCreator)
         load()

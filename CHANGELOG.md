@@ -1,4 +1,7 @@
 # Change Log 
+When updating the changelog you must also increase the version in the `scripts/__init.py` 
+file and the  `plug-ins/sasPipe_maya.py` file. 
+
 
 ## 2.0.2
 
