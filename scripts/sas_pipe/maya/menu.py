@@ -4,6 +4,9 @@ This module creates a menu for a SAS pipeline
 import imp
 import os
 import inspect
+
+from PySide2 import QtWidgets
+
 import sas_pipe.common as common
 import sas_pipe.constants
 import sas_pipe.maya.widgets.menuBase as menuBase
@@ -64,7 +67,7 @@ class MainMenu(menuBase._menu):
 
     def build(self):
         self.addDivider(label="Studio")
-        self.addMenuItem("Set Studio")
+        self.addMenuItem("Set Studio", command=setStudio)
 
         self.addDivider(label='Departments')
 
@@ -87,6 +90,16 @@ class MainMenu(menuBase._menu):
         help_menu = self.addSubMenu("Help")
         self.addMenuItem("Documentation", parent=help_menu, command=open_documentation)
         self.addMenuItem("About", parent=help_menu)
+
+
+def setStudio(*args):
+    import sas_pipe.api.cmds as sas
+    from maya.api.OpenMaya import MGlobal
+
+    path = QtWidgets.QFileDialog.getExistingDirectory(labelText='Select a Studio Root')
+    if path:
+        sas.setstudio(path)
+        MGlobal.displayInfo("Studio set to: {}".format(path))
 
 
 def open_asset_browser(*args):

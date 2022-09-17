@@ -575,7 +575,7 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
     # Browser connections
     # --------------------------------------------------------------------------------
     def change_studio(self):
-        path = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select A studio root')
+        path = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select a Studio Root')
         if path:
             sas.setstudio(path)
             self.update_studio(path)
