@@ -21,7 +21,7 @@ class ModellingMenu(subMenuBase.SubMenu):
             found = False
 
         if found:
-            self.addMenuItem("Clean Model", command=openRigamajigBuilder)
+            self.addMenuItem("Clean Model", command=cleanSelectedModel)
 
 
 # functions explicitly connected to rigamajig2
