@@ -1,5 +1,6 @@
 import sas_pipe.utils.data.abstract_data as abstract_data
 import sas_pipe.utils.osutil as os_util
+import sas_pipe.common as common
 import os
 
 PREFS_PATH = os.path.join(os.path.expanduser("~"), 'sas_user.pref')
@@ -31,6 +32,8 @@ class UserPrefs(object):
         prefs.setData(data)
         prefs.write(PREFS_PATH)
 
+        UserPrefs.append_studio(root_path)
+
     @classmethod
     def set_current_show(cls, show):
         prefs = cls.prefs_obj()
@@ -41,6 +44,7 @@ class UserPrefs(object):
 
     @classmethod
     def get_root(cls):
+        """Get the current studio root"""
         prefs = cls.prefs_obj()
         data = prefs.read(PREFS_PATH)
         if data.has_key('root'):
@@ -49,8 +53,44 @@ class UserPrefs(object):
 
     @classmethod
     def get_currentShow(cls):
+        """get the current show"""
         prefs = cls.prefs_obj()
         data = prefs.read(PREFS_PATH)
         if data.has_key('lastShow'):
             return data['lastShow']
         return None
+
+    @classmethod
+    def set_studios(cls, rootList):
+        """get a list of avialable studio roots"""
+        prefs = cls.prefs_obj
+        data = prefs.read(PREFS_PATH)
+        data['rootsList'] = common.toList(rootList)
+        prefs.setData(data)
+        prefs.write(PREFS_PATH)
+
+    @classmethod
+    def append_studio(cls, studio):
+        """Append a studio to the studio list"""
+
+        if studio not in UserPrefs.get_studios():
+            prefs = cls.prefs_obj()
+            data = prefs.read(PREFS_PATH)
+            if data.has_key('rootsList'):
+                studiosList = data['rootsList']
+            else:
+                studiosList = list()
+            studiosList.append(studio)
+
+            data['rootsList'] = studiosList
+            prefs.setData(data)
+            prefs.write(PREFS_PATH)
+
+    @classmethod
+    def get_studios(cls):
+        """Get studios"""
+        prefs = cls.prefs_obj()
+        data = prefs.read(PREFS_PATH)
+        if data.has_key('rootsList'):
+            return data['rootsList']
+        return list()

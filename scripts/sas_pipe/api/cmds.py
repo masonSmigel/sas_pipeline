@@ -130,6 +130,10 @@ def getstudio():
     return environment.getEnv('root')
 
 
+def getstudios():
+    return user_prefs.UserPrefs.get_studios()
+
+
 # SHOW
 def mkshow(show):
     """

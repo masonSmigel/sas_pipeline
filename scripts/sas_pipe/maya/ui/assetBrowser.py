@@ -20,6 +20,7 @@ import sas_pipe.environment as environment
 from sas_pipe.entities import studio, show, sequence, shot, element
 import sas_pipe.maya.file as maya_file
 import sas_pipe.api.cmds as sas_cmds
+from sas_pipe.maya.ui import showInFolder
 
 logger = logging.getLogger(__name__)
 
@@ -115,6 +116,8 @@ class SAS_EntityInfo(QtWidgets.QWidget):
 
         self.current_entity = self._find_entity(file_info.filePath())
         self.current_item_path = file_info.filePath()
+        old_task = self.task_cb.currentText()
+
         self.info_te.clear()
         self.task_cb.clear()
         self.task_te.clear()
@@ -145,6 +148,13 @@ class SAS_EntityInfo(QtWidgets.QWidget):
                 # setup some task info
                 self.update_task_data()
 
+                if old_task:
+                    try:
+                        index = self.task_cb.findText(old_task, QtCore.Qt.MatchFixedString)
+                        self.task_cb.setCurrentIndex(index)
+                    except:
+                        self.task_cb.setCurrentIndex(0)
+
                 # check for a thumbnail. if we dont have one use the default blank image icon
                 if os.path.exists(self.current_entity.get_thumbnail_path()):
                     thumbnail = self.current_entity.get_thumbnail_path()
@@ -167,10 +177,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
             parent_path = os.path.realpath(os.path.join(item_path, ".."))
             return self._find_entity(parent_path)
 
-
     def update_thumbnail(self, image_path):
-
-        print (image_path)
         if not os.path.exists(image_path):
             return
 
@@ -195,11 +202,11 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         self.task_te.append("published versions: {}".format(len(versionFiles)))
         self.task_te.append("work versions: {}".format(len(workFiles)))
 
+
     def capture_thumbnail(self):
         """ do a thumbnial capture"""
         entity = self._find_entity(self.current_item_path)
         thumbnail_path = entity.get_thumbnail_path()
-        print (thumbnail_path)
 
         current_time = cmds.currentTime(q=True)
         cmds.playblast(p=100, w=512, h=512, framePadding=0, st=current_time, et=current_time,
@@ -266,7 +273,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
 
 
 class SAS_AssetBrowser(QtWidgets.QDialog):
-    WINDOW_TITLE = "SAS Asset Browser"
+    WINDOW_TITLE = "SAS Entity Browser"
     dlg_instance = None
 
     mkelm_instance = None
@@ -290,7 +297,6 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
             maya_main_window = wrapInstance(int(omui.MQtUtil.mainWindow()), QtWidgets.QWidget)
 
         super(SAS_AssetBrowser, self).__init__(maya_main_window)
-        self.rig_env = None
 
         self.setWindowTitle(self.WINDOW_TITLE)
         if cmds.about(ntOS=True):
@@ -298,7 +304,7 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
         elif cmds.about(macOS=True):
             self.setProperty("saveWindowPref", True)
             self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
-        self.setMinimumSize(425, 225)
+        self.setMinimumSize(900, 225)
         self.resize(1000, 650)
 
         self.create_actions()
@@ -336,6 +342,10 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
         self.set_studio_btn = QtWidgets.QPushButton("...")
         self.set_studio_btn.setFixedWidth(30)
+
+        self.studio_cb = QtWidgets.QComboBox()
+        self.studio_cb.setFixedWidth(400)
+        self.studio_cb.setFixedHeight(25)
 
         self.show_cb = QtWidgets.QComboBox()
         self.show_cb.setFixedWidth(120)
@@ -380,8 +390,11 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
         show_layout = QtWidgets.QHBoxLayout()
 
         show_layout.addWidget(QtWidgets.QLabel("Studio: "))
-        show_layout.addWidget(self.studio_path_le)
+        # show_layout.addWidget(self.studio_path_le)
+        # show_layout.addWidget(self.set_studio_btn)
+        show_layout.addWidget(self.studio_cb)
         show_layout.addWidget(self.set_studio_btn)
+
         show_layout.addSpacing(25)
         show_layout.addWidget(QtWidgets.QLabel("Show: "))
         show_layout.addWidget(self.show_cb)
@@ -427,6 +440,7 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
     def create_connections(self):
         self.set_studio_btn.clicked.connect(self.change_studio)
+        self.studio_cb.currentIndexChanged.connect(self.changeComboboxStudio)
         self.show_cb.currentIndexChanged.connect(self.change_show)
         self.display_show_only.clicked.connect(self.update_show)
         self.search_bar_le.returnPressed.connect(self.search_for_entity)
@@ -465,9 +479,23 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
         """update the ui with new functionality"""
         sas.initenv(silent=True)
 
-        studio = sas.getstudio()
+        currentStudio = sas.getstudio()
 
-        self.update_studio(studio)
+        # add the studio swap ui
+        for studio in sas.getstudios():
+            self.studio_cb.addItem(studio)
+
+        index = self.studio_cb.findText(currentStudio, QtCore.Qt.MatchFixedString)
+        self.studio_cb.setCurrentIndex(index)
+
+        self.update_studio(currentStudio)
+
+    def changeComboboxStudio(self):
+        """ Change the name of the studio"""
+        currentStudio = self.studio_cb.currentText()
+
+        sas.setstudio(currentStudio)
+        self.update_studio(currentStudio)
 
     def update_studio(self, studio):
         """update the UI to reflect a studio change"""
@@ -546,6 +574,13 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
         if path:
             sas.setstudio(path)
             self.update_studio(path)
+            self.studio_cb.addItem(path)
+
+            index = self.studio_cb.findText(path, QtCore.Qt.MatchFixedString)
+            self.studio_cb.setCurrentIndex(index)
+
+            sas.setstudio(path)
+            self.update_studio(path)
 
     def change_show(self):
         show = self.show_cb.currentText()
@@ -586,41 +621,7 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
     # --------------------------------------------------------------------------------
     def show_in_folder(self):
         file_path = self.get_selected_file()
-
-        if cmds.about(windows=True):
-            if self.open_in_exporer(file_path):
-                return
-        elif cmds.about(macOS=True):
-            if self.open_in_finder(file_path):
-                return
-
-        file_info = QtCore.QFileInfo(file_path)
-        if file_info.exists():
-            if file_info.isDir():
-                QtGui.QDesktopServices.openUrl(QtCore.QUrl.fromLocalFile(file_path))
-            else:
-                QtGui.QDesktopServices.openUrl(QtCore.QUrl.fromLocalFile(file_info.path()))
-        else:
-            cmds.error("Invalid Directory")
-
-    def open_in_exporer(self, file_path):
-        file_info = QtCore.QFileInfo(file_path)
-        args = []
-        if not file_info.isDir():
-            args.append("/select,")
-        args.append(QtCore.QDir.toNativeSeparators(file_path))
-
-        if QtCore.QProcess.startDetached("explorer", args):
-            return True
-        return False
-
-    def open_in_finder(self, file_path):
-        args = ['-e', 'tell application "Finder"', '-e', 'activate', '-e', 'select POSIX file "{0}"'.format(file_path),
-                '-e', 'end tell', '-e', 'return']
-
-        if QtCore.QProcess.startDetached("/usr/bin/osascript", args):
-            return True
-        return False
+        showInFolder.showInFolder(file_path)
 
     def create_elm(self):
         CreateElementDialog().exec_()
@@ -639,7 +640,6 @@ class CreateElementDialog(QtWidgets.QDialog):
             maya_main_window = wrapInstance(int(omui.MQtUtil.mainWindow()), QtWidgets.QWidget)
 
         super(CreateElementDialog, self).__init__(maya_main_window)
-        self.rig_env = None
 
         self.setWindowTitle(self.WINDOW_TITLE)
         if cmds.about(ntOS=True):
@@ -662,10 +662,6 @@ class CreateElementDialog(QtWidgets.QDialog):
         for type in show_enitity.get_elementTypes():
             self.elm_type_cb.addItem(type)
 
-        # self.path_la = QtWidgets.QLabel("Path: ")
-        # self.path_la.setFixedWidth(30)
-        # self.path_le = QtWidgets.QLineEdit()
-
         self.name_la = QtWidgets.QLabel("Name:")
         self.name_la.setFixedWidth(30)
         self.name_le = QtWidgets.QLineEdit()
@@ -685,10 +681,6 @@ class CreateElementDialog(QtWidgets.QDialog):
         elm_type_layout.addSpacing(20)
         elm_type_layout.addWidget(self.name_la)
         elm_type_layout.addWidget(self.name_le)
-
-        # path_layout = QtWidgets.QHBoxLayout()
-        # path_layout.addWidget(self.path_la)
-        # path_layout.addWidget(self.path_le)
 
         btn_layout = QtWidgets.QHBoxLayout()
         btn_layout.addStretch()
