@@ -3,6 +3,9 @@ This module creates a menu for a SAS pipeline
 """
 import imp
 from functools import partial
+
+import maya.api.OpenMaya as om
+
 import sas_pipe.common as common
 import sas_pipe.constants
 from sas_pipe.maya.widgets import subMenuBase
@@ -42,3 +45,4 @@ def containerSanityCheck(*args):
     """ run the sainity check"""
     from rigamajig2.maya import container
     container.sainityCheck()
+    om.MGlobal.displayInfo("Successfully ran sanity check container sanity check. ")
