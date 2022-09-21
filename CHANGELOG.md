@@ -3,6 +3,21 @@ When updating the changelog you must also increase the version in the `scripts/_
 file and the  `plug-ins/sasPipe_maya.py` file. 
 
 
+## 2.0.3
+
+Updated the publish and browser UI
+
+### Added: 
+* Option to keep multuple studios in memory. when a new studio is set that does not exists in the list its 
+added to the 'rootsList' in the preferences. You can retreive a list of all studios through `cmds.getstudios()'
+
+
+### Changed: 
+* Change the the publish ui to attempt to auto populate the publish path. Also update the guessed path whenever 
+the scene changes. 
+* Changed the studio selection to a combo box so the user can sitch between studios. 
+
+
 ## 2.0.2
 
 Updated the SAS_pipeline Menu
