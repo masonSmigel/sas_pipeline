@@ -24,16 +24,19 @@ class CommonMenu(subMenuBase.SubMenu):
         if found:
             createNodeMenu = self.addSubMenu("Create Node")
             self.addMenuItem("Joint", parent=createNodeMenu, icon="/joint.png", command=partial(snapLocator, "joint"))
-            self.addMenuItem("Locator", parent=createNodeMenu, icon="/locator.png", command=partial(snapLocator, "locator"))
-            self.addMenuItem("Transform", parent=createNodeMenu, icon="/transform.png", command=partial(snapLocator, "null"))
+            self.addMenuItem("Locator", parent=createNodeMenu, icon="/locator.png",
+                             command=partial(snapLocator, "locator"))
+            self.addMenuItem("Transform", parent=createNodeMenu, icon="/transform.png",
+                             command=partial(snapLocator, "null"))
 
-            self.addMenuItem("Container Sanity Check", icon='/container.png', command=)
+            self.addMenuItem("Container Sanity Check", icon='/container.png', command=containerSanityCheck)
 
 
 # functions explicitly connected to rigamajig2
 def snapLocator(type, *args):
     import rigamajig2.sandbox.snapLoc as snapLoc
     snapLoc.createAtSelection(type=type)
+
 
 def containerSanityCheck(*args):
     """ run the sainity check"""
