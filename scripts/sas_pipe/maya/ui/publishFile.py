@@ -202,6 +202,8 @@ class PublishEntityUi(QtWidgets.QDialog):
         """
         Auto fill the required feilds
         """
+        self.out_file_path_selector.selectPath(None)
+
         currentFile = cmds.file(q=True, sn=True)
 
         if not currentFile:
