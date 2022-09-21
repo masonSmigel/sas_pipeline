@@ -337,8 +337,8 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
         tools_menu.addAction(self.flush_env_action)
 
     def create_widgets(self):
-        self.studio_path_le = QtWidgets.QLineEdit()
-        self.studio_path_le.setPlaceholderText("studio/...")
+        # self.studio_path_le = QtWidgets.QLineEdit()
+        # self.studio_path_le.setPlaceholderText("studio/...")
 
         self.set_studio_btn = QtWidgets.QPushButton("...")
         self.set_studio_btn.setFixedWidth(30)
@@ -390,10 +390,9 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
         show_layout = QtWidgets.QHBoxLayout()
 
         show_layout.addWidget(QtWidgets.QLabel("Studio: "))
-        # show_layout.addWidget(self.studio_path_le)
-        # show_layout.addWidget(self.set_studio_btn)
         show_layout.addWidget(self.studio_cb)
         show_layout.addWidget(self.set_studio_btn)
+        show_layout.addStretch(100)
 
         show_layout.addSpacing(25)
         show_layout.addWidget(QtWidgets.QLabel("Show: "))
@@ -500,7 +499,6 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
     def update_studio(self, studio):
         """update the UI to reflect a studio change"""
         sas.initenv(silent=True)
-        self.studio_path_le.setText(studio)
 
         # if we dont have a studio return.
         if not sas.getstudio():
