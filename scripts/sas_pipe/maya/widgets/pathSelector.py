@@ -95,7 +95,7 @@ class PathSelector(QtWidgets.QWidget):
         :param path:
         :return:
         """
-        if not path:
+        if path is None:
             self.pathLineEdit.setText('')
             return
 
