@@ -28,5 +28,6 @@ class ModellingMenu(subMenuBase.SubMenu):
 def cleanSelectedModel(*args):
     """Clean the selected model"""
     from rigamajig2.maya import mesh
+    import maya.cmds as cmds 
     sel = cmds.ls(sl=True)
     mesh.cleanModel(sel)
