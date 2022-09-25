@@ -22,9 +22,26 @@ class AnimationMenu(subMenuBase.SubMenu):
 
         if found:
             self.addMenuItem("Apply Mocap Data", command=applyMocapData)
+            self.addMenuItem("Select Whole Character", command=applyMocapData)
 
 
 # functions explicitly connected to rigamajig2
 def applyMocapData(*args):
     from rigamajig2.maya.anim import mocap
     mocap.MocapImportDialog.showDialog()
+
+
+def selectWholeCharacter(*args):
+    """Select a character from a single selected control """
+    from rigamajig2.maya.rig import control
+    from rigamajig2.maya import namespace
+    import maya.cmds as cmds
+
+    selection = cmds.ls(sl=True)
+
+    if len(selection) > 0:
+        controlNamespace = namespace.getNamespace(selection[0])
+        controls = control.getControls(namespace=controlNamespace)
+        cmds.select(controls)
+    else:
+        raise Exception("Please select a control on the character you wish to select")
