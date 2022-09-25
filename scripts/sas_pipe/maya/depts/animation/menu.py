@@ -22,7 +22,7 @@ class AnimationMenu(subMenuBase.SubMenu):
 
         if found:
             self.addMenuItem("Apply Mocap Data", command=applyMocapData)
-            self.addMenuItem("Select Whole Character", command=applyMocapData)
+            self.addMenuItem("Select Whole Character", command=selectWholeCharacter)
 
 
 # functions explicitly connected to rigamajig2
