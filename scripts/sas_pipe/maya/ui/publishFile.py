@@ -291,6 +291,9 @@ class PublishEntityUi(QtWidgets.QDialog):
         Add the source file as an attribute to all published nodes
         :param file: name of the source file to add as an attribute
         """
+        import getpass
+        from time import gmtime, strftime
+
         topNodes = cmds.ls(assemblies=True)
 
         transformNodes = cmds.ls(topNodes, exactType='transform')
@@ -298,9 +301,18 @@ class PublishEntityUi(QtWidgets.QDialog):
         for node in transformNodes:
             shapes = cmds.listRelatives(node, s=True)
             if not shapes:
-                cmds.addAttr(node, longName='sourceFile', dataType="string")
-                cmds.setAttr("{}.{}".format(node, 'sourceFile'), file, type="string")
-                cmds.setAttr("{}.{}".format(node, 'sourceFile'), lock=True)
+                cmds.addAttr(node, longName='__sourceFile__', dataType="string")
+                cmds.setAttr("{}.{}".format(node, '__sourceFile__'), file, type="string")
+                cmds.setAttr("{}.{}".format(node, '__sourceFile__'), lock=True)
+
+                cmds.addAttr(node, longName='__creationUser__', dataType="string")
+                cmds.setAttr("{}.{}".format(node, '__creationUser__'), getpass.getuser(), type="string")
+                cmds.setAttr("{}.{}".format(node, '__creationUser__'), lock=True)
+
+                cmds.addAttr(node, longName='__creationDate__', dataType="string")
+                dateString = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+                cmds.setAttr("{}.{}".format(node, '__creationDate__'), dateString, type="string")
+                cmds.setAttr("{}.{}".format(node, '__creationDate__'), lock=True)
 
 
 if __name__ == '__main__':
