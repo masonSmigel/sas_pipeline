@@ -305,14 +305,14 @@ class PublishEntityUi(QtWidgets.QDialog):
                 cmds.setAttr("{}.{}".format(node, '__sourceFile__'), file, type="string")
                 cmds.setAttr("{}.{}".format(node, '__sourceFile__'), lock=True)
 
-                cmds.addAttr(node, longName='__creationUser__', dataType="string")
-                cmds.setAttr("{}.{}".format(node, '__creationUser__'), getpass.getuser(), type="string")
-                cmds.setAttr("{}.{}".format(node, '__creationUser__'), lock=True)
+                cmds.addAttr(node, longName='__publishUser__', dataType="string")
+                cmds.setAttr("{}.{}".format(node, '__publishUser__'), getpass.getuser(), type="string")
+                cmds.setAttr("{}.{}".format(node, '__publishUser__'), lock=True)
 
-                cmds.addAttr(node, longName='__creationDate__', dataType="string")
+                cmds.addAttr(node, longName='__publishDate__', dataType="string")
                 dateString = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-                cmds.setAttr("{}.{}".format(node, '__creationDate__'), dateString, type="string")
-                cmds.setAttr("{}.{}".format(node, '__creationDate__'), lock=True)
+                cmds.setAttr("{}.{}".format(node, '__publishDate__'), dateString, type="string")
+                cmds.setAttr("{}.{}".format(node, '__publishDate__'), lock=True)
 
 
 if __name__ == '__main__':
