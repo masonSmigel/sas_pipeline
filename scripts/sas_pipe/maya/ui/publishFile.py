@@ -235,9 +235,14 @@ class PublishEntityUi(QtWidgets.QDialog):
     def save_and_publish(self):
         self.publish()
 
+        sourceFile = cmds.file(q=True, sn=True)
+
         path = self.out_file_path_selector.getPath()
         if path:
             sas_file.saveAs(self.out_file_path_selector.getPath())
+
+            # add the file the version was published from to meta-data
+            self._addSourceFileToPublished(sourceFile)
 
             # save a versioned file
             dir_name = os.path.dirname(path)
@@ -280,6 +285,22 @@ class PublishEntityUi(QtWidgets.QDialog):
         elif not enabled and self.scriptJobID > 0:
             cmds.scriptJob(kill=self.scriptJobID, f=True)
             self.scriptJobID = -1
+
+    def _addSourceFileToPublished(self, file):
+        """
+        Add the source file as an attribute to all published nodes
+        :param file: name of the source file to add as an attribute
+        """
+        topNodes = cmds.ls(assemblies=True)
+
+        transformNodes = cmds.ls(topNodes, exactType='transform')
+
+        for node in transformNodes:
+            shapes = cmds.listRelatives(node, s=True)
+            if not shapes:
+                cmds.addAttr(node, longName='sourceFile', dataType="string")
+                cmds.setAttr("{}.{}".format(node, 'sourceFile'), file, type="string")
+                cmds.setAttr("{}.{}".format(node, 'sourceFile'), lock=True)
 
 
 if __name__ == '__main__':
