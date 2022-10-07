@@ -27,14 +27,17 @@ class Element(abstract_entity.AbstractEntity):
     def __init__(self, path, name=None):
         super(Element, self).__init__(path, name)
 
+        self.elementType = self.get_elementType()
+        self.get_elementType()
+
     def __str__(self):
         description = '''
         name: {name}
         type: {type}
         path: {path}
+        elementType: {elementType}
         '''
-
-        return description.format(name=self.name, path=self.path, type=self.type)
+        return description.format(name=self.name, path=self.path, type=self.type, elementType=self.elementType)
 
     def set_tasks(self, values):
         data = self._data
@@ -43,6 +46,21 @@ class Element(abstract_entity.AbstractEntity):
 
     def get_tasks(self):
         return list(self._data['variants']['base'].keys())
+
+    def get_elementType(self):
+        """
+        Get the element type
+        """
+        elementTemplate = abstract_data.AbstractData()
+        elementTemplate.read(constants.ELEMENT_TEMPLATE)
+        elementTempalteData = elementTemplate.getData()
+
+        # determine the entiy type
+        for type in elementTempalteData.keys():
+            cleanPath = path.clean_path(self.path)
+            if type in cleanPath:
+                elementType = type
+        self.elementType = elementType
 
     @staticmethod
     def create(path, elementType):
@@ -78,12 +96,6 @@ class Element(abstract_entity.AbstractEntity):
         element_entity.setData(data)
 
         return element_entity
-
-    def composePath(self):
-        """
-
-        :return:
-        """
 
     def add_task(self, taskName, path=None):
         """
@@ -177,16 +189,10 @@ class Element(abstract_entity.AbstractEntity):
         elementTemplate.read(constants.ELEMENT_TEMPLATE)
         elementTempalteData = elementTemplate.getData()
 
-        # determine the entiy type
-        for type in elementTempalteData.keys():
-            cleanPath = path.clean_path(self.path)
-            if type in cleanPath:
-                elementType = type
-            print "type is", type
-            print "found type is", elementType
+        if not self.elementType:
+            print "could not determine an elemen type for {}".format(self.name)
 
-
-        task_data = elementTempalteData[elementType]
+        task_data = elementTempalteData[self.elementType]
         existing_tasks = os.listdir(self.path)
         for task in task_data:
             if task not in existing_tasks:
@@ -244,7 +250,12 @@ class Element(abstract_entity.AbstractEntity):
 
 
 if __name__ == '__main__':
-    e = Element('/Users/masonsmigel/Documents/sastld2023/shows/TLD/elements/char/paladin')
-    print e.get_tasks()
+    e = Element('/Users/masonsmigel/Documents/sastld2023/shows/TLD/elements/envi/parts/banner')
+    print e
 
+    e = Element('/Users/masonsmigel/Documents/sastld2023/shows/TLD/elements/char/paladin')
     e.update_tasks()
+    print e
+
+
+
