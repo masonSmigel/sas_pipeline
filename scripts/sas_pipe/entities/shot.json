@@ -12,6 +12,8 @@
             "anim_crowd",
             "cfx_crowd",
             "cfx_main",
+            "fx_2d",
+            "fx_3d",
             "light",
             "comp",
             "anim_mocap"
@@ -25,11 +27,13 @@
             "anim_crowd",
             "cfx_crowd",
             "cfx_main",
+            "fx_2d",
+            "fx_3d",
             "light",
             "comp",
             "anim_mocap"
             ],
-    "cycles": [
+        "cycles": [
             "anim_main",
             "art",
             "reference",
