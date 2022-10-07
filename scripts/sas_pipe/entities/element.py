@@ -84,25 +84,28 @@ class Element(abstract_entity.AbstractEntity):
         :return:
         """
 
-    def add_task(self, new, path=None):
+    def add_task(self, taskName, path=None):
         """
         Add a new task
-        :param new: new task
+        :param taskName: new task
         :param path: path to task files
         :return:
         """
         data = self._data
-        if new not in data['tasks']:
-            data['tasks'].append(new)
+        if taskName not in self.get_tasks():
             if path:
-                data['variants']['base'][new] = path
                 os.makedirs(os.path.join(self.path, path, constants.WORK_TOKEN))
                 os.makedirs(os.path.join(self.path, path, constants.REL_TOKEN))
                 os.makedirs(os.path.join(self.path, path, constants.VER_TOKEN))
+            else:
+                os.makedirs(os.path.join(self.path, taskName, constants.WORK_TOKEN))
+                os.makedirs(os.path.join(self.path, taskName, constants.REL_TOKEN))
+                os.makedirs(os.path.join(self.path, taskName, constants.VER_TOKEN))
+
             self.setData(data)
         else:
-            raise ValueError('Task "{}" already exists on asset "{}"'.format(new, self.name))
-        return new
+            raise ValueError('Task "{}" already exists on asset "{}"'.format(taskName, self.name))
+        return taskName
 
     def get_file_name(self, task, variant=None, work=True):
         """
@@ -165,6 +168,28 @@ class Element(abstract_entity.AbstractEntity):
         thumbNailPath = os.path.join(self.path, 'thumbnail_{}.jpg'.format(self.name))
         return thumbNailPath
 
+    def update_tasks(self):
+        """
+        Add any missing tasks from the element.json file
+        """
+        elementTemplate = abstract_data.AbstractData()
+        elementTemplate.read(constants.ELEMENT_TEMPLATE)
+        elementTempalteData = elementTemplate.getData()
+
+        # determine the entiy type
+        for type in elementTempalteData.keys():
+            if type in self.path:
+                elementType = type
+
+        task_data = elementTempalteData[elementType]
+        existing_tasks = os.listdir(self.path)
+        for task in task_data:
+            if task not in existing_tasks:
+                print "adding new task", task
+                self.add_task(taskName=task)
+
+
+
     # def add_variant(self, variant, **kwargs):
     #     """
     #     Setup a new variant and its data.
@@ -217,3 +242,6 @@ class Element(abstract_entity.AbstractEntity):
 
 if __name__ == '__main__':
     e = Element('/Users/masonsmigel/Documents/sastld2023/shows/TLD/elements/char/paladin')
+    print e.get_tasks()
+
+    e.update_tasks()

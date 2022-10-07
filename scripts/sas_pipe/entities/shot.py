@@ -142,6 +142,26 @@ class Shot(elm.Element):
         else:
             raise KeyError('Element "{}" is not part of this shot'.format(elementCode))
 
+    def update_tasks(self):
+        """
+        Add any missing tasks from the element.json file
+        """
+        shotTemplateData = abstract_data.AbstractData()
+        shotTemplateData.read(constants.SHOT_TEMPLATE)
+        shotTempalteData = shotTemplateData.getData()
+
+        # determine the entiy type
+        for type in shotTempalteData.keys():
+            if type in self.path:
+                shotType = type
+
+        task_data = shotTempalteData[shotType]
+        existing_tasks = os.listdir(self.path)
+        for task in task_data:
+            if task not in existing_tasks:
+                print "adding new task", task
+                self.add_task(taskName=task)
+
 
 if __name__ == '__main__':
     sh = Shot("/Users/masonsmigel/Documents/SAS_DEV/shows/TEST/sequences/seq/010/0010")

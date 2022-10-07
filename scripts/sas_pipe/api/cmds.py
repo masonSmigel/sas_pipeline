@@ -275,9 +275,21 @@ def lselm(types=None):
             elm_entity_path = os.path.join(elm_path, type, content)
             if sas_pipe.entities.element.isElement(elm_entity_path):
                 elm = sas_pipe.entities.element.Element(elm_entity_path)
-                type_elmenets.append(elm.name)
+                type_elmenets.append(elm)
         elm_dict[type] = sorted(type_elmenets)
     return elm_dict
+
+
+def updateelm(types=None):
+    """
+    Update element tasks based on the element tasks file
+    """
+    show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
+
+    types = show_entity.get_elementTypes() if not types else common.toList(types)
+    for type in types:
+        for elementEntity in lselm(type)[type]:
+            elementEntity.update_tasks()
 
 
 # SHOT
@@ -370,9 +382,22 @@ def lsshot(types=None):
             for shot in shots:
                 if sas_pipe.entities.shot.isShot(os.path.join(seq_entity_path, shot)):
                     shot = sas_pipe.entities.shot.Shot(os.path.join(seq_entity_path, shot))
-                    type_dict.append(shot.name)
+                    type_dict.append(shot)
         shot_dict[type] = sorted(type_dict)
     return shot_dict
+
+
+def updateshot(types=None):
+    """
+    Update shot tasks based on the element tasks file
+    """
+    show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
+
+    types = show_entity.get_sequenceTypes() if not types else common.toList(types)
+    for type in types:
+        for shotEntity in lsshot(type)[type]:
+            # print shotEntity
+            shotEntity.update_tasks()
 
 
 def nav(code, entityType='elm', type=None):
@@ -413,4 +438,4 @@ if __name__ == '__main__':
 
     initenv()
 
-    mkshow("TEST")
+    updateshot()
