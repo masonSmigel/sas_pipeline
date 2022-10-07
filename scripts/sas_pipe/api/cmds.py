@@ -389,7 +389,9 @@ def lsshot(types=None):
 
 def updateshot(types=None):
     """
-    Update shot tasks based on the element tasks file
+    Update shot tasks based on the element tasks file.
+
+    Must initialize the enviornment before running
     """
     show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
 

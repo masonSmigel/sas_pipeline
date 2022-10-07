@@ -322,6 +322,9 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
         self.create_shot_action = QtWidgets.QAction("Create Shot", self)
         self.create_shot_action.triggered.connect(self.create_shot)
 
+        self.update_tasks_action = QtWidgets.QAction("Update Tasks", self)
+        self.update_tasks_action.triggered.connect(self.update_tasks)
+
         # TOOLS
         self.flush_env_action = QtWidgets.QAction("Flush Environment", self)
         self.flush_env_action.triggered.connect(environment.flushEnv)
@@ -332,6 +335,7 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
         create_menu = self.main_menu.addMenu("Create")
         create_menu.addAction(self.create_elm_action)
         create_menu.addAction(self.create_shot_action)
+        create_menu.addAction(self.update_tasks_action)
 
         tools_menu = self.main_menu.addMenu("Tools")
         tools_menu.addAction(self.flush_env_action)
@@ -626,6 +630,10 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
     def create_shot(self):
         CreateShotDialog().exec_()
+
+    def update_tasks(self):
+        sas.updateelm()
+        sas.updateshot()
 
 
 class CreateElementDialog(QtWidgets.QDialog):

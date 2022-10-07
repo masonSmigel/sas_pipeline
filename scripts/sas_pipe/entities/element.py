@@ -185,8 +185,9 @@ class Element(abstract_entity.AbstractEntity):
         existing_tasks = os.listdir(self.path)
         for task in task_data:
             if task not in existing_tasks:
-                print "adding new task", task
                 self.add_task(taskName=task)
+                print "adding new task {}/{}".format(self.path, task)
+
 
 
 
