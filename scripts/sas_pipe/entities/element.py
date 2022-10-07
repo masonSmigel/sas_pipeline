@@ -195,7 +195,8 @@ class Element(abstract_entity.AbstractEntity):
         elementTempalteData = elementTemplate.getData()
 
         if not self.elementType:
-            print "could not determine an elemen type for {}".format(self.name)
+            print "could not determine an element type for {}".format(self.name)
+            return
 
         task_data = elementTempalteData[self.elementType]
         existing_tasks = os.listdir(self.path)

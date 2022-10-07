@@ -289,7 +289,8 @@ def updateelm(types=None):
     types = show_entity.get_elementTypes() if not types else common.toList(types)
     for type in types:
         for elementEntity in lselm(type)[type]:
-            elementEntity.update_tasks()
+            if sas_pipe.entities.element.isElement(elementEntity.path):
+                elementEntity.update_tasks()
 
 
 # SHOT
@@ -398,8 +399,8 @@ def updateshot(types=None):
     types = show_entity.get_sequenceTypes() if not types else common.toList(types)
     for type in types:
         for shotEntity in lsshot(type)[type]:
-            # print shotEntity
-            shotEntity.update_tasks()
+            if sas_pipe.entities.shot.isShot(elementEntity.path):
+                shotEntity.update_tasks()
 
 
 def nav(code, entityType='elm', type=None):
