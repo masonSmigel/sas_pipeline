@@ -182,8 +182,8 @@ class Element(abstract_entity.AbstractEntity):
             cleanPath = path.clean_path(self.path)
             if type in cleanPath:
                 elementType = type
-        print "type is", type
-        print "found type is", elementType
+            print "type is", type
+            print "found type is", elementType
 
 
         task_data = elementTempalteData[elementType]
