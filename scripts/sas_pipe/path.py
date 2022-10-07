@@ -11,9 +11,10 @@ def clean_path(path):
     :returns: cleanup up path
     :rtype: str
     """
-    r_path = path.replace('\\', '/')
-    r_path = r_path.replace('//', '/')
-    return r_path
+    myPath = pathlib.Path(path)
+    resolvedPath = myPath.absolute()
+
+    return str(resolvedPath)
 
 
 def is_file(path):
