@@ -399,7 +399,7 @@ def updateshot(types=None):
     types = show_entity.get_sequenceTypes() if not types else common.toList(types)
     for type in types:
         for shotEntity in lsshot(type)[type]:
-            if sas_pipe.entities.shot.isShot(elementEntity.path):
+            if sas_pipe.entities.shot.isShot(shotEntity.path):
                 shotEntity.update_tasks()
 
 
