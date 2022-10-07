@@ -3,6 +3,7 @@ import os
 from collections import OrderedDict
 
 from sas_pipe import constants
+from sas_pipe import path
 import sas_pipe.common as common
 import sas_pipe.entities.element as elm
 import sas_pipe.utils.osutil as osutil

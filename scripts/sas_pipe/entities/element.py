@@ -182,6 +182,9 @@ class Element(abstract_entity.AbstractEntity):
             cleanPath = path.clean_path(self.path)
             if type in cleanPath:
                 elementType = type
+        print "type is", type
+        print "found type is", elementType
+
 
         task_data = elementTempalteData[elementType]
         existing_tasks = os.listdir(self.path)
@@ -189,9 +192,6 @@ class Element(abstract_entity.AbstractEntity):
             if task not in existing_tasks:
                 self.add_task(taskName=task)
                 print "adding new task {}/{}".format(self.path, task)
-
-
-
 
     # def add_variant(self, variant, **kwargs):
     #     """

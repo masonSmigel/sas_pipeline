@@ -2,6 +2,7 @@
 This module contains path utilities
 """
 import os
+import pathlib
 
 
 def clean_path(path):
