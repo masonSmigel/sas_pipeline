@@ -52,14 +52,19 @@ class Element(abstract_entity.AbstractEntity):
         Get the element type
         """
         elementTemplate = abstract_data.AbstractData()
-        elementTemplate.read(constants.ELEMENT_TEMPLATE)
+        if self.type == 'Element':
+            elementTemplate.read(constants.ELEMENT_TEMPLATE)
+        if self.type == 'Shot':
+            elementTemplate.read(constants.SHOT_TEMPLATE)
         elementTempalteData = elementTemplate.getData()
 
+        elementType = None
         # determine the entiy type
         for type in elementTempalteData.keys():
             cleanPath = path.clean_path(self.path)
             if type in cleanPath:
                 elementType = type
+
         self.elementType = elementType
 
     @staticmethod
@@ -256,6 +261,3 @@ if __name__ == '__main__':
     e = Element('/Users/masonsmigel/Documents/sastld2023/shows/TLD/elements/char/paladin')
     e.update_tasks()
     print e
-
-
-
