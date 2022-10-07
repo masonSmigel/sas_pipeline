@@ -3,6 +3,7 @@ import getpass
 from collections import OrderedDict
 
 from sas_pipe import constants
+from sas_pipe import path
 import sas_pipe.utils.osutil as os_utils
 import sas_pipe.utils.pipeutils as pipeutils
 from sas_pipe import environment
@@ -178,7 +179,8 @@ class Element(abstract_entity.AbstractEntity):
 
         # determine the entiy type
         for type in elementTempalteData.keys():
-            if type in self.path:
+            cleanPath = path.clean_path(self.path)
+            if type in cleanPath:
                 elementType = type
 
         task_data = elementTempalteData[elementType]

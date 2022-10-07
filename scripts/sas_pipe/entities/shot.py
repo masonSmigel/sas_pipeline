@@ -152,7 +152,8 @@ class Shot(elm.Element):
 
         # determine the entiy type
         for type in shotTempalteData.keys():
-            if type in self.path:
+            cleanPath = path.clean_path(self.path)
+            if type in cleanPath:
                 shotType = type
 
         task_data = shotTempalteData[shotType]
