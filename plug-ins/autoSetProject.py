@@ -14,7 +14,7 @@ import traceback
 
 import maya.api.OpenMaya as om2
 import maya.OpenMaya as om
-import pymel.core as pm
+import maya.cmds as cmds
 import pymel.util
 
 
@@ -125,10 +125,10 @@ def set_project(retCode, fileObject, clientData=None):
     """
     path = fileObject.rawFullName()
 
-    current_workspace = pm.workspace.getPath()
+    current_workspace = cmds.workspace(q=True, rootDirectory=True)
     new_workspace = find_workspace(path)
     if new_workspace is not None and current_workspace is not new_workspace:
-        pm.mel.setProject(new_workspace)
+        cmds.workspace(dir=new_workspace)
 
         # show the user the path has been changed
         om2.MGlobal.displayInfo("ms_setProject set project to: {}".format(new_workspace))
@@ -145,6 +145,6 @@ def display_path_msg(msg):
     Maya_version = pm.versions.current() / 100
 
     if Maya_version >= 2014:
-        pm.inViewMessage(msg="Project set to: {}".format(msg), fade=True, fadeOutTime=2.0)
+        cmds.inViewMessage(msg="Project set to: {}".format(msg), fade=True, fadeOutTime=2.0)
     else:
-        pm.headsUpMessage('Project Changed to : ' + msg, time=2.0)
+        cmds.headsUpMessage('Project Changed to : ' + msg, time=2.0)
