@@ -142,7 +142,7 @@ def display_path_msg(msg):
     Show an inview message to alert the user the project was changed
     :param msg: string- path to display
     """
-    Maya_version = pm.versions.current() / 100
+    Maya_version = cmds.about(version=True) / 100
 
     if Maya_version >= 2014:
         cmds.inViewMessage(msg="Project set to: {}".format(msg), fade=True, fadeOutTime=2.0)
