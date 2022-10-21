@@ -214,7 +214,10 @@ class PublishEntityUi(QtWidgets.QDialog):
         fileName = os.path.basename(currentFile)
 
         # construct a new filepath
-        if not len(fileName.split("_")) == 4:
+        lenSplit = len(fileName.split("_"))
+        print lenSplit
+
+        if not lenSplit >= 4:
             logger.error("File is not a valid work file. Please open a SAS piped work file or check your naming convention.")
             return
 
