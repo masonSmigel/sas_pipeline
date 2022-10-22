@@ -2,6 +2,9 @@
 This module creates a menu for a SAS pipeline
 """
 import imp
+import os
+import maya.cmds as cmds
+import maya.mel as mel
 import sas_pipe.common as common
 import sas_pipe.constants
 from sas_pipe.maya.widgets import subMenuBase
@@ -61,10 +64,11 @@ def exportCameras(*args):
         currentFile = cmds.file(q=True, sn=True)
 
         basePath = os.path.dirname(currentFile)
-        savePath = os.path.join(basePath, "{}.fbx".format(camTrs))
+        savePath = r"{}/{}.fbx".format(basePath, camTrs)
 
         # export the camera as an fbx
         cmds.select(camToExport)
-        cmds.file(savePath, exportSelected=True, type='FBX')
+        mel.eval('FBXExport -f "{}" -s;'.format(savePath))
+        print("Camera Exported to: {}".format(savePath))
         cmds.delete(camToExport)
 
