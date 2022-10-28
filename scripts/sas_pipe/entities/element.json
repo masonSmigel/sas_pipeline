@@ -19,7 +19,10 @@
             "look-uv",
             "look-texture",
             "look-surface",
-            "look-deliver"
+            "look-deliver",
+            "groom_setup",
+            "groom_deliver",
+            "groom_prep"
         ], 
         "envi": [
             "actor-anim",
