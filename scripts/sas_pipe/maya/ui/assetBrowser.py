@@ -555,7 +555,7 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
         filename, file_extension = os.path.splitext(path)
         if file_extension in ['.ma', '.mb']:
-            maya_file.import_(path)
+            maya_file.import_(path, ns=True)
         else:
             logger.error("Cannot import files other than maya files")
 
