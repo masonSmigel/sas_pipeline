@@ -251,7 +251,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         sortedFiles = sorted(publishFiles)
 
         fullPath = self.current_entity.compose_path(task, sas_pipe.constants.REL_TOKEN, fileName=sortedFiles[-1])
-        maya_file.import_(fullPath, f=True)
+        maya_file.import_(fullPath, useNamespace=True, force=True)
 
     def reference_file(self):
         """
@@ -555,7 +555,7 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
         filename, file_extension = os.path.splitext(path)
         if file_extension in ['.ma', '.mb']:
-            maya_file.import_(path, ns=True)
+            maya_file.import_(path, useNamespace=True, namespace=None, force=True)
         else:
             logger.error("Cannot import files other than maya files")
 
