@@ -56,7 +56,7 @@ def _findMenus(path, excludedFolders, excludedFiles):
 
                     for cls in inspect.getmembers(moduleObject, inspect.isclass):
                         # if the class matches the predicted name append the class object to the toReturn list.
-                        if cls[0] == className:
+                        if cls[0].endswith("Menu"):
                             toReturn.append(cls)
     return toReturn
 
