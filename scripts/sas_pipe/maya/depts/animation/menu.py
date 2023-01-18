@@ -23,6 +23,7 @@ class AnimationMenu(subMenuBase.SubMenu):
         if found:
             self.addMenuItem("Apply Mocap Data", command=applyMocapData)
             self.addMenuItem("Select Whole Character", command=selectWholeCharacter)
+            self.addMenuItem("IkFk Match Selected", command=ikfkMatchSelectedComponent)
 
 
 # functions explicitly connected to rigamajig2
@@ -45,3 +46,10 @@ def selectWholeCharacter(*args):
         cmds.select(controls)
     else:
         raise Exception("Please select a control on the character you wish to select")
+
+
+def ikfkMatchSelectedComponent(*args):
+    """ IkFk math the selected component"""
+    from rigamajig2.maya.anim import ikfkSwitcher
+    ikfkSwitcher.switchSelectedComponent()
+

@@ -30,6 +30,10 @@ def run(namespace=None):
     shatterComponents = meta.getTagged("component", "shatterBone", namespace=namespace)
     controlsList = list()
 
+    if not shatterComponents:
+        cmds.error("Cannot shatter rigs other than the skeleton. {} is not dead yet!".format(namespace))
+        return
+
     for component in shatterComponents:
         nodes = container.getNodesInContainer(component)
         controls = filter(control.isControl, nodes)
