@@ -25,6 +25,17 @@ class AnimationMenu(subMenuBase.SubMenu):
             self.addMenuItem("Select Whole Character", command=selectWholeCharacter)
             self.addMenuItem("IkFk Match Selected", command=ikfkMatchSelectedComponent)
 
+        # try to import tween machine
+        try:
+            imp.find_module('tweenMachine')
+            found = True
+        except ImportError:
+            found = False
+
+        if found:
+            self.addDivider()
+            self.addMenuItem("Tween Machine", command=openTweenMachine)
+
 
 # functions explicitly connected to rigamajig2
 def applyMocapData(*args):
@@ -53,3 +64,8 @@ def ikfkMatchSelectedComponent(*args):
     from rigamajig2.maya.anim import ikfkSwitcher
     ikfkSwitcher.switchSelectedComponent()
 
+
+def openTweenMachine(*args):
+    """Open the tween machine"""
+    import tweenMachine
+    tweenMachine.start()
