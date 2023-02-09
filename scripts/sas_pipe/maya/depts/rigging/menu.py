@@ -23,6 +23,13 @@ class RiggingMenu(subMenuBase.SubMenu):
         if found:
             self.addMenuItem("Rigamajig2 Builder", command=openRigamajigBuilder)
             self.addDivider()
+            self.addMenuItem("Select Controls", command=selectControls)
+            self.addMenuItem("Select Bind Joints", command=selectBindJoints)
+
+            self.addMenuItem("Create Axis Marker", command=createAxisMarker)
+            self.addDivider()
+            self.addMenuItem("Copy Weights and Influences", command=copyWeightsAndInfluences)
+            self.addDivider()
             self.addMenuItem("Reload Rigamajig2", command=reloadRigamajig)
 
 
@@ -36,3 +43,30 @@ def openRigamajigBuilder(*args):
 def reloadRigamajig(*args):
     import rigamajig2
     rigamajig2.reloadModule()
+
+
+def selectControls(*args):
+    import rigamajig2.maya.rig.control as ctl
+    cmds.select(ctl.getControls())
+
+
+def selectBindJoints(*args):
+    import rigamajig2.maya.meta
+    import maya.cmds as cmds
+
+    cmds.select(rigamajig2.maya.meta.getTagged("bind"))
+
+
+def createAxisMarker(*args):
+    import rigamajig2.maya.debug as debug
+    debug.createAxisMarker()
+
+
+def copyWeightsAndInfluences(*args):
+    import maya.cmds as cmds
+    import rigamajig2.maya.skinCluster as rig_skinCluster
+
+    src = cmds.ls(sl=True)[0]
+    dst = cmds.ls(sl=True)[1:]
+
+    rig_skinCluster.copySkinClusterAndInfluences(src, dst)

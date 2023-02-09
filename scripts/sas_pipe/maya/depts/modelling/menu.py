@@ -22,6 +22,7 @@ class ModellingMenu(subMenuBase.SubMenu):
 
         if found:
             self.addMenuItem("Clean Model", command=cleanSelectedModel)
+            self.addMenuItem("Clean ColorSets", command=cleanColorSet)
 
 
 # functions explicitly connected to rigamajig2
@@ -31,3 +32,12 @@ def cleanSelectedModel(*args):
     import maya.cmds as cmds 
     sel = cmds.ls(sl=True)
     mesh.cleanModel(sel)
+
+
+# functions explicitly connected to rigamajig2
+def cleanColorSet(*args):
+    """Clean the selected model"""
+    from rigamajig2.maya import mesh
+    import maya.cmds as cmds
+    sel = cmds.ls(sl=True)
+    mesh.cleanColorSets(sel)
