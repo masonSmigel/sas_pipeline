@@ -125,5 +125,8 @@ def importReferences():
 
     for ref in refs:
         rFile = cmds.referenceQuery(ref, f=True)
-        cmds.file(rFile, importReference=True)
-        print ("imported reference: {}".format(rFile))
+        try:
+            cmds.file(rFile, importReference=True)
+            print("imported reference: {}".format(rFile))
+        except:
+            print("Failed to import reference node for: {}".format(rFile))
