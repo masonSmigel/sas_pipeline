@@ -218,7 +218,8 @@ class PublishEntityUi(QtWidgets.QDialog):
         print lenSplit
 
         if not lenSplit >= 4:
-            logger.error("File is not a valid work file. Please open a SAS piped work file or check your naming convention.")
+            logger.error(
+                "File is not a valid work file. Please open a SAS piped work file or check your naming convention.")
             return
 
         base = fileName.split("_v")[0]
@@ -303,19 +304,24 @@ class PublishEntityUi(QtWidgets.QDialog):
 
         for node in transformNodes:
             shapes = cmds.listRelatives(node, s=True)
+
+            publishAttrs = ['__sourceFile__', '__publishUser__', '__publishDate__']
+
+            user = getpass.getuser()
+            dateString = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+
+            publishDataList = [file, user, dateString]
+
             if not shapes:
-                cmds.addAttr(node, longName='__sourceFile__', dataType="string")
-                cmds.setAttr("{}.{}".format(node, '__sourceFile__'), file, type="string")
-                cmds.setAttr("{}.{}".format(node, '__sourceFile__'), lock=True)
-
-                cmds.addAttr(node, longName='__publishUser__', dataType="string")
-                cmds.setAttr("{}.{}".format(node, '__publishUser__'), getpass.getuser(), type="string")
-                cmds.setAttr("{}.{}".format(node, '__publishUser__'), lock=True)
-
-                cmds.addAttr(node, longName='__publishDate__', dataType="string")
-                dateString = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-                cmds.setAttr("{}.{}".format(node, '__publishDate__'), dateString, type="string")
-                cmds.setAttr("{}.{}".format(node, '__publishDate__'), lock=True)
+                for publishAttr, publishData in zip(publishAttrs, publishDataList):
+                    if not cmds.objExists("{}.{}".format(node, publishAttr)):
+                        cmds.addAttr(node, longName=publishAttr, dataType='string')
+                        cmds.setAttr("{}.{}".format(node, publishAttr), publishData, type="string")
+                        cmds.setAttr("{}.{}".format(node, publishAttr), lock=True)
+                    else:
+                        cmds.setAttr("{}.{}".format(node, publishAttr), lock=False)
+                        cmds.setAttr("{}.{}".format(node, publishAttr), publishData, type="string")
+                        cmds.setAttr("{}.{}".format(node, publishAttr), lock=True)
 
 
 if __name__ == '__main__':
