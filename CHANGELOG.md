@@ -2,6 +2,13 @@
 When updating the changelog you must also increase the version in the `scripts/__init.py` 
 file and the  `plug-ins/sasPipe_maya.py` file. 
 
+## 2.0.4
+
+### Added: 
+* Added open publish button to the browser UI 
+
+### Changed: 
+* Changed the maya browser to filter only maya files in the content lists. 
 
 ## 2.0.3
 
