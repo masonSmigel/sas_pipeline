@@ -149,7 +149,7 @@ class Element(abstract_entity.AbstractEntity):
         else:
             return os.path.join(self.path, self.validate_variant_data(variant, task), step, fileName)
 
-    def get_work_files(self, task, variant=None):
+    def get_work_files(self, task, variant=None, fileTypes=None):
         """
         return a list of all the work files
         :param variant: Optional - specify a variant to get the files for. Otherwise just get the 'base'
@@ -158,9 +158,15 @@ class Element(abstract_entity.AbstractEntity):
         """
         if not variant: variant = 'base'
         path = self.compose_path(task, step=constants.WORK_TOKEN, variant=variant)
-        return os_utils.get_contents(path, files=True, dirs=False)
+        contents = os_utils.get_contents(path, files=True, dirs=False)
 
-    def get_publish_files(self, task, variant=None):
+        if fileTypes:
+            # filter the list by the filetype
+            contents = [x for x in contents if x.split(".")[-1] in fileTypes]
+
+        return contents
+
+    def get_publish_files(self, task, variant=None, fileTypes=None):
         """
         return a list of all the work files
         :param variant: Optional - specify a variant to get the files for. Otherwise just get the 'base'
@@ -169,7 +175,12 @@ class Element(abstract_entity.AbstractEntity):
         """
         if not variant: variant = 'base'
         path = self.compose_path(task, step=constants.REL_TOKEN, variant=variant)
-        return os_utils.get_contents(path, files=True, dirs=False)
+        contents = os_utils.get_contents(path, files=True, dirs=False)
+
+        if fileTypes:
+            # filter the list by the filetype
+            contents = [x for x in contents if x.split(".")[-1] in fileTypes]
+        return contents
 
     def get_publish_version_files(self, task, variant=None):
         """

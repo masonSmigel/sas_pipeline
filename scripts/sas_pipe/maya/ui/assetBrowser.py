@@ -69,6 +69,9 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         self.open_work_btn = QtWidgets.QPushButton("Open (Work File)")
         self.open_work_btn.setMinimumHeight(30)
 
+        self.open_publish_btn = QtWidgets.QPushButton("Open (Publish File)")
+        self.open_publish_btn.setMinimumHeight(30)
+
         self.import_publish_btn = QtWidgets.QPushButton("Import (Publish File)")
         self.import_publish_btn.setMinimumHeight(30)
 
@@ -100,6 +103,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         open_layout.addLayout(taskLayout)
         open_layout.addWidget(self.task_te)
         open_layout.addWidget(self.open_work_btn)
+        open_layout.addWidget(self.open_publish_btn)
         open_layout.addWidget(self.import_publish_btn)
         open_layout.addWidget(self.reference_publish_btn)
         self.main_layout.addLayout(open_layout)
@@ -107,6 +111,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
     def create_connections(self):
         self.task_cb.currentIndexChanged.connect(self.update_task_data)
         self.open_work_btn.clicked.connect(self.open_file)
+        self.open_publish_btn.clicked.connect(self.open_publish_file)
         self.import_publish_btn.clicked.connect(self.import_file)
         self.reference_publish_btn.clicked.connect(self.reference_file)
         # self.variant_cb.currentIndexChanged.connect(self.update_variant_data)
@@ -202,7 +207,6 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         self.task_te.append("published versions: {}".format(len(versionFiles)))
         self.task_te.append("work versions: {}".format(len(workFiles)))
 
-
     def capture_thumbnail(self):
         """ do a thumbnial capture"""
         entity = self._find_entity(self.current_item_path)
@@ -221,7 +225,7 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         :return:
         """
         task = self.task_cb.currentText()
-        workFiles = self.current_entity.get_work_files(task)
+        workFiles = self.current_entity.get_work_files(task, fileTypes=['ma', 'mb'])
 
         # if we dont have any work files return
         if len(workFiles) < 1:
@@ -235,17 +239,35 @@ class SAS_EntityInfo(QtWidgets.QWidget):
 
         maya_file.open_(fullPath, f=True)
 
+    def open_publish_file(self):
+        """
+        Open a work file
+        :return:
+        """
+        task = self.task_cb.currentText()
+        publishFiles = self.current_entity.get_publish_files(task, fileTypes=['ma', 'mb'])
+
+        # if we dont have any work files return
+        if len(publishFiles) < 1:
+            publishFiles = self.current_entity.get_work_files(self.task_cb.currentText(), fileTypes=['ma', 'mb'])
+
+        # Sort the files to get the file with the greatest idex
+        sortedFiles = sorted(publishFiles)
+
+        fullPath = self.current_entity.compose_path(task, sas_pipe.constants.REL_TOKEN, fileName=sortedFiles[-1])
+        maya_file.open_(fullPath, f=True)
+
     def import_file(self):
         """
         Open a work file
         :return:
         """
         task = self.task_cb.currentText()
-        publishFiles = self.current_entity.get_publish_files(task)
+        publishFiles = self.current_entity.get_publish_files(task, fileTypes=['ma', 'mb'])
 
         # if we dont have any work files return
         if len(publishFiles) < 1:
-            publishFiles = self.current_entity.get_work_files(self.task_cb.currentText())
+            publishFiles = self.current_entity.get_work_files(self.task_cb.currentText(), fileTypes=['ma', 'mb'])
 
         # Sort the files to get the file with the greatest idex
         sortedFiles = sorted(publishFiles)
@@ -259,11 +281,11 @@ class SAS_EntityInfo(QtWidgets.QWidget):
         :return:
         """
         task = self.task_cb.currentText()
-        publishFiles = self.current_entity.get_publish_files(task)
+        publishFiles = self.current_entity.get_publish_files(task, fileTypes=['ma', 'mb'])
 
         # if we dont have any work files return
         if len(publishFiles) < 1:
-            publishFiles = self.current_entity.get_work_files(self.task_cb.currentText())
+            publishFiles = self.current_entity.get_work_files(self.task_cb.currentText(), fileTypes=['ma', 'mb'])
 
         # Sort the files to get the file with the greatest idex
         sortedFiles = sorted(publishFiles)
