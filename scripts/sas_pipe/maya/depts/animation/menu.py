@@ -28,6 +28,7 @@ class AnimationMenu(subMenuBase.SubMenu):
             self.addMenuItem("Apply Mocap Data", command=applyMocapData)
             self.addMenuItem("Select Whole Character", command=selectWholeCharacter)
             self.addMenuItem("IkFk Match Selected", command=ikfkMatchSelectedComponent)
+            self.addMenuItem("IkFk Match Range", command=ikfkMatchRangeDialog)
             self.addDivider()
             self.addMenuItem("Batch FBX Exporter", command=openBatchFBXExporter)
             self.addDivider()
@@ -72,6 +73,12 @@ def ikfkMatchSelectedComponent(*args):
     """ IkFk math the selected component"""
     from rigamajig2.maya.anim import ikfkSwitcher
     ikfkSwitcher.switchSelectedComponent()
+
+
+def ikfkMatchRangeDialog(*args):
+    """ IkFk math the selected component"""
+    from rigamajig2.maya.anim import ikfkSwitcher
+    ikfkSwitcher.IkFkMatchRangeDialog().showDialog()
 
 
 def openTweenMachine(*args):
