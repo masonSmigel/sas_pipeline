@@ -1,5 +1,6 @@
 import os
 import imp
+import sys
 import inspect
 import re
 import logging
@@ -134,8 +135,13 @@ class PublishEntityUi(QtWidgets.QDialog):
             cls.dlg_instance.raise_()
             cls.dlg_instance.activateWindow()
 
-    def __init__(self, parent=maya_main_window()):
-        super(PublishEntityUi, self).__init__(parent)
+    def __init__(self):
+        if sys.version_info.major < 3:
+            maya_main_window = wrapInstance(long(omui.MQtUtil.mainWindow()), QtWidgets.QWidget)
+        else:
+            maya_main_window = wrapInstance(int(omui.MQtUtil.mainWindow()), QtWidgets.QWidget)
+
+        super(PublishEntityUi, self).__init__(maya_main_window)
 
         self.setWindowTitle("Publish Entity")  # Window title name
         self.setBaseSize(500, 560)  # Window minimum width
@@ -215,7 +221,6 @@ class PublishEntityUi(QtWidgets.QDialog):
 
         # construct a new filepath
         lenSplit = len(fileName.split("_"))
-        print lenSplit
 
         if not lenSplit >= 4:
             logger.error(

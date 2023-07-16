@@ -10,6 +10,7 @@ import sas_pipe.utils.osutil as osutil
 import sas_pipe.utils.pipeutils as pipeutils
 import sas_pipe.environment as environment
 from sas_pipe.utils.data import abstract_data
+from sas_pipe import Logger
 
 
 def isShot(path):
@@ -84,9 +85,9 @@ class Shot(elm.Element):
         data = self._data
 
         # check if an alement wit this name already exists
-        if data['elements'].has_key(element):
+        if element in data['elements']:
             for i in range(2000):
-                if not data['elements'].has_key(element + str(i)):
+                if element + str(i) not in data['elements']:
                     element = element + str(i)
                     break
 
@@ -99,8 +100,7 @@ class Shot(elm.Element):
         :param element: name of the element to delete
         """
         data = self._data
-        if data['elements'].has_key(element):
-            print 'remove element'
+        if element in data['elements']:
             del data['elements'][element]
             self.setData(data)
         else:
@@ -119,7 +119,7 @@ class Shot(elm.Element):
         :param element:
         :return:
         """
-        if self._data['elements'].has_key(element):
+        if element in self._data['elements']:
             return self._data['elements'][element]
         else:
             raise KeyError('Element "{}" is not part of this shot'.format(element))
@@ -135,7 +135,7 @@ class Shot(elm.Element):
         :return:
         """
         data = self._data
-        if data['elements'].has_key(elementCode):
+        if elementCode in data['elements']:
             if task: data['elements'][elementCode]['task'] = task
             if variant: data['elements'][elementCode]['variant'] = variant
             if override: data['elements'][elementCode]['override'] = override
@@ -162,14 +162,14 @@ class Shot(elm.Element):
         for task in task_data:
             if task not in existing_tasks:
                 self.add_task(taskName=task)
-                print "adding new task {}/{}".format(self.path, task)
+                Logger.info("adding new task {}/{}".format(self.path, task))
 
 
 if __name__ == '__main__':
     sh = Shot("/Users/masonsmigel/Documents/SAS_DEV/shows/TEST/sequences/seq/010/0010")
     # sh.add_task('new')
 
-    print sh.add_element('testCharacter', 'char', 'rig')
+    print(sh.add_element('testCharacter', 'char', 'rig'))
     sh.get_element_data('testCharacter')
     sh.set_element('testCharacter', task='mod', override='rig/test.ma')
     #

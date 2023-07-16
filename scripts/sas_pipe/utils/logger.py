@@ -26,7 +26,7 @@ class Logger(object):
 
                 fmt = logging.Formatter("[%(name)s][%(levelname)s] %(message)s")
 
-                stream_handler = logging.StreamHandler(sys.stdout)
+                stream_handler = logging.StreamHandler(sys.stderr)
                 stream_handler.setFormatter(fmt)
                 cls._logger_obj.addHandler(stream_handler)
 

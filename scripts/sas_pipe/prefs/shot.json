@@ -1,25 +1,9 @@
 {
     "type": "AbstractData", 
     "user": "masonsmigel", 
-    "time": "2022-09-13 03:44:43", 
+    "time": "2022-09-13 03:44:43",
     "data": {
         "seq": [
-            "anim_main", 
-            "art", 
-            "reference", 
-            "audio",
-            "anim_lay",
-            "anim_crowd",
-            "anim-fix",
-            "cfx_crowd",
-            "cfx_main",
-            "fx_2d",
-            "fx_3d",
-            "light",
-            "comp",
-            "anim_mocap"
-        ],
-        "mrkt": [
             "anim_main",
             "art",
             "reference",
@@ -32,8 +16,22 @@
             "fx_2d",
             "fx_3d",
             "light",
-            "comp",
-            "anim_mocap"
+            "comp"
+        ],
+        "mrkt": [
+            "anim_main", 
+            "art",
+            "reference",
+            "audio",
+            "anim_lay",
+            "anim_crowd",
+            "anim-fix",
+            "cfx_crowd",
+            "cfx_main",
+            "fx_2d",
+            "fx_3d",
+            "light",
+            "comp"
             ],
         "cycles": [
             "anim_main",
@@ -41,12 +39,7 @@
             "reference",
             "audio",
             "anim_lay",
-            "anim_crowd",
-            "cfx_crowd",
-            "cfx_main",
-            "light",
-            "comp",
-            "anim_mocap"
+            "anim_crowd"
             ]
     }
 }

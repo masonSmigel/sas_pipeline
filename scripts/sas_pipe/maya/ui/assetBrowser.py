@@ -134,7 +134,10 @@ class SAS_EntityInfo(QtWidgets.QWidget):
             # read the manifest file so we can grab some data from there
             manifest_file_info = QtCore.QFileInfo(self.current_entity.manifest_path)
             f = open(manifest_file_info.filePath(), 'r')
-            data = json.loads(f.read().decode('utf-8'), object_pairs_hook=OrderedDict)
+            if sys.version_info.major == 3:
+                data = json.loads(f.read(), object_pairs_hook=OrderedDict)
+            else:
+                data = json.loads(f.read().decode('utf-8'), object_pairs_hook=OrderedDict)
             f.close()
 
             self.info_te.append("entity type: {}".format(self.current_entity.type))
@@ -615,15 +618,20 @@ class SAS_AssetBrowser(QtWidgets.QDialog):
 
         entity_code = self.search_bar_le.text()
 
+        # check if this is an element
         entity_path = sas.nelm(entity_code)
 
         if not entity_path:
-            if len(entity_code.split(' ')) >= 2:
-                seq, shot = entity_code.split(' ')[:2]
-                entity_path = sas.nshot(seq, shot)
+            seq, shot = entity_code.split(" ")
+            entity_path = sas.nshot(seq, shot)
+            # if len(entity_code.split(' ')) >= 2:
+            #     seq, shot = entity_code.split(' ')[:2]
+            #     entity_path = sas.nshot(seq, shot)
+        print(entity_path)
 
         if entity_path:
             index = self.model.index(entity_path)
+            print(entity_path)
             self.entity_info_wdgt.set_item(self.model.filePath(index))
             self.browser_tree.selectionModel().select(index, QtCore.QItemSelectionModel.ClearAndSelect)
 

@@ -10,6 +10,7 @@ from sas_pipe import environment
 import sas_pipe.common as common
 import sas_pipe.entities.abstract_entity as abstract_entity
 from sas_pipe.utils.data import abstract_data
+from sas_pipe import Logger
 
 
 def isElement(path):
@@ -206,7 +207,7 @@ class Element(abstract_entity.AbstractEntity):
         elementTempalteData = elementTemplate.getData()
 
         if not self.elementType:
-            print "could not determine an element type for {}".format(self.name)
+            Logger.error("could not determine an element type for {}".format(self.name))
             return
 
         task_data = elementTempalteData[self.elementType]
@@ -214,7 +215,7 @@ class Element(abstract_entity.AbstractEntity):
         for task in task_data:
             if task not in existing_tasks:
                 self.add_task(taskName=task)
-                print "adding new task {}/{}".format(self.path, task)
+                Logger.info("adding new task {}/{}".format(self.path, task))
 
     # def add_variant(self, variant, **kwargs):
     #     """
@@ -260,16 +261,16 @@ class Element(abstract_entity.AbstractEntity):
         if not task:
             return None
 
-        if self._data['variants'].has_key(variant):
-            if self._data['variants'][variant].has_key(task):
+        if variant in self._data['variants']:
+            if task in self._data['variants'][variant]:
                 return self._data['variants'][variant][task]
         return self._data['variants']['base'][task]
 
 
 if __name__ == '__main__':
     e = Element('/Users/masonsmigel/Documents/sastld2023/shows/TLD/elements/envi/parts/banner')
-    print e
+    print(e)
 
     e = Element('/Users/masonsmigel/Documents/sastld2023/shows/TLD/elements/char/paladin')
     e.update_tasks()
-    print e
+    print(e)

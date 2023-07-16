@@ -4,6 +4,7 @@ Get and set some enviornment variables
 
 import os
 from collections import OrderedDict
+from sas_pipe import Logger
 
 VAR_PREFIX = 'SAS_'
 
@@ -41,8 +42,8 @@ def getAll():
 def flushEnv():
 
     environ_varibles = os.environ.copy()
-    print environ_varibles
-    for key, val in environ_varibles.iteritems():
+    Logger.info(environ_varibles)
+    for key, val in environ_varibles.items():
         if key.startswith(VAR_PREFIX):
             del os.environ[key]
 
@@ -52,4 +53,4 @@ if __name__ == '__main__':
     setEnv('user', 'me')
     setEnv('currentShow', 'HOWB')
 
-    print getAll()
+    print (getAll())

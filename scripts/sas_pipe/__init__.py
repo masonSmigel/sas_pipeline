@@ -20,11 +20,12 @@ def reloadModule(name='sas_pipe', log=True):
     :param name:
     :return:
     """
-    for mod in sys.modules.keys():
-        if mod.startswith(name):
+    allModules = sys.modules.copy()
+    for module in allModules:
+        if module.startswith(name):
             if log:
-                Logger.info("Removing module: {}".format(mod))
-            del sys.modules[mod]
+                print("Reloaded module: {}".format(module))
+            del sys.modules[module]
 
 
 class Logger(object):

@@ -1,22 +1,28 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
-This is the json module
+    This is the json for abstract data
+
+    project: rigamajig2
+    file: __init__.py
+    author: masonsmigel
+    date: 01/2021
 """
 
 import getpass
 import json
 import os
+import sys
 from collections import OrderedDict
 from time import gmtime, strftime
+import rigamajig2.shared.common as common
+import logging
 
-import sas_pipe.common as common
-import sas_pipe.constants
-from sas_pipe import Logger
+logger = logging.getLogger(__name__)
 
 
 class AbstractData(object):
-    """
-    This class is a template for any data we need to save.
-    """
+    """ This class is a template for any data we need to save."""
 
     def __init__(self):
         """
@@ -41,10 +47,10 @@ class AbstractData(object):
         data.update(other.getData())
         # Make a new data Object
 
-        data_object = other.__class__()
-        data_object.setData(data)
+        dataObject = other.__class__()
+        dataObject.setData(data)
         # return to data object
-        return data_object
+        return dataObject
 
     def __sub__(self, other):
         """
@@ -62,10 +68,10 @@ class AbstractData(object):
         for key in other.getData():
             data.pop(key)
         # Make a new data Object
-        data_object = other.__class__()
-        data_object.setData(data)
+        dataObject = other.__class__()
+        dataObject.setData(data)
         # return to data object
-        return data_object
+        return dataObject
 
     def gatherData(self, item):
         """
@@ -76,7 +82,7 @@ class AbstractData(object):
 
     def gatherDataIterate(self, items):
         """
-        This method will iterate through the items of items and use the gatherData method to store the
+        This method will iterate through the list of items and use the gatherData method to store the
         data on the self._data attribute
         """
         for item in items:
@@ -88,10 +94,16 @@ class AbstractData(object):
         """
         return self._data
 
-    # Set
+    def getKeys(self):
+        """
+        This will return a list of all the keys
+        :return:
+        """
+        return list(self._data.keys())
+
     def setData(self, value):
         """
-        This should onl be used for setting the self._data attribute to a dictionary.
+        This should only be used for setting the self._data attribute to a dictionary.
 
         :param value: the data you're trying to set.
         :type value: dict
@@ -107,24 +119,20 @@ class AbstractData(object):
         """
         pass
 
-    def write(self, filepath, type=None, createDirectory=True):
+    def write(self, filepath, createDirectory=True):
         """
         This will write the dictionary information to disc in .json format
 
         :param filepath: The path to the file you wish to write.
         :type filepath: str
-        :param type: type of data to save ('Studio', 'Show', 'Seq', 'Shot', 'Asset')
         :param createDirectory: Create file path if needed
         :type createDirectory: bool
         """
 
-        if type not in sas_pipe.constants.DATATYPES:
-            type = self.__class__.__name__
-
         if not isinstance(self._data, (dict, OrderedDict)):
             raise TypeError("The data must be passed in as a dictionary.")
         writeData = OrderedDict(user=getpass.getuser(),
-                                type=type,
+                                type=self.__class__.__name__,
                                 time=strftime("%Y-%m-%d %H:%M:%S", gmtime()))
         writeData['data'] = self._data
         data = json.dumps(writeData, indent=4, ensure_ascii=False)
@@ -133,7 +141,7 @@ class AbstractData(object):
         directory = os.path.dirname(filepath)
         if createDirectory:
             if not os.path.isdir(directory):
-                Logger.debug('making path: {0}'.format(directory))
+                logger.info('making path{0}'.format(directory))
                 os.makedirs(directory)
 
         # Write Data
@@ -156,10 +164,33 @@ class AbstractData(object):
             raise RuntimeError("The file {0} does not exists.".format(filepath))
 
         f = open(filepath, 'r')
-        data = json.loads(f.read().decode('utf-8'), object_pairs_hook=OrderedDict)
+        if sys.version_info.major == 3:
+            data = json.loads(f.read(), object_pairs_hook=OrderedDict)
+        else:
+            data = json.loads(f.read().decode('utf-8'), object_pairs_hook=OrderedDict)
         f.close()
 
         # Set the new filepath on the class
         self._filepath = filepath
         self._data = common.convertDictKeys(data['data'])
         return self._data
+
+    @classmethod
+    def getDataType(cls, filepath):
+        """
+        Read a given data file and return the data type of that file
+
+         :param filepath: the path of the file to read
+        :type filepath: str
+        :return: datatype of the given file
+        :rtype: str
+        """
+        f = open(filepath, 'r')
+        if sys.version_info.major == 3:
+            data = json.loads(f.read(), object_pairs_hook=OrderedDict)
+        else:
+            data = json.loads(f.read().decode('utf-8'), object_pairs_hook=OrderedDict)
+        f.close()
+
+        datatype = data['type']
+        return datatype

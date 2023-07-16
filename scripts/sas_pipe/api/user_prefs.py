@@ -47,7 +47,7 @@ class UserPrefs(object):
         """Get the current studio root"""
         prefs = cls.prefs_obj()
         data = prefs.read(PREFS_PATH)
-        if data.has_key('root'):
+        if 'root' in list(data.keys()):
             return data['root']
         return None
 
@@ -56,7 +56,7 @@ class UserPrefs(object):
         """get the current show"""
         prefs = cls.prefs_obj()
         data = prefs.read(PREFS_PATH)
-        if data.has_key('lastShow'):
+        if 'lastShow' in list(data.keys()):
             return data['lastShow']
         return None
 
@@ -76,7 +76,7 @@ class UserPrefs(object):
         if studio not in UserPrefs.get_studios():
             prefs = cls.prefs_obj()
             data = prefs.read(PREFS_PATH)
-            if data.has_key('rootsList'):
+            if 'rootsList' in list(data.keys()):
                 studiosList = data['rootsList']
             else:
                 studiosList = list()
@@ -91,6 +91,8 @@ class UserPrefs(object):
         """Get studios"""
         prefs = cls.prefs_obj()
         data = prefs.read(PREFS_PATH)
-        if data.has_key('rootsList'):
+        if 'rootsList' in list(data.keys()):
             return data['rootsList']
         return list()
+
+

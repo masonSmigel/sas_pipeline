@@ -7,8 +7,8 @@ SCRIPTS_PATH = '/'.join(current_path.split('/')[0:-3]) + '/scripts'
 PUBLISHSTEPS_PATH = '/'.join(current_path.split('/')[0:-3]) + '/scripts/sas_pipe/maya/publish'
 
 # Template paths
-ELEMENT_TEMPLATE = "/".join(current_path.split('/')[0:-3]) + '/scripts/sas_pipe/entities/element.json'
-SHOT_TEMPLATE = "/".join(current_path.split('/')[0:-3]) + '/scripts/sas_pipe/entities/shot.json'
+ELEMENT_TEMPLATE = "/".join(current_path.split('/')[0:-3]) + '/scripts/sas_pipe/prefs/element.json'
+SHOT_TEMPLATE = "/".join(current_path.split('/')[0:-3]) + '/scripts/sas_pipe/prefs/shot.json'
 
 
 # Maya module paths

@@ -6,6 +6,7 @@ import sas_pipe.constants
 import sas_pipe.entities.abstract_entity as abstract_entity
 import sas_pipe.utils.osutil as os_utils
 import sas_pipe.utils.pipeutils as pipeutils
+from sas_pipe import Logger
 
 
 # Studio functions
@@ -65,4 +66,4 @@ class Studio(abstract_entity.AbstractEntity):
 
 if __name__ == '__main__':
     st = Studio('/Users/masonsmigel/Documents/jobs/animAide/pipeline/projects_root/DEV_ROOT')
-    print st
+    print(st)

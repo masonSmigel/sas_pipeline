@@ -361,7 +361,7 @@ def nshot(seq, shot, type=None):
     :param type: Optional- provide a specific type
     :return: shot work directory
     """
-    code = '/'.join([seq, shot])
+    code = f"{seq}/{shot}"
     return nav(code, entityType='shot', type=type)
 
 
@@ -413,9 +413,9 @@ def nav(code, entityType='elm', type=None):
     """
     show_entity = sas_pipe.entities.show.Show(environment.getEnv('show_path'))
 
-    types = show_entity.elementTypes if entityType is 'elm' else show_entity.sequenceTypes
+    types = show_entity.elementTypes if entityType == 'elm' else show_entity.sequenceTypes
 
-    env_path = environment.getEnv('elm_path') if entityType is 'elm' else environment.getEnv('seq_path')
+    env_path = environment.getEnv('elm_path') if entityType == 'elm' else environment.getEnv('seq_path')
 
     if type:
         elm_path = osutil.clean_path((os.path.join(env_path, type, code)))
