@@ -17,7 +17,7 @@ class LayoutMenu(subMenuBase.SubMenu):
     def build(self):
         """Build the layout subMenu"""
 
-        self.addMenuItem("Quick Camera Export", command=exportCameras)
+        self.addMenuItem("Unreal Camera Export", command=exportCameras)
 
 
 # functions explicitly connected to rigamajig2
