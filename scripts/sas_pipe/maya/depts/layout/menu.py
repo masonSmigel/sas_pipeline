@@ -17,6 +17,7 @@ class LayoutMenu(subMenuBase.SubMenu):
     def build(self):
         """Build the layout subMenu"""
 
+        self.addMenuItem("Create Layout Groups", command=createLayoutHierarchy)
         self.addMenuItem("Unreal Camera Export", command=exportCameras)
 
 
@@ -72,3 +73,11 @@ def exportCameras(*args):
         print("Camera Exported to: {}".format(savePath))
         cmds.delete(camToExport)
 
+
+def createLayoutHierarchy(*args):
+    elements = cmds.createNode('transform', name='elements')
+
+    char = cmds.createNode('transform', name='cam', parent=elements)
+    cam = cmds.createNode('transform', name='char', parent=elements)
+    props = cmds.createNode('transform', name='prop', parent=elements)
+    envi = cmds.createNode('transform', name='envi', parent=elements)
